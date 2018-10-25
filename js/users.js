@@ -21,7 +21,7 @@ router.get("/app/users", function (req, res) {
         let query = `INSERT INTO "users"("username", "email", "role", "password") 
     VALUES('${userName}', '${email}', '${userRole}', ${passwordHash}) RETURNING "userid", "email", "username", "password", "role"`;
 
-        let code = db.insert(query) ? 200 : 500;
+        let code = db.insert(query) ? 200 : 510;
         res.status(code).end();
     })
     .get("/app/user/:username", function (req, res) {
