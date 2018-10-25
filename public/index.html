@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Create User</h1>
-    <form id="createUserForm" action="/api/user/create" method="post">
+    <form id="createUserForm">
         <input required type="text" name="name" id="createName" placeholder="Enter your name">
         <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
         <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
@@ -33,7 +33,7 @@
         
         createUserForm.onsubmit= function(e) {
             e.preventDefault();
-            fetch('/api/user/create', {
+            fetch('/app/user/', {
                 method: 'POST',
                 headers: {
                     "accept":"*/*",
