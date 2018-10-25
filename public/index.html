@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>API user</title>
+    
+</head>
+<body>
+    <h1>Create User</h1>
+    <form id="createUserForm" action="/api/user/create" method="post">
+        <input required type="text" name="name" id="createName" placeholder="Enter your name">
+        <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
+        <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
+        <input required type="submit" value="Submit">
+    </form>
+
+    <h1>Login User</h1>
+    <form id="loginUserForm" action="/api/user/login" method="get" enctype="application/json">
+        <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
+        <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
+        <input required type="submit" value="Submit">
+    </form>
+
+    <script>
+        let createEmail = document.getElementById('createEmail'),
+        createName = document.getElementById('createName'),
+        createPassword = document.getElementById('createPassword'),
+        createUserForm = document.getElementById('createUserForm');
+
+        let loginEmail = document.getElementById("loginEmail"),
+        loginPassword = document.getElementById("loginPassword"),
+        loginUserForm = document.getElementById("loginUserForm");
+        
+        createUserForm.onsubmit= function(e) {
+            e.preventDefault();
+            fetch('/api/user/create', {
+                method: 'POST',
+                headers: {
+                    "accept":"*/*",
+                    'content-type': 'application/json'
+                },
+                body : JSON.stringify({
+                    name: createName.value, 
+                    password: createPassword.value, 
+                    email: createEmail.value
+                })    
+            }).then(function(res){    
+                return res.json();
+            })
+            .then(function(data) {
+                console.log(data);
+            });
+        }
+    </script>
+
+</body>
+</html>
