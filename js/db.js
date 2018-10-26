@@ -12,6 +12,7 @@ function runQuery(query) {
         client.connect()
         if (client) {
             client.query(query, (err, res) => {
+                console.log(res);
                 response = res.rows;
                 client.end()
             })
