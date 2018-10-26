@@ -16,10 +16,10 @@ router.get("/app/users", function (req, res) {
         let email = req.body.email;
         let userName = req.body.name;
         let passwordHash = req.body.password;
-        let userRole = req.body.userRole;
+        let userRole = 1;
 
         let query = `INSERT INTO "users"("username", "email", "role", "password") 
-    VALUES('max', 'pass@kh.no', 'admin', HHHHHH) RETURNING "userid", "email", "username", "password", "role"`;
+    VALUES('${userName}', '${email}', '${userRole}', ${passwordHash}) RETURNING "userid", "email", "username", "password", "role"`;
 
         let code = db.insert(query) ? 200 : 500;
         res.status(code).end();

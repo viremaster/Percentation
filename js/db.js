@@ -1,5 +1,5 @@
 const {Pool,Client} = require('pg');
-const dataBaseUrl = process.env.DATA_BASE_URL;
+const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
 
