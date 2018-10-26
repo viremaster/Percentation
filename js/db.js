@@ -1,4 +1,4 @@
-const {Client}= require('pg');
+const pg= require('pg');
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
@@ -6,9 +6,7 @@ const db = {}
 function runQuery(query) {
     console.log("dataBaseUrl : "+dataBaseUrl)
     let response = null;
-    const client = new Client({
-        dataBaseUrl: dataBaseUrl
-    });
+    const client = new pg.Client({dataBaseUrl});
     try {
         client.connect()
         if (client) {
