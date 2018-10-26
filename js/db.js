@@ -7,6 +7,7 @@ function runQuery(query) {
     console.log("dataBaseUrl : "+dataBaseUrl)
     let response = null;
     const client = new pg.Client(dataBaseUrl);
+    console.log("Client : "+client);
     try {
         client.connect()
         if (client) {
