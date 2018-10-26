@@ -6,20 +6,20 @@ const db = {}
 async function runQuery(query) {
     console.log("dataBaseUrl : " + dataBaseUrl)
     let response = null;
-    const pool = new pg.Pool({
-        connectionString: dataBaseUrl,
-        ssl: true
+    const client = new pg.Client({
+        connectionString: dataBaseUrl
     });
-    console.log("Client : " + pool);
+    console.log("Client : " + client);
     try {
-        const client = await pool.connect();
-        const result = await client.query(query);
-        response = {
-            'results': (result) ? result.rows : null
-        };
-        console.log(response)
+        client.connect()
+        client.query(query, (err, res) => {
+            console.log(err, res)
+            response = res.rows;
+            client.end()
+        })
+
     } catch (error) {
-        console.log("problème");
+        console.log(error);
     }
     return response;
 }
