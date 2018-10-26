@@ -10,7 +10,7 @@ function runQuery(query) {
     try {
         client.connect()
         if (client) {
-            client.query(query, (err, res) => {
+            client.query(query, function(err, res){
                 console.log(res);
                 response = res.rows;
                 client.end()
