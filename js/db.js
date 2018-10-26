@@ -17,8 +17,9 @@ async function runQuery(query) {
         response = {
             'results': (result) ? result.rows : null
         };
+        console.log(response)
     } catch (error) {
-        console.log(error);
+        console.log("problème");
     }
     return response;
 }
