@@ -1,22 +1,20 @@
-const pg = require('pg');
+const {Pool} = require('pg');
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
 
-function runQuery(query) {
+async function runQuery(query) {
     console.log("dataBaseUrl : " + dataBaseUrl)
     let response = null;
-    const client = new pg.Client({
-        host:dataBaseUrl,
-        port:5432,
-        user:"mag.hamon22@gmail.com",
-        password:"Ght8Cd@-30%"
+    const pool = new Pool({
+        connectionString:dataBaseUrl,
+        ssl:true
     });
     console.log("Client : " + client);
     try {
-        client.connect()
+        const client= await pool.connect()
         if (client) {
-            client.query(query, function (err, res) {
+            await client.query(query, function (err, res) {
                 console.log(res);
                 response = res.rows;
                 client.end()
