@@ -7,19 +7,16 @@ async function runQuery(query) {
     console.log("dataBaseUrl : " + dataBaseUrl)
     let response = null;
     const pool = new pg.Pool({
-        connectionString:dataBaseUrl,
-        ssl:true
+        connectionString: dataBaseUrl,
+        ssl: true
     });
     console.log("Client : " + pool);
     try {
-        const client= await pool.connect()
-        if (client) {
-            await client.query(query, function (err, res) {
-                console.log("réponse du serveur : "+res);
-                response = res.rows;
-                client.end()
-            })
-        }
+        const client = await pool.connect();
+        const result = await client.query(query);
+        response = {
+            'results': (result) ? result.rows : null
+        };
     } catch (error) {
         console.log(error);
     }
