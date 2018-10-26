@@ -8,6 +8,7 @@ function runQuery(query) {
     const client = new Client({
         dataBaseUrl: dataBaseUrl
     });
+    console.log("client : "+client);
     try {
         client.connect()
         if (client) {
