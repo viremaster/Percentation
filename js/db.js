@@ -19,18 +19,18 @@ let runQuery = async function (query) {
 }
 
 db.insert = function (query) {
-    runQuery(query)
+    return runQuery(query)
 }
 
 db.update = function (query) {
-    runQuery(query)
+    return runQuery(query)
 }
 db.select = function (query) {
-    runQuery(query)
+    return runQuery(query)
 }
 
 db.delete = function (query) {
-    runQuery(query)
+    return runQuery(query)
 }
 
 module.exports = db
