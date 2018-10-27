@@ -17,9 +17,8 @@ function runQuery(query) {
         if (client) {
             client.query(query, function (err, res) {
                 client.end()
-                console.log(res);
+                console.log(err);
                 response = res.rows;
-
             })
         }
     } catch (error) {
