@@ -10,18 +10,12 @@ let runQuery = async function (query) {
     const client = new Client({
         connectionString: dataBaseUrl
     });
-    try {
-        await client.connect();
-        if (client) {
-            await client.query(query, function (err, res) {
-                console.log("response 1 : " + res.rows)
-                response = res.rows;
-                client.end()
-            })
-        }
-    } catch (error) {
-        console.log("error1");
-    }
+    client.connect();
+    client.query(query, function (err, res) {
+        console.log("response 1 : " + res.rows)
+        response = res.rows;
+        client.end()
+    })
     console.log("response  : " + response);
     return response;
 
