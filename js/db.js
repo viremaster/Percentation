@@ -19,10 +19,11 @@ function runQuery(query) {
                 client.end()
             })
         }
-        console.log("response2 : " + response);
-        return response;
     } catch (error) {
         console.log("error1");
+    }finally{
+        console.log("response : "+response);
+        return response;
     }
 
 }
