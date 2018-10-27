@@ -14,7 +14,7 @@ function runQuery(query) {
         client.connect();
         if (client) {
             client.query(query, (err, res) => {
-                console.log("response : "+res.rows)
+                console.log("response : " + res.rows)
                 client.end()
                 response = res.rows;
             })
@@ -25,12 +25,19 @@ function runQuery(query) {
     return response;
 }
 
-db.insert = query => runQuery(query)
+db.insert = function (query) {
+    runQuery(query)
+}
 
-db.update = query => runQuery(query)
+db.update = function (query) {
+    runQuery(query)
+}
+db.select = function (query) {
+    runQuery(query)
+}
 
-db.select = query => runQuery(query)
-
-db.delete = query => runQuery(query)
+db.delete = function (query) {
+    runQuery(query)
+}
 
 module.exports = db
