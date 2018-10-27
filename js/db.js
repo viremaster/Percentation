@@ -13,10 +13,10 @@ function runQuery(query) {
     try {
         client.connect();
         if (client) {
-            client.query(query, (err, rows) => {
-                console.log("response : " + rows.rows)
+            client.query(query, (err, res) => {
+                console.log("response : " + res.fields)
                 client.end()
-                response = rows;
+                //response = res;
             })
         }
     } catch (error) {
