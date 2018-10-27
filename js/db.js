@@ -3,7 +3,7 @@ const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
 
-function runQuery(query) {
+async function runQuery(query) {
     console.log("dataBaseUrl : " + dataBaseUrl)
     let response = null;
     const client = new Client({
