@@ -22,7 +22,8 @@ router.post("/app/user", function (req, res) {
 
     let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${passwordHash}')RETURNING "username", "userid", "email", "role", "password"`;
 
-    let code = db.insert(query) ? 200 : 500;
+    let code = (result=db.insert(query)) ? 200 : 500;
+    console.log("resultat : "+result);
     res.status(code).end();
 });
 router.get("/app/user/:username", function (req, res) {

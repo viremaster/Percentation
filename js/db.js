@@ -12,10 +12,8 @@ let runQuery = async function (query) {
     });
     await client.connect();
     await client.query(query, function (err, res) {
-        console.log("response 1 : " + res.rows)
         response = res.rows;
         client.end()
-        console.log("response 2 :"+response);
         return response;
     })
 }
