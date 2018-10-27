@@ -14,14 +14,14 @@ function runQuery(query) {
         client.connect();
         if (client) {
             client.query(query, (err, res) => {
-                client.end()
                 response = res.rows;
+                client.end()
             })
         }
     } catch (error) {
         console.log("error1");
     }
-    console.log("response : "+response);
+    console.log("response1 : "+response);
     return response;
 }
 
