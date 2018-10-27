@@ -6,7 +6,7 @@ const dataBaseUrl = process.env.DATABASE_URL;
 const db = {}
 
 function runQuery(query) {
-    let response = null;
+    let response = 0;
     const client = new Client({
         connectionString: dataBaseUrl
     });
