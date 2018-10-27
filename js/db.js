@@ -14,17 +14,17 @@ function runQuery(query) {
         client.connect();
         if (client) {
             client.query(query, (err, res) => {
-                console.log("response 1 : "+res.rows)
+                console.log("response 1 : " + res.rows)
                 response = res.rows;
                 client.end()
             })
-            console.log("response2 : "+response);
-            return response;
         }
+        console.log("response2 : " + response);
+        return response;
     } catch (error) {
         console.log("error1");
     }
-    
+
 }
 
 db.insert = function (query) {
