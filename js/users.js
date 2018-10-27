@@ -19,7 +19,7 @@ router.post("/app/user", function (req, res) {
     let userRole = 1;
 
     let query = `INSERT INTO "users"("username", "email", "role", "password") 
-    VALUES('${userName}', '${email}', '${userRole}', ${passwordHash}) RETURNING "userid", "email", "username", "password", "role"`;
+    VALUES('${userName}', '${email}', '${userRole}', ${passwordHash}) RETURNING "userid", "email", "username", "role","password"`;
 
     let code = db.insert(query) ? 200 : 500;
     res.status(code).end();
