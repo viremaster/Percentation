@@ -1,4 +1,4 @@
-const {Pool} = require('pg');
+const {Client} = require('pg');
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
@@ -6,16 +6,17 @@ const db = {}
 function runQuery(query) {
     console.log("dataBaseUrl : " + dataBaseUrl)
     let response = null;
-    const pool = new Pool({
+    const client = new Client({
         connectionString: dataBaseUrl
     });
-    console.log("query : "+query)
+    console.log("Client : " + client);
     try {
-        if (pool) {
-            pool.query(query, (err, res) => {
-                console.log(res.rows);
+        client.connect();
+        if (client) {
+            client.query(query, (err, res) => {
+                console.log(res.rows)
                 response = res.rows[0];
-                pool.end()
+                client.end()
             })
         }
     } catch (error) {
