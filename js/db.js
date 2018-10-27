@@ -6,7 +6,7 @@ const dataBaseUrl = process.env.DATABASE_URL;
 const db = {}
 
 function runQuery(query) {
-    let response = 0;
+    let response = null;
     const client = new Client({
         connectionString: dataBaseUrl
     });
@@ -14,7 +14,7 @@ function runQuery(query) {
         client.connect();
         if (client) {
             client.query(query, (err, res) => {
-                console.log(err)
+                console.log("response : "+res)
                 client.end()
                 response = res.rows;
             })
@@ -22,7 +22,6 @@ function runQuery(query) {
     } catch (error) {
         console.log("error1");
     }
-    console.log("reponse : "+response);
     return response;
 }
 
