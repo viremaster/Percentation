@@ -14,12 +14,12 @@ router.get("/app/users", function (req, res) {
 });
 router.post("/app/user", function (req, res) {
     let email = req.body.email;
-    let userName = req.body.name;
+    let username = req.body.name;
     let passwordHash = req.body.password;
     let userRole = 1;
 
-    let query = `INSERT INTO "users"("username", "email", "role", "password") 
-    VALUES('${userName}', '${email}', '${userRole}', ${passwordHash}) RETURNING "userid", "email", "username", "role","password"`;
+
+    let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${passwordHash}');`;
 
     let code = db.insert(query) ? 200 : 500;
     res.status(code).end();
