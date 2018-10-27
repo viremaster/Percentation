@@ -14,7 +14,6 @@ async function runQuery(query) {
         client.connect();
         if (client) {
             client.query(query, (err, res) => {
-                done();
                 if(err){
                     console.log(err);
                     res.status(400).send(err);
