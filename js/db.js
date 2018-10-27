@@ -11,9 +11,9 @@ async function runQuery(query) {
     });
     console.log("Client : " + client);
     try {
-        await client.connect();
+        client.connect();
         if (client) {
-            await client.query(query, (err, res) => {
+            client.query(query, (err, res) => {
                 done();
                 if(err){
                     console.log(err);
