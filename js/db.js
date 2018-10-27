@@ -6,12 +6,10 @@ const dataBaseUrl = process.env.DATABASE_URL;
 const db = {}
 
 function runQuery(query) {
-    console.log("dataBaseUrl : " + dataBaseUrl)
     let response = null;
     const client = new Client({
         connectionString: dataBaseUrl
     });
-    console.log("Client : " + client);
     try {
         client.connect();
         if (client) {
@@ -22,7 +20,7 @@ function runQuery(query) {
             })
         }
     } catch (error) {
-        console.log("error");
+        console.log("error1");
     }
     return response;
 }

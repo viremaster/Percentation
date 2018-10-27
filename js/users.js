@@ -3,12 +3,12 @@ const router = express.Router();
 const db = require("./db.js");
 
 router.get("/app/users", function (req, res) {
-    let query = `select * from "public"."users"`;
+    let query = `SELECT * FROM "public"."users"`;
     let users = db.select(query);
     if (users) {
         res.status(200).json(JSON.parse(users));
     } else {
-        console.log("error")
+        console.log("error2")
     }
     res.end();
 });
