@@ -14,12 +14,11 @@ async function runQuery(query) {
         client.connect();
         if (client) {
             client.query(query, (err, res) => {
-                console.log(err, res)
+                console.log(res.rows);
                 response = res.rows[0];
                 client.end()
             })
         }
-
     } catch (error) {
         console.log("error");
     }
