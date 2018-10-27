@@ -5,15 +5,15 @@ const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
 
-function runQuery(query) {
+let runQuery = async function (query) {
     let response = null;
     const client = new Client({
         connectionString: dataBaseUrl
     });
     try {
-        client.connect();
+        await client.connect();
         if (client) {
-            client.query(query, function(err, res){
+            await client.query(query, function (err, res) {
                 console.log("response 1 : " + res.rows)
                 response = res.rows;
                 client.end()
@@ -21,10 +21,10 @@ function runQuery(query) {
         }
     } catch (error) {
         console.log("error1");
-    }finally{
-        console.log("response  : "+response);
-        return response;
     }
+    console.log("response  : " + response);
+    return response;
+
 
 }
 
