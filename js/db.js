@@ -15,6 +15,7 @@ let runQuery = async function (query) {
         console.log("response 1 : " + res.rows)
         response = res.rows;
         client.end()
+        console.log("response 2 :"+response);
         return response;
     })
 }
