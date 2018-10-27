@@ -1,5 +1,5 @@
 const {Client} = require('pg');
-const dataBaseUrl = process.env.DATABASE_URL;
+const dataBaseUrl = process.env.DATABASE_URL+"?ssl=true"";
 
 const db = {}
 
@@ -11,9 +11,9 @@ async function runQuery(query) {
     });
     console.log("Client : " + client);
     try {
-        client.connect();
+        await client.connect();
         if (client) {
-            client.query(query, (err, res) => {
+            await client.query(query, (err, res) => {
                 console.log(res.rows)
                 response = res.rows[0];
                 client.end()
