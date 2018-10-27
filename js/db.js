@@ -3,19 +3,19 @@ const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
 
-async function runQuery(query) {
+function runQuery(query) {
     console.log("dataBaseUrl : " + dataBaseUrl)
     let response = null;
     const pool = new Pool({
         connectionString: dataBaseUrl
     });
-    console.log("pool : " + pool);
+    console.log("query : "+query)
     try {
         if (pool) {
             pool.query(query, (err, res) => {
                 console.log(res.rows);
                 response = res.rows[0];
-                client.end()
+                pool.end()
             })
         }
     } catch (error) {
