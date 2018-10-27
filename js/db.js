@@ -22,7 +22,7 @@ function runQuery(query) {
     } catch (error) {
         console.log("error1");
     }finally{
-        console.log("response : "+response);
+        console.log("response  : "+response);
         return response;
     }
 
