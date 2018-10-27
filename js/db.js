@@ -12,7 +12,7 @@ let runQuery = async function (query) {
     });
     client.connect();
     client.query(query, function (err, res) {
-        response = res.rows[0];
+        response = res.rows;
         console.log(response);
         client.end()
         return response;
