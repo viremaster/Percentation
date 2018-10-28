@@ -5,7 +5,7 @@ const db = require("./db.js");
 router.get("/app/users", function (req, res) {
     let query = `SELECT * FROM "public"."users"`;
     let users = db.select(query);
-    console.log("Users : " + users);
+    console.log("Users : "+users);
     if (users) {
         res.status(200).json(JSON.parse(users));
     } else {
@@ -22,19 +22,9 @@ router.post("/app/user", function (req, res) {
 
     let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${passwordHash}')RETURNING "username", "userid", "email", "role", "password"`;
 
-    let sendCode = async function () {
-        let code;
-        var result = await db.insert(query)
-        if (result) {
-            code = 200;
-        } else {
-            code = 500;
-        }
-        return code;
-    }
-    console.log("resultat : " + result);
-    res.status(sendCode).end();
-
+    let code = (result=db.insert(query)) ? 200 : 500;
+    console.log("resultat : "+result);
+    res.status(code).end();
 });
 router.get("/app/user/:username", function (req, res) {
     console.log("pas la");
