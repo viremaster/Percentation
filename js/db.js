@@ -1,7 +1,7 @@
 const {
     Client
 } = require('pg');
-const dataBaseUrl = process.env.DATABASE_URL;
+const dataBaseUrl = process.env.DATABASE_URL+"?ssl=true";
 
 const db = {}
 /*

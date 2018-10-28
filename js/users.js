@@ -13,7 +13,7 @@ router.get("/app/users", async function (req, res) {
     }
     res.end();
 });
-router.post("/app/user", async function (req, res) {
+router.post("/app/user", function (req, res) {
     let email = req.body.email;
     let username = req.body.name;
     let passwordHash = req.body.password;
@@ -21,8 +21,8 @@ router.post("/app/user", async function (req, res) {
 
     let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${passwordHash}')RETURNING "username", "userid", "email", "role", "password"`;
 
-    let code = db.insert(query).then(console.log("code :"+code));
-    //res.status(code).end();
+    let code =  db.insert(query) ? 200 : 500;
+    res.status(code).end();
 });
 router.get("/app/user/:username", function (req, res) {
     console.log("pas la");
