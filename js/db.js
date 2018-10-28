@@ -4,7 +4,7 @@ const {
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
-
+/*
 let runQuery = function (query) {
     let response = null;
     const client = new Client({
@@ -17,6 +17,28 @@ let runQuery = function (query) {
         console.log("Response : " + response)
         return response;
     })
+}
+*/
+
+function runQuery(query) {
+    let respons = null;
+    const client = new Client({
+        connectionString: connectionString
+    })
+
+    try {
+        client.connect()
+        if (client) {
+            client.query(query, (err, res) => {
+                console.log(err, res)
+                respons = res.rows;
+                client.end()
+            })
+
+        };
+    } catch (e) { /*OOPS*/ }
+
+    return respons;
 }
 
 db.insert = function (query) {
