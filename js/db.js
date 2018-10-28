@@ -23,7 +23,7 @@ let runQuery = function (query) {
 function runQuery(query) {
     let respons = null;
     const client = new Client({
-        connectionString: connectionString
+        connectionString: dataBaseUrl
     })
 
     try {
