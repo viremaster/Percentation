@@ -26,13 +26,14 @@ router.post("/app/user", function (req, res) {
         let code;
         var result = await db.insert(query)
         if (result) {
-            code=200;
+            code = 200;
         } else {
-            code=500;
+            code = 500;
         }
-        console.log("resultat : " + result);
-        res.status(code).end();
+        return code;
     }
+    console.log("resultat : " + result);
+    res.status(sendCode).end();
 
 });
 router.get("/app/user/:username", function (req, res) {
