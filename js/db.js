@@ -30,7 +30,7 @@ function runQuery(query) {
         client.connect()
         if (client) {
             client.query(query, (err, res) => {
-                console.log(err, res)
+                console.log(res)
                 respons = res.rows;
                 client.end()
             })
