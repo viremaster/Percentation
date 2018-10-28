@@ -21,7 +21,7 @@ let runQuery = function (query) {
 */
 
 async function runQuery(query) {
-    let respons = null;
+    let response = null;
     const client = new Client({
         connectionString: dataBaseUrl
     })
@@ -31,14 +31,14 @@ async function runQuery(query) {
         if (client) {
             client.query(query, (err, res) => {
                 console.log(res)
-                respons = res.rows;
+                response = res.rows;
                 client.end()
             })
 
         };
     } catch (e) { /*OOPS*/ }
-
-    return respons;
+    console.log("response : "+response);
+    return response;
 }
 
 db.insert = function (query) {
