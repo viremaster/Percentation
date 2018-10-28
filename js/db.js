@@ -10,30 +10,9 @@ function runQuery(query) {
     const client = new Client({
         connectionString: dataBaseUrl
     })
-
-    try {
-        client.connect()
-        if (client) {
-            client.query(query, (err, res) => {
-                console.log(err, res)
-                response = res.rows;
-                client.end()
-            })
-
-        };
-    } catch (e) { /*OOPS*/ }
-
-    return respons;
-}
-
-function runQuery(query){
-    let response = null;
-    const client = new Client({
-        connectionString: dataBaseUrl
-    })
     client.connect();
     client.query(query).then(result => {
-        response=result.rows;
+        response = result.rows;
         client.end();
         return response;
     }).then(res => {
