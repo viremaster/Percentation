@@ -14,9 +14,9 @@ let runQuery = async function (query) {
     await client.query(query, function (err, res) {
         response = res.rows;
         client.end()
+        console.log("Response : " + response)
+        return response;
     })
-    console.log("Response : "+response)
-    return response;
 }
 
 db.insert = function (query) {
