@@ -5,13 +5,13 @@ const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
 
-function runQuery(query) {
+async function runQuery(query) {
     let response = null;
     const client = new Client({
         connectionString: dataBaseUrl
     })
     client.connect();
-    client.query(query).then(result => {
+    await client.query(query).then(result => {
         response = result.rows;
         client.end();
         return response;
@@ -20,6 +20,7 @@ function runQuery(query) {
     }).catch(e => {
         console.log(e);
     })
+    return response;
 }
 
 db.insert = function (query) {
