@@ -20,9 +20,8 @@ router.post("/app/user", function (req, res) {
     let userRole = 1;
 
     let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${passwordHash}')RETURNING "username", "userid", "email", "role", "password"`;
-    (async function () {
-        let code = await db.insert(query) ? 200 : 500;
-        console.log("resultat : " + result);
+    (function () {
+        let code = (result=db.insert(query) ? 200 : 500;
         res.status(code).end();
     })
 
