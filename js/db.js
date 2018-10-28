@@ -1,24 +1,9 @@
 const {
     Client
 } = require('pg');
-const dataBaseUrl = process.env.DATABASE_URL+"?ssl=true";
+const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
-/*
-let runQuery = function (query) {
-    let response = null;
-    const client = new Client({
-        connectionString: dataBaseUrl
-    });
-    client.connect();
-    client.query(query, function (err, res) {
-        response = res.rows;
-        client.end()
-        console.log("Response : " + response)
-        return response;
-    })
-}
-*/
 
 function runQuery(query) {
     let response = null;
@@ -30,15 +15,32 @@ function runQuery(query) {
         client.connect()
         if (client) {
             client.query(query, (err, res) => {
-                console.log(res)
+                console.log(err, res)
                 response = res.rows;
                 client.end()
             })
 
         };
     } catch (e) { /*OOPS*/ }
-    console.log("response : "+response);
-    return response;
+
+    return respons;
+}
+
+function runQuery(query){
+    let response = null;
+    const client = new Client({
+        connectionString: dataBaseUrl
+    })
+    client.connect();
+    client.query(query).then(result => {
+        response=result.rows;
+        client.end();
+        return response;
+    }).then(res => {
+        console.log(res);
+    }).catch(e => {
+        console.log(e);
+    })
 }
 
 db.insert = function (query) {
