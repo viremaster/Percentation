@@ -21,8 +21,7 @@ router.post("/app/user", async function (req, res) {
 
     let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${passwordHash}')RETURNING "username", "userid", "email", "role", "password"`;
 
-    let code = await db.insert(query);
-    console.log("code : "+code);
+    let code = db.insert(query).then(console.log("code :"+code));
     //res.status(code).end();
 });
 router.get("/app/user/:username", function (req, res) {
