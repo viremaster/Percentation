@@ -20,7 +20,7 @@ let runQuery = function (query) {
 }
 */
 
-async function runQuery(query) {
+function runQuery(query) {
     let response = null;
     const client = new Client({
         connectionString: dataBaseUrl
