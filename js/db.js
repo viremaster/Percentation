@@ -37,7 +37,7 @@ async function runQuery(query) {
 function getResponse(client,query){
     return new Promise(function(resolve,reject){
         client.query(query,(err,res)=>{
-            if(error){
+            if(err){
                 return reject(err)
             }else{
                 resolve(res.rows);
