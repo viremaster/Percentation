@@ -25,8 +25,8 @@ async function runQuery(query) {
     try {
         await client.connect()
         if (client) {
-            response = await getResponse(client,query);
-            console.log("response : "+response);
+            response = await getResponse(client, query);
+            console.log("response : " + response);
             return response;
         }
     } catch (e) {
@@ -34,15 +34,19 @@ async function runQuery(query) {
     }
 }
 
-function getResponse(client,query){
-    return new Promise(function(resolve,reject){
-        client.query(query,(err,res)=>{
-            if(err){
+function getResponse(client, query) {
+    let promise = new Promise(function (resolve, reject) {
+        client.query(query, (err, res) => {
+            if (err) {
                 return reject(err)
-            }else{
+            } else {
                 resolve(res.rows);
             }
         });
+    })
+
+    promise.then(function(response){
+        return response;
     })
 }
 
