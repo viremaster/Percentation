@@ -18,7 +18,7 @@ async function runQuery(query) {
 */
 
 async function runQuery(query) {
-    var response = null;
+    let response = null;
     const client = await new Client({
         connectionString: dataBaseUrl
     })
@@ -26,17 +26,24 @@ async function runQuery(query) {
     try {
         await client.connect()
         if (client) {
-            await client.query(query, (err, res) => {
-                response = res.rows;
-                client.end()
-            })
+            response = await getResponse(client,query);
+            return response;
         }
     } catch (e) {
-        console.log("Error :" + e);
-    } finally {
-        console.log("reponse : " + response);
-        return response;
+        console.error(e);
     }
+}
+
+function getResponse(client,query){
+    return new Promise(function(resolve,reject){
+        client.query(query,(error,response)=>{
+            if(error){
+                return reject(error)
+            }else{
+                resolve(response.rows);
+            }
+        });
+    })
 }
 
 db.insert = function (query) {
