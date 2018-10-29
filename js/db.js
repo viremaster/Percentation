@@ -7,19 +7,13 @@ const db = {}
 
 async function runQuery(query) {
     let response = null;
-    const client = new Client({
+    const client = await new Client({
         connectionString: dataBaseUrl
     })
-    client.connect();
-    await client.query(query).then(result => {
-        response = result.rows;
-        client.end();
-        return response;
-    }).then(res => {
-        console.log(res);
-    }).catch(e => {
-        console.log(e);
-    })
+    await client.connect();
+    let result = await client.query(query);
+    let response = await result.rows;
+    
     return response;
 }
 
