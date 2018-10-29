@@ -18,7 +18,7 @@ async function runQuery(query) {
 */
 
 async function runQuery(query) {
-    let response = null;
+    var response = null;
     const client = await new Client({
         connectionString: dataBaseUrl
     })
