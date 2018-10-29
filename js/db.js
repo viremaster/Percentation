@@ -31,11 +31,13 @@ async function runQuery(query) {
                 response = res.rows;
                 client.end()
             })
-
-        };
-    } catch (e) { /*OOPS*/ }
-    console.log("reponse : "+response);
-    return response;
+        }
+    } catch (e) {
+        console.log("Error :" + e);
+    } finally {
+        console.log("reponse : " + response);
+        return response;
+    }
 }
 
 db.insert = function (query) {
