@@ -22,11 +22,11 @@ async function runQuery(query) {
     const client = await new Client({
         connectionString: dataBaseUrl
     })
-
     try {
         await client.connect()
         if (client) {
             response = await getResponse(client,query);
+            console.log("response : "+response);
             return response;
         }
     } catch (e) {
