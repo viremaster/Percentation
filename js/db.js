@@ -18,7 +18,7 @@ async function runQuery(query) {
 */
 
 async function runQuery(query) {
-    let respons = null;
+    let response = null;
     const client = await new Client({
         connectionString: dataBaseUrl
     })
@@ -27,15 +27,15 @@ async function runQuery(query) {
         await client.connect()
         if (client) {
             await client.query(query, (err, res) => {
-                console.log("Error : "+err, "Response : "+res);
-                respons = res.rows;
+                console.log(err, res);
+                response = res.rows;
                 client.end()
             })
 
         };
     } catch (e) { /*OOPS*/ }
-
-    return respons;
+    console.log("reponse : "+response);
+    return response;
 }
 
 db.insert = function (query) {
