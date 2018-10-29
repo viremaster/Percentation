@@ -25,7 +25,6 @@ router.post("/app/user", function (req, res) {
     res.status(code).end();
 });
 router.get("/app/user/:username", function (req, res) {
-    console.log("pas la");
     let passwordHash = req.body.password;
     let username = req.params.username;
 
