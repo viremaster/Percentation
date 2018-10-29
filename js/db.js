@@ -36,11 +36,11 @@ async function runQuery(query) {
 
 function getResponse(client,query){
     return new Promise(function(resolve,reject){
-        client.query(query,(error,response)=>{
+        client.query(query,(err,res)=>{
             if(error){
-                return reject(error)
+                return reject(err)
             }else{
-                resolve(response.rows);
+                resolve(res.rows);
             }
         });
     })
