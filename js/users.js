@@ -5,12 +5,10 @@ const db = require("./db.js");
 router.get("/app/users", async function (req, res) {
     let query = `SELECT * FROM public.users`;
     let users = await db.select(query);
-    console.log("Users !!!")
-    console.log(users);
     if (users) {
         res.status(200).json(users);
     } else {
-        console.log("error2  ")
+        console.log("")
     }
     res.end();
 });
@@ -19,11 +17,11 @@ router.post("/app/user", async function (req, res) {
     let username = req.body.name;
     let password = req.body.password;
     let userRole = 1;
-
-    let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${password}')RETURNING "username", "userid", "email", "role", "password"`;
-
-    let code = await db.insert(query) ? 200 : 500;
-    res.status(code).end();
+    if (email && username && password) {
+        let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${password}')RETURNING "username", "userid", "email", "role", "password"`;
+        let code = await db.insert(query) ? 200 : 500;
+        res.status(code).end();
+    }
 });
 router.get("/app/user/:username", async function (req, res) {
     let auth = req.headers.authorization;
@@ -39,7 +37,7 @@ router.get("/app/user/:username", async function (req, res) {
 
         let user = await db.select(query);
 
-        if (user) {
+        if (user.length>0) {
             res.status(200).json(user);
         } else {
             res.status(400);
