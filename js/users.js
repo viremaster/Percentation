@@ -8,7 +8,7 @@ router.get("/app/users", async function (req, res) {
     if (users) {
         res.status(200).json(users);
     } else {
-        console.log("")
+        res.status(500);
     }
     res.end();
 });
@@ -59,8 +59,10 @@ router.delete("/app/user", async function (req, res) {
 
         let response = await db.delete(query);
 
-        res.status(200).json(response);
-
+        if (response != null)
+            res.status(200).json(response);
+        else
+            res.status(400).send("Wrond email or password");
         res.end();
     } else {
         //Do something

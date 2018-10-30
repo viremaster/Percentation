@@ -11,7 +11,6 @@ async function runQuery(query) {
         connectionString: dataBaseUrl,
         ssl: true
     })
-    console.log(query);
     try {
         await client.connect()
         let res = await client.query(query).then(function (res) {
@@ -21,8 +20,6 @@ async function runQuery(query) {
         });
         if (res.rows[0])
             response = res.rows[0];
-        console.log("response");
-        console.log(response);
     } catch (e) {
         console.error(e);
     }
