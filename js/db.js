@@ -20,7 +20,7 @@ async function runQuery(query) {
         });
         response = res.rows;
         console.log("response !!!")
-        console.log(response)
+        console.log(res)
     } catch (e) {
         console.error(e);
     }
