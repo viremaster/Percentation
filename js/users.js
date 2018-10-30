@@ -5,6 +5,7 @@ const db = require("./db.js");
 router.get("/app/users", function (req, res) {
     let query = `SELECT * FROM public.users`;
     let users = db.select(query)
+    console.log("Users : "+users);
     if (users) {
         res.status(200).json(JSON.parse(users));
     } else {
