@@ -19,7 +19,7 @@
     <h1>Login User</h1>
     <form id="loginUserForm">
 
-        <form id="loginUserForm" action="/app/user/login" method="get" enctype="application/json">
+        <form id="loginUserForm">
             <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
             <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
             <input required type="submit" value="Submit">
@@ -29,14 +29,9 @@
         <button id="viewUsersButton">View all users</button>
 
         <script>
-            let createEmail = document.getElementById('createEmail'),
-                createName = document.getElementById('createName'),
-                createPassword = document.getElementById('createPassword'),
-                createUserForm = document.getElementById('createUserForm');
+            let createUserForm = document.getElementById('createUserForm');
 
-            let loginEmail = document.getElementById("loginEmail"),
-                loginPassword = document.getElementById("loginPassword"),
-                loginUserForm = document.getElementById("loginUserForm");
+            let loginUserForm = document.getElementById("loginUserForm");
 
             let viewUsersButton = document.getElementById("viewUsersButton");
 
@@ -44,7 +39,7 @@
                 fetch("/app/users").then(data => {
                     if (data.status === 200) {
                         return data.json()
-                    }else{
+                    } else {
                         return new PromiseRejectionEvent();
                     }
                 }).catch(err => {
@@ -54,6 +49,9 @@
 
             createUserForm.onsubmit = function (e) {
                 e.preventDefault();
+                let createEmail = document.getElementById('createEmail'),
+                    createName = document.getElementById('createName'),
+                    createPassword = document.getElementById('createPassword');
                 fetch('/app/user/', {
                         method: 'POST',
                         headers: {
@@ -71,6 +69,23 @@
                     .then(function (data) {
                         console.log(data);
                     });
+            }
+
+            loginUserForm.onsubmit = function (e) {
+                e.preventDefault();
+                let loginEmail = document.getElementById("loginEmail"),
+                    loginPassword = document.getElementById("loginPassword");
+                fetch(`app/user/${loginEmail}`).then(data=> {
+                    if (data.status===200){
+                        return data.json();
+                    }else{
+                        return new PromiseRejectionEvent();
+                    }
+                }).then(json => {
+                    authenticatedUser=json;
+                    console.log(authenticatedUser);
+                })
+
             }
         </script>
 

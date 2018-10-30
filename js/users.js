@@ -17,7 +17,7 @@ router.get("/app/users", async function (req, res) {
 router.post("/app/user", async function (req, res) {
     let email = req.body.email;
     let username = req.body.name;
-    let passwordHash = req.body.password;
+    let passwordHash = Hash(req.body.password);
     let userRole = 1;
 
     let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${passwordHash}')RETURNING "username", "userid", "email", "role", "password"`;
@@ -25,13 +25,13 @@ router.post("/app/user", async function (req, res) {
     let code = await db.insert(query) ? 200 : 500;
     res.status(code).end();
 });
-router.get("/app/user/:username", function (req, res) {
+router.get("/app/user/:username", async function (req, res) {
     let passwordHash = req.body.password;
     let username = req.params.username;
 
-    let query = `Select * from users where userName='${username}'and paswword='${passwordHash}'`;
+    let query = `Select * from public.users where userName='${username}'and paswword='${passwordHash}'`;
 
-    let user = db.select(query);
+    let user = await db.select(query);
 
     if (user) {
         res.status(200).json(user);
