@@ -4,59 +4,39 @@ const {
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
-/*
-async function runQuery(query) {
-    let response = null;
-    const client = await new Client({
-        connectionString: dataBaseUrl
-    })
-    await client.connect();
-    let result = await client.query(query);
-    response = await result.rows;
-    return response;
-}
-*/
 
 async function runQuery(query) {
     let response = null;
     const client = await new Client({
-        connectionString: dataBaseUrl
+        connectionString: dataBaseUrl,
+        ssl = true
     })
     try {
         await client.connect()
-        if (client) {
-            response = await getResponse(client, query);
-            console.log("response : " + response);
-        }
+        response = await client.query(query).then(function (res) {
+            return res;
+        }).catch(function (err) {
+            console.error(err);
+        })
     } catch (e) {
         console.error(e);
-    }finally{
         return response;
     }
 }
 
-function getResponse(client, query) {
-    return new Promise(function (resolve, reject) {
-        client.query(query, (err, res) => {
-            console.log(err,res);
-            resolve(res.rows[0]);
-        });
-    })
+db.insert = async function (query) {
+    return await runQuery(query)
 }
 
-db.insert = function (query) {
-    return runQuery(query)
+db.update = async function (query) {
+    return await runQuery(query)
+}
+db.select = async function (query) {
+    return await runQuery(query)
 }
 
-db.update = function (query) {
-    return runQuery(query)
-}
-db.select = function (query) {
-    return runQuery(query)
-}
-
-db.delete = function (query) {
-    return runQuery(query)
+db.delete = async function (query) {
+    return await runQuery(query)
 }
 
 module.exports = db
