@@ -4,18 +4,6 @@ const {
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
-/*
-async function runQuery(query) {
-    let response = null;
-    const client = await new Client({
-        connectionString: dataBaseUrl
-    })
-    await client.connect();
-    let result = await client.query(query);
-    response = await result.rows;
-    return response;
-}
-*/
 
 async function runQuery(query) {
     let response = null;
@@ -30,15 +18,16 @@ async function runQuery(query) {
         }
     } catch (e) {
         console.error(e);
-    }finally{
-        return response;
     }
+    return response;
+
 }
+
 
 function getResponse(client, query) {
     return new Promise(function (resolve, reject) {
         client.query(query, (err, res) => {
-            console.log(err,res);
+            console.log(err, res);
             resolve(res.rows[0]);
         });
     })
