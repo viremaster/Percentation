@@ -62,7 +62,7 @@ router.delete("/app/user", async function (req, res) {
         if (response != null)
             res.status(200).json(response);
         else
-            res.status(400).send("Wrond email or password");
+            res.status(400).send("Wrond email or password ");
         res.end();
     } else {
         //Do something

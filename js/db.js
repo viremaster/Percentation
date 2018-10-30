@@ -1,6 +1,4 @@
-const {
-    Client
-} = require('pg');
+const {Client} = require('pg');
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}

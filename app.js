@@ -8,6 +8,6 @@ app.set('port',(process.env.PORT || 8080))
 .use(bodyParser.json())
 .use(users)
 .listen(app.get('port'),function () {
-    console.log('server runnning on : ',app.get('port'));    
+    console.log('server runnning on :',app.get('port'));    
 });
 
