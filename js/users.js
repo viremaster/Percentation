@@ -26,7 +26,7 @@ router.post("/app/user", async function (req, res) {
     res.status(code).end();
 });
 router.get("/app/user/:username", async function (req, res) {
-    let auth = req.headers.Authorization;
+    let auth = req.headers.authorization;
     if (auth) {
         let tmp = auth.split(' ');
         let buf = new Buffer(tmp[1], 'base64');
