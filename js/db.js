@@ -36,15 +36,11 @@ async function runQuery(query) {
 }
 
 function getResponse(client, query) {
-    let promise = new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         client.query(query, (err, res) => {
             console.log(err,res);
             resolve(res.rows);
         });
-    })
-
-    promise.then(function(response){
-        return response;
     })
 }
 
