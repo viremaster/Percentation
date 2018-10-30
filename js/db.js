@@ -39,7 +39,7 @@ function getResponse(client, query) {
     return new Promise(function (resolve, reject) {
         client.query(query, (err, res) => {
             console.log(err,res);
-            resolve(JSON.parse(res.rows));
+            resolve(JSON.parse(res).rows);
         });
     })
 }
