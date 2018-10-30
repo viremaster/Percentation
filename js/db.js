@@ -11,6 +11,7 @@ async function runQuery(query) {
         connectionString: dataBaseUrl,
         ssl: true
     })
+    console.log(query);
     try {
         await client.connect()
         let res = await client.query(query).then(function (res) {

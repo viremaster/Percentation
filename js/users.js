@@ -35,7 +35,7 @@ router.get("/app/user/:username", async function (req, res) {
         let username = credentials[0];
         let password = credentials[1];
 
-        let query = `Select * from public.users where username='${username}' and password='${password}'`;
+        let query = `SELECT * from public.users WHERE username='${username}' AND password='${password}'`;
 
         let user = await db.select(query);
 
