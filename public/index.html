@@ -73,8 +73,8 @@
 
             loginUserForm.onsubmit = function (e) {
                 e.preventDefault();
-                let loginEmail = document.getElementById("loginEmail"),
-                    loginPassword = document.getElementById("loginPassword");
+                let loginEmail = document.getElementById("loginEmail").value,
+                    loginPassword = document.getElementById("loginPassword").value;
                 fetch(`app/user/${loginEmail}`, {
                     method: "GET",
                     headers: new Headers({
