@@ -33,7 +33,7 @@ router.get("/app/user", async function (req, res) {
         let email = credentials[0];
         let password = credentials[1];
 
-        let query = `SELECT * FROM public.users WHERE email='${email}' AND password='${password}' RETURNING "username", "email"'`;
+        let query = `SELECT * FROM public.users WHERE email='${email}' AND password='${password}'`;
 
         let user = await db.select(query);
         if (user != null)
@@ -55,7 +55,7 @@ router.delete("/app/user", async function (req, res) {
         let email = credentials[0];
         let password = credentials[1];
 
-        let query = `DELETE FROM "public"."users" WHERE email='${email}' AND password='${password}'`;
+        let query = `DELETE FROM "public"."users" WHERE email='${email}' AND password='${password} RETURNING "username", "email"''`;
 
         let response = await db.delete(query);
 
