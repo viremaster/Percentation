@@ -13,87 +13,118 @@
         <input required type="text" name="name" id="createName" placeholder="Enter your name">
         <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
         <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
-        <input required type="submit" value="Submit">
+        <input required type="submit" value="Create">
     </form>
 
     <h1>Login User</h1>
+
     <form id="loginUserForm">
+        <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
+        <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
+        <input required type="submit" value="Login">
+    </form>
 
-        <form id="loginUserForm">
-            <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
-            <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
-            <input required type="submit" value="Submit">
-        </form>
+    <h1>Delete User</h1>
+    <form id="DeleteUserForm">
+        <input required type="email" name="email" id="deleteEmail" placeholder="Enter your email">
+        <input required type="password" name="password" id="deletePassword" placeholder="Enter your password">
+        <input type="submit" value="Delete">
+    </form>
 
 
-        <button id="viewUsersButton">View all users</button>
+    <button id="viewUsersButton">View all users</button>
 
-        <script>
-            let createUserForm = document.getElementById('createUserForm');
+    <script>
+        let createUserForm = document.getElementById('createUserForm');
 
-            let loginUserForm = document.getElementById("loginUserForm");
+        let loginUserForm = document.getElementById("loginUserForm");
 
-            let viewUsersButton = document.getElementById("viewUsersButton");
+        let viewUsersButton = document.getElementById("viewUsersButton");
 
-            viewUsersButton.onclick = function () {
-                fetch("/app/users").then(data => {
-                    if (data.status === 200) {
-                        return data.json()
-                    } else {
-                        return new PromiseRejectionEvent();
-                    }
-                }).catch(err => {
-                    console.error(err);
-                })
-            }
+        let DeleteUserForm = document.getElementById("DeleteUserForm");
 
-            createUserForm.onsubmit = function (e) {
-                e.preventDefault();
-                let createEmail = document.getElementById('createEmail'),
-                    createName = document.getElementById('createName'),
-                    createPassword = document.getElementById('createPassword');
-                fetch('/app/user/', {
-                        method: 'POST',
-                        headers: {
-                            "accept": "*/*",
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: createName.value,
-                            password: createPassword.value,
-                            email: createEmail.value
-                        })
-                    }).then(function (res) {
-                        return res.json();
+        viewUsersButton.onclick = function () {
+            fetch("/app/users").then(data => {
+                if (data.status === 200) {
+                    return data.json()
+                } else {
+                    return new PromiseRejectionEvent();
+                }
+            }).catch(err => {
+                console.error(err);
+            })
+        }
+
+        createUserForm.onsubmit = function (e) {
+            e.preventDefault();
+            let createEmail = document.getElementById('createEmail'),
+                createName = document.getElementById('createName'),
+                createPassword = document.getElementById('createPassword');
+            fetch('/app/user', {
+                    method: 'POST',
+                    headers: {
+                        "accept": "*/*",
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: createName.value,
+                        password: createPassword.value,
+                        email: createEmail.value
                     })
-                    .then(function (data) {
-                        console.log(data);
-                    });
-            }
-
-            loginUserForm.onsubmit = function (e) {
-                e.preventDefault();
-                let loginEmail = document.getElementById("loginEmail").value,
-                    loginPassword = document.getElementById("loginPassword").value;
-                fetch(`app/user/${loginEmail}`, {
-                    method: "GET",
-                    headers: new Headers({
-                        'Authorization': 'Basic ' + btoa(loginEmail+':'+loginPassword),
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    })
-                }).then(data => {
-                    if (data.status === 200) {
-                        return data.json();
-                    } else {
-                        return new PromiseRejectionEvent();
-                    }
-                }).then(json => {
-                    authenticatedUser = json;
-                    console.log(authenticatedUser+"prour");
+                }).then(function (res) {
+                    return res.json();
                 })
+                .then(function (data) {
+                    console.log(data);
+                });
+        }
 
-            }
-        </script>
+        loginUserForm.onsubmit = function (e) {
+            e.preventDefault();
+            let loginEmail = document.getElementById("loginEmail").value,
+                loginPassword = document.getElementById("loginPassword").value;
+            fetch(`app/user`, {
+                method: "GET",
+                headers: new Headers({
+                    'Authorization': 'Basic ' + btoa(loginEmail + ':' + loginPassword),
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(data => {
+                if (data.status === 200) {
+                    return data.json();
+                } else {
+                    return new PromiseRejectionEvent();
+                }
+            }).then(json => {
+                authenticatedUser = json;
+                console.log("Authenticated user : "+authenticatedUser);
+            })
+
+        }
+
+        DeleteUserForm.onsubmit = function (e) {
+            e.preventDefault();
+            let deleteEmail = document.getElementById("deleteEmail"),
+                deletePassword = document.getElementById("deleteEmail");
+
+            fetch("app/user/delete", {
+                method: "DELETE",
+                headers: new Headers({
+                    'Authorization': 'Basic ' + btoa(deleteEmail + ':' + deletePassword),
+                    'Content-Type': 'application/x-www-form-urlencoded';
+                })
+            }).then(data => {
+                if (data.status === 200) {
+                    return data.json();
+                }else{
+                    return new PromiseRejectionEvent();
+                }
+            }).then(json => {
+                console.log(json);
+            })
+
+        }
+    </script>
 
 </body>
 

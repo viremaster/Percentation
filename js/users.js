@@ -23,7 +23,7 @@ router.post("/app/user", async function (req, res) {
         res.status(code).end();
     }
 });
-router.get("/app/user/:username", async function (req, res) {
+router.get("/app/user", async function (req, res) {
     let auth = req.headers.authorization;
     if (auth) {
         let tmp = auth.split(' ');
@@ -44,6 +44,30 @@ router.get("/app/user/:username", async function (req, res) {
         }
         res.end();
     } else {
+        //Do something
+    }
+})
+router.delete("/app/user", async function(req,res){
+    let auth = req.headers.authorization;
+    if (auth){
+        let tmp = auth.split(' ');
+        let buf = new Buffer(tmp[1], 'base64');
+        let stringAuth = buf.toString();
+        let credentials = stringAuth.split(':');
+        let email = credentials[0];
+        let password = credentials[1];
+
+        let query=`DELETE FROM public.users WHERE email='${email}' AND password='${password}'`;
+
+        let response=await db.delete(query);
+
+        if(response.length>0){
+            res.status(200).json(response);
+        }else{
+            res.status(400);
+        }
+        res.end();
+    }else{
         //Do something
     }
 })
