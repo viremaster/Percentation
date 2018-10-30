@@ -25,7 +25,7 @@ async function runQuery(query) {
     try {
         await client.connect()
         if (client) {
-            response = await Promise.resolve(getResponse(client, query));
+            response = await (Promise.resolve(getResponse(client, query)));
             console.log("response : " + response);
         }
     } catch (e) {
