@@ -20,7 +20,7 @@ router.post("/app/user", async function (req, res) {
     let password = req.body.password;
     let userRole = 1;
 
-    let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${password}')RETURNING "username", "userid", "email", "role", "password"`;
+    let query = `INSERT INTO public.users (username, userid, email, role, password) VALUES(${username}, DEFAULT, ${email}, ${userRole}, ${password})RETURNING username, userid, email, role, password`;
 
     let code = await db.insert(query) ? 200 : 500;
     res.status(code).end();
@@ -35,7 +35,7 @@ router.get("/app/user/:username", async function (req, res) {
         let username = credentials[0];
         let password = credentials[1];
 
-        let query = `Select * from public.users where username='${username}'and password='${password}'`;
+        let query = `Select * from public.users where username='${username}' and password='${password}'`;
 
         let user = await db.select(query);
 
@@ -46,10 +46,7 @@ router.get("/app/user/:username", async function (req, res) {
         }
         res.end();
     } else {
-        res.statusCode = 401;
-        res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
-
-        res.end('<html><body>Need some creds son</body></html>');
+        //Do something
     }
 })
 
