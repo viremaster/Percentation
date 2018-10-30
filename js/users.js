@@ -37,11 +37,8 @@ router.get("/app/user", async function (req, res) {
 
         let user = await db.select(query);
 
-        if (user.length > 0) {
-            res.status(200).json(user);
-        } else {
-            res.status(400);
-        }
+        res.status(200).json(user);
+
         res.end();
     } else {
         //Do something
