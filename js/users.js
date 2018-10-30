@@ -55,7 +55,7 @@ router.delete("/app/user", async function (req, res) {
         let email = credentials[0];
         let password = credentials[1];
 
-        let query = `DELETE FROM public.users WHERE email='${email}' AND password='${password}'`;
+        let query = `DELETE FROM "public"."users" WHERE email='${email}' AND password='${password}'`;
 
         let response = await db.delete(query);
 
