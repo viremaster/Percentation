@@ -9,7 +9,7 @@ async function runQuery(query) {
     let response = null;
     const client = await new Client({
         connectionString: dataBaseUrl,
-        ssl = true
+        ssl: true
     })
     try {
         await client.connect()
