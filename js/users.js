@@ -8,7 +8,7 @@ router.get("/app/users", async function (req, res) {
     console.log("Users !!!")
     console.log(users);
     if (users) {
-        res.status(200).json(JSON.parse(users));
+        res.status(200).json(users);
     } else {
         console.log("error2  ")
     }
