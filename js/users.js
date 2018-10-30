@@ -37,7 +37,7 @@ router.get("/app/user", async function (req, res) {
 
         let user = await db.select(query);
 
-        if (user.length>0) {
+        if (user.length > 0) {
             res.status(200).json(user);
         } else {
             res.status(400);
@@ -47,9 +47,9 @@ router.get("/app/user", async function (req, res) {
         //Do something
     }
 })
-router.delete("/app/user", async function(req,res){
+router.delete("/app/user", async function (req, res) {
     let auth = req.headers.authorization;
-    if (auth){
+    if (auth) {
         let tmp = auth.split(' ');
         let buf = new Buffer(tmp[1], 'base64');
         let stringAuth = buf.toString();
@@ -57,17 +57,14 @@ router.delete("/app/user", async function(req,res){
         let email = credentials[0];
         let password = credentials[1];
 
-        let query=`DELETE FROM public.users WHERE email='${email}' AND password='${password}'`;
+        let query = `DELETE FROM public.users WHERE email='${email}' AND password='${password}'`;
 
-        let response=await db.delete(query);
+        let response = await db.delete(query);
 
-        if(response.length>0){
-            res.status(200).json(response);
-        }else{
-            res.status(400);
-        }
+        res.status(200).json(response);
+
         res.end();
-    }else{
+    } else {
         //Do something
     }
 })
