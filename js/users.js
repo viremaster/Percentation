@@ -18,7 +18,7 @@ router.post("/app/user", async function (req, res) {
     let password = req.body.password;
     let userRole = 1;
     if (email && username && password) {
-        let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${password}')RETURNING "username", "userid", "email", "role", "password"`;
+        let query = `INSERT INTO "public"."users" ("username", "userid", "email", "role", "password") VALUES('${username}', DEFAULT, '${email}', '${userRole}', '${password}')RETURNING "username", "email"`;
         let code = await db.insert(query) ? 200 : 500;
         res.status(code).end();
     }
@@ -33,7 +33,7 @@ router.get("/app/user", async function (req, res) {
         let email = credentials[0];
         let password = credentials[1];
 
-        let query = `SELECT * FROM public.users WHERE email='${email}' AND password='${password}'`;
+        let query = `SELECT * FROM public.users WHERE email='${email}' AND password='${password} RETURNING "username", "email"'`;
 
         let user = await db.select(query);
         if (user != null)
