@@ -18,9 +18,9 @@ async function runQuery(query) {
         }
     } catch (e) {
         console.error(e);
+    } finally {
+        return response;
     }
-    return response;
-
 }
 
 
