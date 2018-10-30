@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>API user</title>
-    
+
 </head>
+
 <body>
     <h1>Create User</h1>
     <form id="createUserForm">
@@ -17,47 +19,61 @@
     <h1>Login User</h1>
     <form id="loginUserForm">
 
-    <form id="loginUserForm" action="/app/user/login" method="get" enctype="application/json">
-        <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
-        <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
-        <input required type="submit" value="Submit">
-    </form>
+        <form id="loginUserForm" action="/app/user/login" method="get" enctype="application/json">
+            <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
+            <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
+            <input required type="submit" value="Submit">
+        </form>
 
-    <form action="/app/users">
-        <input type="submit" value="View all users">
-    </form>
 
-    <script>
-        let createEmail = document.getElementById('createEmail'),
-        createName = document.getElementById('createName'),
-        createPassword = document.getElementById('createPassword'),
-        createUserForm = document.getElementById('createUserForm');
+        <button id="viewUsersButton">View all users</button>
 
-        let loginEmail = document.getElementById("loginEmail"),
-        loginPassword = document.getElementById("loginPassword"),
-        loginUserForm = document.getElementById("loginUserForm");
-        
-        createUserForm.onsubmit= function(e) {
-            e.preventDefault();
-            fetch('/app/user/', {
-                method: 'POST',
-                headers: {
-                    "accept":"*/*",
-                    'content-type': 'application/json'
-                },
-                body : JSON.stringify({
-                    name: createName.value, 
-                    password: createPassword.value, 
-                    email: createEmail.value
-                })    
-            }).then(function(res){    
-                return res.json();
-            })
-            .then(function(data) {
-                console.log(data);
-            });
-        }
-    </script>
+        <script>
+            let createEmail = document.getElementById('createEmail'),
+                createName = document.getElementById('createName'),
+                createPassword = document.getElementById('createPassword'),
+                createUserForm = document.getElementById('createUserForm');
+
+            let loginEmail = document.getElementById("loginEmail"),
+                loginPassword = document.getElementById("loginPassword"),
+                loginUserForm = document.getElementById("loginUserForm");
+
+            let viewUsersButton = document.getElementById("viewUsersButton");
+
+            viewUsersButton.onclick = function () {
+                fetch("/app/users").then(data => {
+                    if (data.status === 200) {
+                        return data.json()
+                    }else{
+                        return new PromiseRejectionEvent();
+                    }
+                }).catch(err => {
+                    console.error(err);
+                })
+            }
+
+            createUserForm.onsubmit = function (e) {
+                e.preventDefault();
+                fetch('/app/user/', {
+                        method: 'POST',
+                        headers: {
+                            "accept": "*/*",
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: createName.value,
+                            password: createPassword.value,
+                            email: createEmail.value
+                        })
+                    }).then(function (res) {
+                        return res.json();
+                    })
+                    .then(function (data) {
+                        console.log(data);
+                    });
+            }
+        </script>
 
 </body>
+
 </html>
