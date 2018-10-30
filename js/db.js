@@ -39,7 +39,7 @@ function getResponse(client, query) {
     let promise = new Promise(function (resolve, reject) {
         client.query(query, (err, res) => {
             console.log(err,res);
-            resolve(res);
+            resolve(res.rows);
         });
     })
 
