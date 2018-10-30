@@ -25,7 +25,7 @@ async function runQuery(query) {
     try {
         await client.connect()
         if (client) {
-            response = await getResponse(client, query);
+            response = await Promise.resolve(getResponse(client, query));
             console.log("response : " + response);
         }
     } catch (e) {
@@ -39,7 +39,7 @@ function getResponse(client, query) {
     return new Promise(function (resolve, reject) {
         client.query(query, (err, res) => {
             console.log(err,res);
-            resolve(JSON.parse(res).rows);
+            resolve(res.rows);
         });
     })
 }
