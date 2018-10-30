@@ -36,9 +36,10 @@ router.get("/app/user", async function (req, res) {
         let query = `SELECT * FROM public.users WHERE email='${email}' AND password='${password}'`;
 
         let user = await db.select(query);
-
-        res.status(200).json(user);
-
+        if (user != null)
+            res.status(200).json(user);
+        else
+            res.status(400).send("Wrond email or password");
         res.end();
     } else {
         //Do something
