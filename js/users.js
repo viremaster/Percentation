@@ -29,7 +29,7 @@ router.get("/app/user/:username", async function (req, res) {
     let passwordHash = req.body.password;
     let username = req.params.username;
 
-    let query = `Select * from public.users where userName='${username}'and paswword='${passwordHash}'`;
+    let query = `Select * from public.users where username='${username}'and password='${passwordHash}'`;
 
     let user = await db.select(query);
 
