@@ -8,7 +8,7 @@ router.get("/app/users", function (req, res) {
     if (users) {
         res.status(200).json(JSON.parse(users));
     } else {
-        console.log("error2")
+        console.log("error2 ")
     }
     res.end();
 });
