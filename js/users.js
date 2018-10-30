@@ -26,19 +26,31 @@ router.post("/app/user", async function (req, res) {
     res.status(code).end();
 });
 router.get("/app/user/:username", async function (req, res) {
-    let passwordHash = req.body.password;
-    let username = req.params.username;
+    let auth = req.headers.Authorization;
+    if (auth) {
+        let tmp = auth.split(' ');
+        let buf = new Buffer(tmp[1], 'base64');
+        let stringAuth = buf.toString();
+        let credentials = stringAuth.split(':');
+        let username = credentials[0];
+        let password = credentials[1];
 
-    let query = `Select * from public.users where username='${username}'and password='${passwordHash}'`;
+        let query = `Select * from public.users where username='${username}'and password='${password}'`;
 
-    let user = await db.select(query);
+        let user = await db.select(query);
 
-    if (user) {
-        res.status(200).json(user);
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(400);
+        }
+        res.end();
     } else {
-        res.status(400);
+        res.statusCode = 401;
+        res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
+
+        res.end('<html><body>Need some creds son</body></html>');
     }
-    res.end();
 })
 
 module.exports = router;
