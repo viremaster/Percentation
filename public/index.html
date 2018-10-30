@@ -76,7 +76,7 @@
                 let loginEmail = document.getElementById("loginEmail"),
                     loginPassword = document.getElementById("loginPassword");
                 fetch(`app/user/${loginEmail}`, {
-                    method: "POST",
+                    method: "GET",
                     headers: new Headers({
                         'Authorization': 'Basic ' + btoa(loginEmail+':'+loginPassword),
                         'Content-Type': 'application/x-www-form-urlencoded'
