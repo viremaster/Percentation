@@ -21,8 +21,8 @@ async function runQuery(query) {
         response = res.rows[0];
     } catch (e) {
         console.error(e);
-        return response;
     }
+    return response;
 }
 
 db.insert = async function (query) {
