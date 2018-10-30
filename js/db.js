@@ -18,7 +18,7 @@ async function runQuery(query) {
         }).catch(function (err) {
             console.error(err);
         });
-        response = res.rows;
+        response = res.rows[0];
     } catch (e) {
         console.error(e);
     }
