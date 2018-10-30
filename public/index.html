@@ -105,7 +105,7 @@
         DeleteUserForm.onsubmit = function (e) {
             e.preventDefault();
             let deleteEmail = document.getElementById("deleteEmail").value,
-                deletePassword = document.getElementById("deleteEmail").value;
+                deletePassword = document.getElementById("deletePassword").value;
 
             fetch("app/user", {
                 method: "DELETE",
