@@ -32,10 +32,10 @@ router.get("/app/user/:username", async function (req, res) {
         let buf = new Buffer(tmp[1], 'base64');
         let stringAuth = buf.toString();
         let credentials = stringAuth.split(':');
-        let username = credentials[0];
+        let email = credentials[0];
         let password = credentials[1];
 
-        let query = `SELECT * FROM public.users WHERE username='${username}' AND password='${password}'`;
+        let query = `SELECT * FROM public.users WHERE email='${email}' AND password='${password}'`;
 
         let user = await db.select(query);
 
