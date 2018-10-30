@@ -107,7 +107,7 @@
             let deleteEmail = document.getElementById("deleteEmail"),
                 deletePassword = document.getElementById("deleteEmail");
 
-            fetch("app/user/delete", {
+            fetch("app/user", {
                 method: "DELETE",
                 headers: new Headers({
                     'Authorization': 'Basic ' + btoa(deleteEmail + ':' + deletePassword),
