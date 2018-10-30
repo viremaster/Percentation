@@ -13,7 +13,7 @@ async function runQuery(query) {
     })
     try {
         await client.connect()
-        response = await client.query(query).then(function (res) {
+        let res = await client.query(query).then(function (res) {
             return res;
         }).catch(function (err) {
             console.error(err);
