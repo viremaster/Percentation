@@ -27,10 +27,11 @@ async function runQuery(query) {
         if (client) {
             response = await getResponse(client, query);
             console.log("response : " + response);
-            return response;
         }
     } catch (e) {
         console.error(e);
+    }finally{
+        return response;
     }
 }
 
