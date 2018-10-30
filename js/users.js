@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const db = require("./db.js");
 
-router.get("/app/users", function (req, res) {
+router.get("/app/users", async function (req, res) {
     let query = `SELECT * FROM public.users`;
-    let users = db.select(query)
+    let users = await db.select(query)
     console.log("Users : "+users);
     if (users) {
         res.status(200).json(JSON.parse(users));
     } else {
-        console.log("error2 ")
+        console.log("error2  ")
     }
     res.end();
 });
