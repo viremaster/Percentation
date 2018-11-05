@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+
+    <link rel="stylesheet" href="Application.css">
+    <title>
+    </title>
+
+
+</head>
+
+<body>
+
+    <!-- Hele siden faller innenfor denne, den skal i utganspunktet dekke 100% av skjermen-->
+    <div class="appContainer" id="appContainer">
+
+        <!-- Container til workarea, med en egen til selve sliden sentrert inni-->
+        <div class="workArea" id="workArea">
+            <p id="slideNumber">Slide 1 / 1</p>
+            <img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon">
+
+            <div class="currentSlide" id="currentSlide">
+                <div class="titleTemplate" id="titleTemplate">
+                    <h1 contenteditable="true"> Insert title here:</h1>
+                    <h3 contenteditable="true"> Insert subtitle here:</h3>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- Container til toolbar-->
+        <div class="toolbar" id="toolbar">
+
+            <div id="textToolbar">
+                <br>
+                <h2> Text options</h2>
+                <hr>
+                <div>
+                    <p> Font type: </p>
+
+                    <select id="fontSelect">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Courier">Courier</option>
+
+                    </select>
+                </div>
+
+                <div>
+                    <p> Font size: </p><input type="range" name="points" min="0" max="20">
+
+                </div>
+             
+                <hr>
+                <h3> Text style:
+
+                </h3>
+
+                <div class="toolbarSection">
+                    <img src="Icons/Bold.png" alt="Bold" class="toolbarIcon" id="boldIcon">
+                    <img src="Icons/Italic.png" alt="Italic" class="toolbarIcon" id="italicIcon">
+                    <img src="Icons/Underline.png" alt="Underline" class="toolbarIcon" id="underlineIcon">
+                    <img src="Icons/Text_Color.png" alt="Text color" class="toolbarIcon" id="textColorIcon">
+                </div>
+
+
+                <hr>
+
+                <h3>Text alignment:</h3>
+                <div class="toolbarSection">
+                    <img src="Icons/Align_Lef.png" alt="Allign left" title="Allign left" class="toolbarIcon" id="allignLeftIcon">
+                    <img src="Icons/Align_Cente.png" alt="Allign center" class="toolbarIcon" id="allignCenterIcon">
+                    <img src="Icons/Align_Righ.png" alt="Allign right" class="toolbarIcon" id="allignRightIcon">
+
+                </div>
+                <hr>
+
+                <h3> Actions:</h3>
+
+                <div class="toolbarSection">
+                    <img src="Icons/Undo.png" alt="Undo" class="toolbarIcon" id="undoIcon">
+                    <img src="Icons/Redo.png" alt="Redo" class="toolbarIcon" id="redoIcon">
+                    <img src="Icons/Add_New.png" alt="Add new texbox" class="toolbarIcon" id="newTextboxIcon">
+                
+                </div>
+                <hr>
+            </div>
+
+
+
+        </div>
+
+
+        <!-- Container til sidemeny-->
+        <div class="sideMenu" id="sideMenu">
+
+            <img src="Icons/Text.png" alt="Text editor" class="icon" id="textEditorIcon">
+
+            <img src="Icons/Image.png" alt="Images and video" class="icon" id="imageIcon">
+
+            <img src="Icons/List.png" alt="Templates" class="icon" id="templatesIcon">
+
+            <img src="Icons/Paint_Palette.png" alt="Styles" class="icon" id="stylesIcon">
+
+            <img src="Icons/Speaker_Notes.png" alt="Speaker notes" class="icon" id="speakerNotesIcon">
+
+            <img src="Icons/Automatic.png" alt="Slide Settings" class="icon" id="slideSettingsIcon">
+
+        </div>
+
+
+        <!-- Container til slidevelger som kan scrolles left and right-->
+        <div class="slidePreview" id="slidePreview">
+
+            <div id="newSlide">
+                <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
+            </div>
+
+            <aside class="numberedSlides" id="numberedSlides">
+                <p>New slide<p>
+
+            </aside>
+
+
+
+        </div>
+
+
+        <!-- Container til toppmeny, 100 bredde plassert i toppen -->
+        <div class="topMenu" id="topMenu">
+
+            <img src="Icons/Back.png" alt="Back to your presentations" class="topIcon" id="BackIcon">
+            <h3 id="logo">Percentation</h3>
+
+            <img src="Icons/Menu.png" alt="Presentation menu" class="topIcon" id="menuIcon">
+
+            <img src="Icons/Fil.png" alt="New file" class="topIcon" id="newFileIcon">
+
+            <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
+
+            <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
+
+            <p id="fileName">untitled1</p>
+
+            <img src="Icons/Support.png" alt="Presentation settings" class="topIcon" id="settingsIcon">
+
+        </div>
+
+
+
+
+
+
+    </div>
+    
+<script>
+    
+function setImageTitle() {
+    let allImages = document.getElementsByTagName("img");
+    for(i = 0; i < allImages.length; i++){
+    allImages[i].title = allImages[i].alt;
+        }
+}
+    
+    setImageTitle();
+</script>
+
+
+</body>
+
+</html>

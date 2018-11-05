@@ -1,0 +1,325 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-height: 100vh;
+
+}
+
+body {
+    font-family: 'Comfortaa', cursive;
+    color: lightslategray;
+    font-size: 1px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    display: block;
+    align-self: center;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid lightslategray;
+    margin: 3% 0 3% 0;
+    padding: 4%;
+    width: 80%;
+}
+
+p {
+    position: absolute;
+    font-size: 1vw;
+}
+
+h1 {
+    position: absolute;
+    text-align: center;
+    font-size: 1vw;
+
+}
+
+h3 {
+
+    font-size: 1.5vw;
+    margin: 0.5%;
+    text-align: center;
+}
+
+div {
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+div > select {
+    position: absolute;
+    left: 48%;
+    width: 45%;
+    top: 20%;
+    font-size: 1vw;
+    height: 1.6vw;
+
+}
+
+div > input {
+    position: absolute;
+    width: 45%;
+    right: 1%;
+    top: 0%;
+    height: 20px;
+    padding: 0;
+    margin: 5%;
+}
+
+
+/*--------------------------Containers------------------------------------------------*/
+
+.appContainer {
+    box-sizing: border-box;
+    position: absolute;
+    display: grid;
+    grid-template-areas:
+        'head head head'
+        'menu toolbar workArea'
+        'footer footer footer';
+    grid-template-rows: 6% 1fr 15%;
+    grid-template-columns: 6% 15% 1fr;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+
+}
+
+
+.topMenu {
+    align-items: center;
+    grid-area: head;
+    background-color: #144e5f;
+    box-shadow: 0px 30px 50px 25px rgba(0, 0, 0, 0.05);
+
+}
+
+.sideMenu {
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    grid-area: menu;
+    background-color: #092127;
+    box-shadow: 10px 5px 30px 0px rgba(0, 0, 0, 0.08);
+    align-content: center;
+}
+
+.toolbar {
+    flex-direction: column;
+    grid-area: toolbar;
+    background-color: #3a474b;
+    box-shadow: 10px 5px 30px 0px rgba(0, 0, 0, 0.05);
+
+}
+
+.workArea {
+    grid-area: workArea;
+    background-color: #354044;
+
+}
+
+.slidePreview {
+    display: flex;
+
+
+    grid-area: footer;
+    background-color: #144e5f;
+    box-shadow: 0px -20px 20px 10px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.currentSlide {
+    flex-direction: column;
+    overflow: hidden;
+    background-color: white;
+    margin: auto;
+    width: 80%;
+    padding-bottom: 45%;
+    box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
+
+
+}
+
+/*-------------------------------------Tweaks------------------------------------------*/
+
+#fileName {
+    position: sticky;
+    margin: 1%;
+    padding: 0%;
+    left: 55%;
+    text-align: center;
+    font-size: 1.5vw;
+
+}
+
+#slideNumber {
+    position: absolute;
+    font-size: 1vw;
+    bottom: 0;
+    left: 1%;
+    color: lightslategray;
+}
+
+/*------------------------------Icons--------------------------------------------------*/
+.topIcon {
+    height: 60%;
+    width: auto;
+    margin: 0.4%;
+
+}
+
+.topIcon:hover {
+    filter: brightness(3);
+}
+
+#logo {
+    font-weight: bold;
+}
+
+#fullscreenIcon {
+    padding: 0.5%;
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
+    height: auto;
+    width: 2%;
+    border: 1px solid #5596BE;
+
+}
+
+#fullscreenIcon:hover {
+    filter: brightness(3);
+    border: 1px solid white;
+    width: 2.5%;
+    transition: width 0.1s;
+}
+
+.toolbarIcon {
+    height: 3vw;
+    width: 3vw;
+    margin: 10% auto 10% auto;
+
+
+
+}
+
+.toolbarIcon:hover {
+    filter: brightness(3);
+}
+
+
+.icon {
+    padding: 1%;
+    height: auto;
+    width: 65%;
+}
+
+.icon:hover {
+    filter: brightness(3);
+
+
+}
+
+#settingsIcon {
+    position: sticky;
+    left: 96%;
+
+}
+
+.toolbarSection {
+    justify-content: center;
+}
+
+#newSlide {
+    flex-direction: row;
+    justify-content: center;
+
+    overflow: hidden;
+    background-color: white;
+
+    margin: 1% 1% auto 1%;
+    width: 10%;
+    padding-bottom: 5.625%;
+    box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
+
+}
+
+#newSlideIcon {
+    position: absolute;
+    top: 10%;
+    height: 75%;
+    width: auto;
+
+}
+
+
+.titleTemplate {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+}
+
+
+.titleTemplate > h1 {
+    font-family: sans-serif;
+    border: 1px dotted gray;
+    font-size: 7vw;
+    top: 25%;
+    width: 100%;
+    padding: 1% 0 1% 0;
+}
+
+.titleTemplate > h3 {
+    font-family: sans-serif;
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    border: 1px dotted gray;
+    font-size: 3vw;
+    margin: 0;
+    padding: 1% 0 1% 0;
+}
+
+.numberedSlides {
+    position: absolute;
+    width: 50%;
+    font-size: 0.6vw;
+    left: 3%;
+    top: 70%;
+
+}
+
+.toolbar > div {
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
+
+.toolbar h2 {
+
+    font-size: 2vw;
+    margin: 10% 0 10% 0;
+
+}
+
+.toolbar p {
+    position: relative;
+    text-align: left;
+    padding: 3%;
+    margin: 0;
+    font-size: 1.1vw;
+}
