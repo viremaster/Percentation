@@ -8,192 +8,121 @@
 </head>
 
 <body>
-    <div id="content"></div>
-    <template id="createUserTemplate">
-        <h1>Create User</h1>
-        <form id="createUserForm">
-            <input required type="text" name="name" id="createName" placeholder="Enter your name">
-            <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
-            <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
-            <input required type="submit" value="Create">
-            <button id="btnGoToLogin">Already an account ?</button>
-        </form>
-    </template>
-    <template id="loginUserTemplate">
-        <h1>Login User</h1>
+    <h1>Create User</h1>
+    <form id="createUserForm">
+        <input required type="text" name="name" id="createName" placeholder="Enter your name">
+        <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
+        <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
+        <input required type="submit" value="Create">
+    </form>
 
-        <form id="loginUserForm">
-            <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
-            <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
-            <input required type="submit" value="Login">
-            <button id="btnGoToCreate">Create an account</button>
-        </form>
-    </template>
+    <h1>Login User</h1>
 
-    <template id="templateApp">
-        <h1>The app</h1>
-        <form id="DeleteUserForm">
-            <input required type="email" name="email" id="deleteEmail" placeholder="Enter your email">
-            <input required type="password" name="password" id="deletePassword" placeholder="Enter your password">
-            <input type="submit" value="Delete">
+    <form id="loginUserForm">
+        <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
+        <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
+        <input required type="submit" value="Login">
+    </form>
 
-            <button id="viewUsersButton">View all users</button>
-        </form>
-    </template>
+    <h1>Delete User</h1>
+    <form id="DeleteUserForm">
+        <input required type="email" name="email" id="deleteEmail" placeholder="Enter your email">
+        <input required type="password" name="password" id="deletePassword" placeholder="Enter your password">
+        <input type="submit" value="Delete">
+    </form>
+
+
+    <button id="viewUsersButton">View all users</button>
+
     <script>
-        let authenticatedUser = localStorage.getItem("authenticatedUser");
-        console.log(localStorage.getItem("authenticatedUser"));
+        let createUserForm = document.getElementById('createUserForm');
 
-        const USER_ROLE = 1;
+        let loginUserForm = document.getElementById("loginUserForm");
 
-        (function () {
-            displayLoginForm();
+        let viewUsersButton = document.getElementById("viewUsersButton");
 
-        })()
+        let DeleteUserForm = document.getElementById("DeleteUserForm");
 
-        function addElement(element) {
-            let content = document.getElementById("content");
-            if (content) {
-                if (element) {
-                    content.appendChild(element);
+        viewUsersButton.onclick = function () {
+            fetch("/app/users").then(data => {
+                if (data.status === 200) {
+                    return data.json()
                 } else {
-                    console.error(new Error(`The element is empty`))
+                    return new PromiseRejectionEvent();
                 }
-            } else {
-                console.error(new Error(`There is no content element in the document`))
-            }
-        }
-
-        function clearScreen() {
-            document.getElementById("content").innerHTML = "";
-        }
-
-        function createElementFromTemplate(templateID) {
-            let template = document.querySelector(templateID);
-            let clone = document.importNode(template.content, true);
-            return clone
-        }
-
-        function displayCreateForm() {
-            let createUserTemplate = createElementFromTemplate("#createUserTemplate");
-            addElement(createUserTemplate);
-
-            let createUserForm = document.getElementById('createUserForm');
-
-            createUserForm.onsubmit = function (e) {
-                e.preventDefault();
-                let createEmail = document.getElementById('createEmail'),
-                    createName = document.getElementById('createName'),
-                    createPassword = document.getElementById('createPassword');
-                fetch('/app/user', {
-                        method: 'POST',
-                        headers: {
-                            "accept": "*/*",
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: createName.value,
-                            password: createPassword.value,
-                            email: createEmail.value
-                        })
-                    }).then(function (res) {
-                        return res.json();
-                    })
-                    .then(function (data) {
-                        console.log(data);
-                        clearScreen();
-                        displayLoginForm();
-                    });
-            }
-            let btnGoToLogin = document.getElementById("btnGoToLogin");
-            btnGoToLogin.addEventListener("click", function () {
-                clearScreen();
-                displayLoginForm();
+            }).catch(err => {
+                console.error(err);
             })
         }
 
-        function displayLoginForm() {
-            let loginUserTemplate = createElementFromTemplate("#loginUserTemplate");
-            addElement(loginUserTemplate);
-
-            let loginUserForm = document.getElementById("loginUserForm");
-
-            loginUserForm.onsubmit = function (e) {
-                e.preventDefault();
-                let loginEmail = document.getElementById("loginEmail").value,
-                    loginPassword = document.getElementById("loginPassword").value;
-                fetch(`app/user`, {
-                    method: "GET",
-                    headers: new Headers({
-                        'Authorization': 'Basic ' + btoa(loginEmail + ':' + loginPassword),
-                        'Content-Type': 'application/x-www-form-urlencoded'
+        createUserForm.onsubmit = function (e) {
+            e.preventDefault();
+            let createEmail = document.getElementById('createEmail'),
+                createName = document.getElementById('createName'),
+                createPassword = document.getElementById('createPassword');
+            fetch('/app/user', {
+                    method: 'POST',
+                    headers: {
+                        "accept": "*/*",
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: createName.value,
+                        password: createPassword.value,
+                        email: createEmail.value
                     })
-                }).then(data => {
-                    if (data.status === 200) {
-                        return data.json();
-                    } else {
-                        return new PromiseRejectionEvent();
-                    }
-                }).then(json => {
-                    authenticatedUser = json;
-                    localStorage.setItem("authenticatedUser", authenticatedUser);
-                    authenticatedUser = localStorage.getItem("authenticatedUser");
-                    console.log("Authenticated User : " + authenticatedUser);
-                    clearScreen();
-                    displayApp();
+                }).then(function (res) {
+                    return res.json();
                 })
-            }
-
-            let btnGoToCreate = document.getElementById("btnGoToCreate");
-            btnGoToCreate.addEventListener("click", function () {
-                clearScreen();
-                displayCreateForm();
-            })
+                .then(function (data) {
+                    console.log(data);
+                });
         }
 
-        function displayApp() {
-            let templateApp = createElementFromTemplate("#templateApp");
-            addElement(templateApp);
-
-            let viewUsersButton = document.getElementById("viewUsersButton");
-
-            let DeleteUserForm = document.getElementById("DeleteUserForm");
-
-            viewUsersButton.onclick = function () {
-                fetch("/app/users").then(data => {
-                    if (data.status === 200) {
-                        return data.json()
-                    } else {
-                        return new PromiseRejectionEvent();
-                    }
-                }).catch(err => {
-                    console.error(err);
+        loginUserForm.onsubmit = function (e) {
+            e.preventDefault();
+            let loginEmail = document.getElementById("loginEmail").value,
+                loginPassword = document.getElementById("loginPassword").value;
+            fetch(`app/user`, {
+                method: "GET",
+                headers: new Headers({
+                    'Authorization': 'Basic ' + btoa(loginEmail + ':' + loginPassword),
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 })
-            }
+            }).then(data => {
+                if (data.status === 200) {
+                    return data.json();
+                } else {
+                    return new PromiseRejectionEvent();
+                }
+            }).then(json => {
+                authenticatedUser = json;
+                console.log("Authenticated User : "+authenticatedUser.username);
+            })
 
+        }
 
-            DeleteUserForm.onsubmit = function (e) {
-                e.preventDefault();
-                let deleteEmail = document.getElementById("deleteEmail").value,
-                    deletePassword = document.getElementById("deletePassword").value;
+        DeleteUserForm.onsubmit = function (e) {
+            e.preventDefault();
+            let deleteEmail = document.getElementById("deleteEmail").value,
+                deletePassword = document.getElementById("deletePassword").value;
 
-                fetch("app/user", {
-                    method: "DELETE",
-                    headers: new Headers({
-                        'Authorization': 'Basic ' + btoa(deleteEmail + ':' + deletePassword),
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    })
-                }).then(data => {
-                    if (data.status === 200) {
-                        return data.json();
-                    } else {
-                        return new PromiseRejectionEvent();
-                    }
-                }).then(json => {
-                    console.log(json);
+            fetch("app/user", {
+                method: "DELETE",
+                headers: new Headers({
+                    'Authorization': 'Basic ' + btoa(deleteEmail + ':' + deletePassword),
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 })
+            }).then(data => {
+                if (data.status === 200) {
+                    return data.json();
+                }else{
+                    return new PromiseRejectionEvent();
+                }
+            }).then(json => {
+                console.log(json);
+            })
 
-            }
         }
     </script>
 
