@@ -40,17 +40,14 @@
             <button id="viewUsersButton">View all users</button>
         </form>
     </template>
-
-
-
-
     <script>
-        let authenticatedUser = null;
+        let authenticatedUser=localStorage.getItem("authenticatedUser");
+        console.log(localStorage.getItem("authenticatedUser"));
 
         const USER_ROLE = 1;
 
         (function () {
-            if (authenticatedUser == null) {
+            if (authenticatedUser === 'undefined' && authenticatedUser === null) {
                 displayLoginForm();
             } else {
                 displayApp();
@@ -145,6 +142,7 @@
                 }).then(json => {
                     authenticatedUser = json;
                     localStorage.setItem("authenticatedUser", authenticatedUser);
+                    authenticatedUser=localStorage.getItem("authenticatedUser");
                     console.log("Authenticated User : " + authenticatedUser.username);
                     clearScreen();
                     displayApp();
