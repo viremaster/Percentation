@@ -41,17 +41,14 @@
         </form>
     </template>
     <script>
-        let authenticatedUser=localStorage.getItem("authenticatedUser");
+        let authenticatedUser = localStorage.getItem("authenticatedUser");
         console.log(localStorage.getItem("authenticatedUser"));
 
         const USER_ROLE = 1;
 
         (function () {
-            if (authenticatedUser == 'undefined' && authenticatedUser == null) {
-                displayLoginForm();
-            } else {
-                displayApp();
-            }
+            displayLoginForm();
+
         })()
 
         function addElement(element) {
@@ -140,7 +137,7 @@
                 }).then(json => {
                     authenticatedUser = json;
                     localStorage.setItem("authenticatedUser", authenticatedUser);
-                    authenticatedUser=localStorage.getItem("authenticatedUser");
+                    authenticatedUser = localStorage.getItem("authenticatedUser");
                     console.log("Authenticated User : " + authenticatedUser.username);
                     clearScreen();
                     displayApp();
