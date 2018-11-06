@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body onresize="resizeSlideText()">
 
     <!-- Hele siden faller innenfor denne, den skal i utganspunktet dekke 100% av skjermen-->
     <div class="appContainer" id="appContainer">
@@ -37,31 +37,35 @@
         <!-- Container til toolbar-->
         <div class="toolbar" id="toolbar">
 
+            <!--------->
+            <div id="speakerNotesToolbar">
+                <h2> Slide notes </h2>
+                <hr>
+                <div class="textBox">
+                    <p contenteditable="true">Type notes...</p>
+                </div>
+
+
+            </div>
+
             <div id="textToolbar">
-                <br>
+
                 <h2> Text options</h2>
                 <hr>
                 <div>
                     <p> Font type: </p>
-
                     <select id="fontSelect">
                         <option value="Arial">Arial</option>
                         <option value="Helvetica">Helvetica</option>
                         <option value="Courier">Courier</option>
-
                     </select>
                 </div>
-
                 <div>
                     <p> Font size: </p><input type="range" name="points" min="0" max="20">
-
                 </div>
-             
                 <hr>
                 <h3> Text style:
-
                 </h3>
-
                 <div class="toolbarSection">
                     <img src="Icons/Bold.png" alt="Bold" class="toolbarIcon" id="boldIcon">
                     <img src="Icons/Italic.png" alt="Italic" class="toolbarIcon" id="italicIcon">
@@ -86,13 +90,56 @@
                 <div class="toolbarSection">
                     <img src="Icons/Undo.png" alt="Undo" class="toolbarIcon" id="undoIcon">
                     <img src="Icons/Redo.png" alt="Redo" class="toolbarIcon" id="redoIcon">
-                    <img src="Icons/Add_New.png" alt="Add new texbox" class="toolbarIcon" id="newTextboxIcon">
-                
+                    <img src="Icons/Add_New.png" alt="Add new element" class="toolbarIcon" id="newElementIcon">
+                    <img src="Icons/Delete.png" alt="Remove element" class="toolbarIcon" id="removeElementIcon">
+
+
                 </div>
                 <hr>
             </div>
+            <!--------->
+            <div id="imagesToolbar">
+                <h2> Insert images <br>and video </h2>
+                <hr>
 
 
+
+
+            </div>
+
+            <!--------->
+            <div id="templatesToolbar">
+                <h2> Slide template </h2>
+                <hr>
+
+
+            </div>
+
+            <!--------->
+            <div id="stylesToolbar">
+                <h2> Presentation style </h2>
+                <hr>
+
+
+
+            </div>
+
+            <!--------->
+            <div id="speakerNotesToolbar">
+                <h2> Slide notes </h2>
+                <hr>
+
+
+
+            </div>
+            <!--------->
+            <div id="slideSettingsToolbar">
+                <h2> Slide settings </h2>
+                <hr>
+
+
+
+            </div>
 
         </div>
 
@@ -100,17 +147,17 @@
         <!-- Container til sidemeny-->
         <div class="sideMenu" id="sideMenu">
 
-            <img src="Icons/Text.png" alt="Text editor" class="icon" id="textEditorIcon">
+            <img src="Icons/Text.png" onclick="toolbarChange(this.id)" alt="Text editor" class="icon" id="textEditorIcon">
 
-            <img src="Icons/Image.png" alt="Images and video" class="icon" id="imageIcon">
+            <img src="Icons/Image.png" onclick="toolbarChange(this.id)" alt="Images and video" class="icon" id="imageIcon">
 
-            <img src="Icons/List.png" alt="Templates" class="icon" id="templatesIcon">
+            <img src="Icons/List.png" onclick="toolbarChange(this.id)" alt="Templates" class="icon" id="templatesIcon">
 
-            <img src="Icons/Paint_Palette.png" alt="Styles" class="icon" id="stylesIcon">
+            <img src="Icons/Paint_Palette.png" onclick="toolbarChange(this.id)" alt="Styles" class="icon" id="stylesIcon">
 
-            <img src="Icons/Speaker_Notes.png" alt="Speaker notes" class="icon" id="speakerNotesIcon">
+            <img src="Icons/Speaker_Notes.png" onclick="toolbarChange(this.id)" alt="Speaker notes" class="icon" id="speakerNotesIcon">
 
-            <img src="Icons/Automatic.png" alt="Slide Settings" class="icon" id="slideSettingsIcon">
+            <img src="Icons/Automatic.png" onclick="toolbarChange(this.id)" alt="Slide Settings" class="icon" id="slideSettingsIcon">
 
         </div>
 
@@ -158,18 +205,95 @@
 
 
     </div>
-    
-<script>
-    
-function setImageTitle() {
-    let allImages = document.getElementsByTagName("img");
-    for(i = 0; i < allImages.length; i++){
-    allImages[i].title = allImages[i].alt;
+
+    <script>
+        setImageTitle();
+        resizeSlideText();
+
+        //----------------------Sets the title of all image elements to match the alt text to show tooltips on hover------------------------
+        function setImageTitle() {
+            let allImages = document.getElementsByTagName("img");
+            for (i = 0; i < allImages.length; i++) {
+                allImages[i].title = allImages[i].alt;
+            }
         }
-}
-    
-    setImageTitle();
-</script>
+        
+        //-------------------Simplified document.getElementById-------------------------
+        function get(id) {
+            return document.getElementById(id);
+        }
+
+        
+        
+        //----------Changes the toolbar and styling to match what menu you want ----------------
+        function toolbarChange(event) {
+            let appcontainer = document.getElementById("appContainer");
+            let textToolbar = document.getElementById("textToolbar");
+            let speakerNotesToolbar = document.getElementById("speakerNotesToolbar");
+            let imagesToolbar = document.getElementById("imagesToolbar");
+            let templatesToolbar = document.getElementById("templatesToolbar");
+            let slideSettingsToolbar = document.getElementById("slideSettingsToolbar");
+            let stylesToolbar = document.getElementById("stylesToolbar");
+
+            //-------hiding all Toolbars
+            textToolbar.style.display = "none";
+            speakerNotesToolbar.style.display = "none";
+            imagesToolbar.style.display = "none";
+            templatesToolbar.style.display = "none";
+            slideSettingsToolbar.style.display = "none";
+            stylesToolbar.style.display = "none";
+
+            //------Resetting the size of the toolbar
+            appContainer.style.gridTemplateColumns = "6% 15% 1fr";
+
+            //---Resetting the white overlay on the icons
+            get("textEditorIcon").style.filter = "";
+            get("imageIcon").style.filter = "";
+            get("templatesIcon").style.filter = "";
+            get("stylesIcon").style.filter = "";
+            get("speakerNotesIcon").style.filter = "";
+            get("slideSettingsIcon").style.filter = "";
+
+            get(event).style.filter = "brightness(3)";
+            if (event == "textEditorIcon") {
+                textToolbar.style.display = "block";
+
+            } else if (event == "imageIcon") {
+                imagesToolbar.style.display = "block";
+                appContainer.style.gridTemplateColumns = "6% 20% 1fr";
+
+            } else if (event == "templatesIcon") {
+                templatesToolbar.style.display = "block";
+                appContainer.style.gridTemplateColumns = "6% 18% 1fr";
+
+            } else if (event == "stylesIcon") {
+                stylesToolbar.style.display = "block";
+                appContainer.style.gridTemplateColumns = "6% 21% 1fr";
+
+            } else if (event == "speakerNotesIcon") {
+                speakerNotesToolbar.style.display = "block";
+                appContainer.style.gridTemplateColumns = "6% 30% 1fr";
+
+            } else if (event == "slideSettingsIcon") {
+                slideSettingsToolbar.style.display = "block";
+                appContainer.style.gridTemplateColumns = "6% 16% 1fr";
+
+
+            } else {
+
+            }
+            resizeSlideText();
+        }
+
+
+        //-------------Resizes text in the canvas based on the width of the element. Activates onload, on menuchange and on resize.------------
+        function resizeSlideText() {
+            divWidht = get("currentSlide").offsetWidth;
+            get("currentSlide").style.fontSize = divWidht + "px";
+            console.log(divWidht);
+        }
+
+    </script>
 
 
 </body>
