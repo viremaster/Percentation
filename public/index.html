@@ -47,14 +47,12 @@
         const USER_ROLE = 1;
 
         (function () {
-            if (authenticatedUser === 'undefined' && authenticatedUser === null) {
+            if (authenticatedUser == 'undefined' && authenticatedUser == null) {
                 displayLoginForm();
             } else {
                 displayApp();
             }
         })()
-
-
 
         function addElement(element) {
             let content = document.getElementById("content");
