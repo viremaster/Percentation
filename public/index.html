@@ -4,66 +4,116 @@
 <head>
     <meta charset="UTF-8">
     <title>API user</title>
-
 </head>
 
 <body>
-    <h1>Create User</h1>
-    <form id="createUserForm">
-        <input required type="text" name="name" id="createName" placeholder="Enter your name">
-        <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
-        <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
-        <input required type="submit" value="Create">
-    </form>
+    <template id="createUserTemplate">
+        <h1>Create User</h1>
+        <form id="createUserForm">
+            <input required type="text" name="name" id="createName" placeholder="Enter your name">
+            <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
+            <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
+            <input required type="submit" value="Create">
+        </form>
 
-    <h1>Login User</h1>
+        <button id="goToLoginUserButton">Already a user ?</button>
+    </template>
 
-    <form id="loginUserForm">
-        <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
-        <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
-        <input required type="submit" value="Login">
-    </form>
+    <template id="loginUserTemplate">
+        <h1>Login User</h1>
+        <form id="loginUserForm">
+            <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
+            <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
+            <input required type="submit" value="Login">
+        </form>
+        <button id="goToCreateUserButton">register</button>
+    </template>
 
-    <h1>Delete User</h1>
-    <form id="DeleteUserForm">
-        <input required type="email" name="email" id="deleteEmail" placeholder="Enter your email">
-        <input required type="password" name="password" id="deletePassword" placeholder="Enter your password">
-        <input type="submit" value="Delete">
-    </form>
-
-
-    <button id="viewUsersButton">View all users</button>
-
+    <template id="welcomeTemplate">
+        <h1>Delete User</h1>
+        <form id="DeleteUserForm">
+            <input required type="email" name="email" id="deleteEmail" placeholder="Enter your email">
+            <input required type="password" name="password" id="deletePassword" placeholder="Enter your password">
+            <input type="submit" value="Delete">
+        </form>
+        <button id="disconnectButton">Disconnect</button>
+    </template>
+    <div id="content">
+    </div>
     <script>
-        let createUserForm = document.getElementById('createUserForm');
+        let authenticatedUser = localStorage.getItem("authenticatedUser");
 
-        let loginUserForm = document.getElementById("loginUserForm");
+        let createUserTemplate = get("createUserTemplate"),
+            welcomeTemplate = get("welcomeTemplate");
 
-        let viewUsersButton = document.getElementById("viewUsersButton");
+        (function () {
+            if (authenticatedUser === 'undefined' || authenticatedUser === null) {
+                //Display the login template
+                displayLoginForm();
+            } else {
+                //Display the welcome template
+                displayWelcomeTemplate();
+            }
+        })()
 
-        let DeleteUserForm = document.getElementById("DeleteUserForm");
 
-        viewUsersButton.onclick = function () {
-            fetch("/app/users").then(data => {
-                if (data.status === 200) {
-                    return data.json()
-                } else {
-                    return new PromiseRejectionEvent();
-                }
-            }).catch(err => {
-                console.error(err);
-            })
+        function displayLoginForm() {
+            let loginElement = createElementFromTemplate("loginUserTemplate");
+            addElement(loginElement);
+
+            let goToCreateUserButton = get("goToCreateUserButton");
+            goToCreateUserButton.onclick = function () {
+                clearScreen();
+                displayCreateUserForm();
+            }
+            let loginUserForm = get("loginUserForm");
+            loginUserForm.onsubmit = function (e) {
+                e.preventDefault();
+                let loginEmail = get("loginEmail").value,
+                    loginPassword = get("loginPassword").value;
+                fetch(`app/user`, {
+                    method: "GET",
+                    headers: new Headers({
+                        'Authorization': 'Basic ' + btoa(loginEmail + ':' + loginPassword),
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    })
+                }).then(data => {
+                    if (data.status === 200) {
+                        return data.json();
+                    } else {
+                        alert("This account does no exists")
+                        return new PromiseRejectionEvent();
+                    }
+                }).then(json => {
+                    authenticatedUser = json;
+                    localStorage.setItem("authenticatedUser", authenticatedUser.username);
+                    clearScreen();
+                    displayWelcomeTemplate();
+                })
+            }
         }
 
-        createUserForm.onsubmit = function (e) {
-            e.preventDefault();
-            let createEmail = document.getElementById('createEmail'),
-                createName = document.getElementById('createName'),
-                createPassword = document.getElementById('createPassword');
-            fetch('/app/user', {
+        function displayCreateUserForm() {
+            let createUserElement = createElementFromTemplate("createUserTemplate");
+            addElement(createUserElement);
+
+            let goToLoginUserButton = get("goToLoginUserButton");
+
+            goToLoginUserButton.onclick = function () {
+                clearScreen();
+                displayLoginForm();
+            }
+
+            let createUserForm = get("createUserForm");
+            createUserForm.onsubmit = function (e) {
+                e.preventDefault();
+                let createEmail = document.getElementById('createEmail'),
+                    createName = document.getElementById('createName'),
+                    createPassword = document.getElementById('createPassword');
+                fetch('/app/user', {
                     method: 'POST',
                     headers: {
-                        "accept": "*/*",
+                        'accept': '*/*',
                         'content-type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -72,58 +122,100 @@
                         email: createEmail.value
                     })
                 }).then(function (res) {
-                    return res.json();
-                })
-                .then(function (data) {
+                    console.log(res);
+                    if (res.status == 200) {
+                        clearScreen();
+                        displayLoginForm();
+                        return data.json();
+                    } else {
+                        alert("This email or username already exists")
+                        return new PromiseRejectionEvent();
+                    }
+                }).then(function (data) {
                     console.log(data);
-                });
+                })
+            }
         }
 
-        loginUserForm.onsubmit = function (e) {
-            e.preventDefault();
-            let loginEmail = document.getElementById("loginEmail").value,
-                loginPassword = document.getElementById("loginPassword").value;
-            fetch(`app/user`, {
-                method: "GET",
-                headers: new Headers({
-                    'Authorization': 'Basic ' + btoa(loginEmail + ':' + loginPassword),
-                    'Content-Type': 'application/x-www-form-urlencoded'
+        function displayWelcomeTemplate() {
+            let welcomeElement = createElementFromTemplate("welcomeTemplate");
+
+            let welcome = document.createElement("p");
+            welcome.innerHTML = "Welcome : " + localStorage.getItem("authenticatedUser");
+
+            addElement(welcome);
+            addElement(welcomeElement);
+
+            let DeleteUserForm = get("DeleteUserForm");
+            let disconnectButton=get("disconnectButton");
+
+            disconnectButton.onclick=function () {
+                localStorage.removeItem("authenticatedUser");
+                clearScreen();
+                displayLoginForm();
+
+            }
+
+            DeleteUserForm.onsubmit = function (e) {
+                e.preventDefault();
+                let deleteEmail = document.getElementById("deleteEmail").value,
+                    deletePassword = document.getElementById("deletePassword").value;
+
+                fetch("app/user", {
+                    method: "DELETE",
+                    headers: new Headers({
+                        'Authorization': 'Basic ' + btoa(deleteEmail + ':' + deletePassword),
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    })
+                }).then(data => {
+                    if (data.status === 200) {
+                        localStorage.removeItem("authenticatedUser");
+                        clearScreen()
+                        displayLoginForm()
+                        return data.json();
+                    } else {
+                        alert("wrong email or password")
+                        return new PromiseRejectionEvent();
+                    }
+                }).then(json => {
+                    console.log(json);
                 })
-            }).then(data => {
-                if (data.status === 200) {
-                    return data.json();
+            }
+        }
+
+        function createElementFromTemplate(templateID) {
+            let template = document.querySelector(templateID);
+            let clone = document.importNode(template.content, true);
+            return clone;
+        }
+
+        function get(id) {
+            return document.getElementById(id);
+        }
+
+        function createElementFromTemplate(templateID) {
+            let template = get(templateID);
+            let clone = document.importNode(template.content, true);
+            return clone;
+        }
+
+        function addElement(element) {
+            let content = get("content");
+            if (content) {
+                if (element) {
+                    content.appendChild(element);
                 } else {
-                    return new PromiseRejectionEvent();
+                    console.error(new Error(`The element is empty`))
                 }
-            }).then(json => {
-                authenticatedUser = json;
-                console.log("Authenticated User : "+authenticatedUser.username);
-            })
-
+            } else {
+                console.error(new Error(`There is no content element in the document`))
+            }
         }
 
-        DeleteUserForm.onsubmit = function (e) {
-            e.preventDefault();
-            let deleteEmail = document.getElementById("deleteEmail").value,
-                deletePassword = document.getElementById("deletePassword").value;
-
-            fetch("app/user", {
-                method: "DELETE",
-                headers: new Headers({
-                    'Authorization': 'Basic ' + btoa(deleteEmail + ':' + deletePassword),
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            }).then(data => {
-                if (data.status === 200) {
-                    return data.json();
-                }else{
-                    return new PromiseRejectionEvent();
-                }
-            }).then(json => {
-                console.log(json);
-            })
-
+        function clearScreen() {
+            get("content").innerHTML = "";
         }
+
     </script>
 
 </body>
