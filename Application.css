@@ -1,3 +1,4 @@
+/*---Overall formatting----*/
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +15,28 @@ body {
     padding: 0;
 }
 
+/*------------Scrollbar !!!Does not work on firefox!!!----------------*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #3a474b;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/*-----------General formatting--------------*/
 hr {
 
     height: 1px;
@@ -34,8 +57,6 @@ h1 {
     position: absolute;
     text-align: center;
     font-size: 1vw;
-
-
 }
 
 h3 {
@@ -58,7 +79,6 @@ div > select {
     top: 20%;
     font-size: 1vw;
     height: 1.6vw;
-
 }
 
 div > input {
@@ -71,30 +91,26 @@ div > input {
     margin: 5%;
 }
 
-.textBox{
-    
-    position: absolute;
-    background-color: white;
-    border: solid 1px black;
-    height: 70%;
-    top: 14%;
-    max-height: 70%;
-    width: 70%;
+button {
+    position: relative;
+    background-color: #5596BE;
+    border: none;
+    color: white;
+    padding: 3%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10%;
+    cursor: pointer;
+    font-size: 1vw;
     font-family: sans-serif;
-    overflow: none;
-    left:15%;
 }
-.textBox>p{ 
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: vertical;
-    overflow-y: scroll;
-    
+button:hover{
+     text-decoration: underline;
+    filter:brightness(0.8);
 }
 
-
-/*--------------------------Containers------------------------------------------------*/
+/*--------------------------Main containers------------------------------------------------*/
 
 .appContainer {
     box-sizing: border-box;
@@ -172,27 +188,9 @@ div > input {
 
 }
 
-/*-------------------------------------Tweaks------------------------------------------*/
 
-#fileName {
-    position: sticky;
-    margin: 1%;
-    padding: 0%;
-    left: 55%;
-    text-align: center;
-    font-size: 1.5vw;
 
-}
-
-#slideNumber {
-    position: absolute;
-    font-size: 1vw;
-    bottom: 1%;
-    left: 1%;
-    color: lightslategray;
-}
-
-/*------------------------------Icons--------------------------------------------------*/
+/*------------------------------Icons, general--------------------------------------------------*/
 .topIcon {
     height: 60%;
     width: auto;
@@ -200,8 +198,8 @@ div > input {
 
 }
 
-#textEditorIcon{
-     filter: brightness(3);
+#textEditorIcon {
+    filter: brightness(3);
 }
 
 .topIcon:hover {
@@ -212,23 +210,6 @@ div > input {
     font-weight: bold;
 }
 
-#fullscreenIcon {
-    padding: 0.5%;
-    position: absolute;
-    bottom: 1%;
-    right: 0.5%;
-    height: auto;
-    width: 3%;
-    border: 1px solid #5596BE;
-
-}
-
-#fullscreenIcon:hover {
-    filter: brightness(3);
-    border: 1px solid white;
-    width: 3.5%;
-    transition: width 0.1s;
-}
 
 .toolbarIcon {
     height: 3vw;
@@ -254,6 +235,7 @@ div > input {
 
 }
 
+/*!!! MOVE TO TOPBAR AREA*/
 #settingsIcon {
     position: sticky;
     left: 96%;
@@ -287,7 +269,226 @@ div > input {
 
 }
 
+/*----------------------TopBar----------------------------*/
+#fileName {
+    position: sticky;
+    margin: 1%;
+    padding: 0%;
+    left: 55%;
+    text-align: center;
+    font-size: 1.5vw;
 
+}
+
+/*------------------------------------- WorkArea------------------------------------------*/
+
+
+
+#slideNumber {
+    position: absolute;
+    font-size: 1vw;
+    bottom: 1%;
+    left: 1%;
+    color: lightslategray;
+}
+
+#fullscreenIcon {
+    padding: 0.5%;
+    position: absolute;
+    bottom: 1%;
+    right: 0.5%;
+    height: auto;
+    width: 3%;
+    border: 1px solid #5596BE;
+
+}
+
+#fullscreenIcon:hover {
+    filter: brightness(3);
+    border: 1px solid white;
+    width: 3.5%;
+    transition: width 0.1s;
+}
+
+
+
+/*-----------------------Slidepreview--------------------*/
+.numberedSlides {
+    position: absolute;
+    width: 100vw;
+    padding: 0 3.5% 0 3.5%;
+    top: 82%;
+
+}
+
+
+
+/*-------------------------------Toolbar-----------------------------*/
+
+.toolbar > div {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
+
+.toolbar h2 {
+    font-size: 2vw;
+    margin: 2vh 0 2vh 0;
+    padding: 0;
+
+}
+
+.toolbar p {
+    position: relative;
+    text-align: left;
+    padding: 3%;
+    font-size: 1.1vw;
+}
+
+.toolbar h3 {
+    position: relative;
+}
+
+/*-----TextToolbar----*/
+#textToolbar {
+    display: block;
+}
+
+/*------Dropdown---------*/
+
+
+/*--Div containing the button and all elements--*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/*--The menu itself--*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #3a474b;
+    min-width: 300%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    left: 99%;
+    top: -70%;
+
+}
+
+/*--The links within the menu--*/
+.dropdown-content a {
+    font-size: 1vw;
+    color: lightslategray;
+    padding: 5%;
+    text-decoration: none;
+    display: block;
+    border-top: 1px solid transparent;
+}
+
+.dropdown-content a:hover {
+    background-color: #354044;
+    border: 1px solid lightslategray;
+}
+
+.dropdown:hover .dropdown-content {
+    display: inline-block;
+
+}
+
+/*-----ImagesToolbar-----*/
+
+/*-----TemplatesToolbar----*/
+
+#templatesToolbar {
+    overflow: auto;
+    height: 79vh;
+}
+
+#templatesToolbar img {
+    width: 40%;
+    height: auto;
+}
+
+#templatesToolbar h2 {
+    font-size: 1.8vw;
+}
+
+/*-----StylesToolbar-----*/
+#stylesToolbar {
+    overflow: auto;
+    height: 79vh;
+    position: absolute;
+
+}
+
+#stylesToolbar hr {
+    margin: 5% 0 5% 0;
+    padding: 0;
+    position: relative;
+    left: 5%;
+    width: 90%;
+
+}
+
+#stylesToolbar h2 {
+    font-size: 1.6vw;
+}
+
+.themeThumbnail {
+    position: relative;
+    width: 70%;
+    border-top: 1px solid transparent;
+
+}
+
+.themeThumbnail:hover {
+    filter: brightness(1.05);
+    border: solid 1px black;
+}
+
+/*-----SpeakerNotesToolbar----*/
+
+.textBox {
+
+    position: absolute;
+    background-color: white;
+    border: solid 1px black;
+    height: 70%;
+    top: 14%;
+    max-height: 70%;
+    width: 80%;
+    font-family: sans-serif;
+    overflow: none;
+    left: 10%;
+}
+
+.textBox > p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: vertical;
+    overflow-y: auto;
+
+}
+#speakerNotesToolbar button{
+    position: absolute;
+    left: 11%;
+    top:86%;
+    top:86%;
+    
+}
+/*-----SlideSettingsToolbar----*/
+
+
+/*-------------------------------------Templates---------------------------------------------*/
+
+
+/*-------TitleTemplate--------*/
 .titleTemplate {
     font-size: inherit;
     position: absolute;
@@ -298,7 +499,7 @@ div > input {
 
 
 .titleTemplate > h1 {
-    
+
     font-family: sans-serif;
     border: 1px dotted gray;
     font-size: 12%;
@@ -316,44 +517,3 @@ div > input {
     font-size: 8%;
     padding: 1% 0 1% 0;
 }
-
-.numberedSlides {
-    position: absolute;
-    width: 100vw;
-    padding: 0 3.5% 0 3.5%;
-    top: 82%;
-
-}
-
-.toolbar > div {
-    display: none;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-
-}
-
-.toolbar h2 {
-    font-size: 2vw;
-    margin: 2vh 0 2vh 0;
-    padding:0;
-
-}
-
-.toolbar p {
-    position: relative;
-    text-align: left;
-    padding: 3%;
-    font-size: 1.1vw;
-}
-
-.toolbar h3 {
-    position: relative;
-}
-
-#textToolbar {
-    display: block;
-}
-

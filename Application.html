@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-
+    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 
     <link rel="stylesheet" href="Application.css">
@@ -39,13 +39,14 @@
 
             <!--------->
             <div id="speakerNotesToolbar">
-                <h2> Slide notes </h2>
+                <h2> Slide notes</h2>
                 <hr>
                 <div class="textBox">
                     <p contenteditable="true">Type notes...</p>
+                 
                 </div>
-
-
+                <button id="exportSpeakerNotes">Export</button>
+                
             </div>
 
             <div id="textToolbar">
@@ -55,9 +56,7 @@
                 <div>
                     <p> Font type: </p>
                     <select id="fontSelect">
-                        <option value="Arial">Arial</option>
-                        <option value="Helvetica">Helvetica</option>
-                        <option value="Courier">Courier</option>
+
                     </select>
                 </div>
                 <div>
@@ -90,7 +89,19 @@
                 <div class="toolbarSection">
                     <img src="Icons/Undo.png" alt="Undo" class="toolbarIcon" id="undoIcon">
                     <img src="Icons/Redo.png" alt="Redo" class="toolbarIcon" id="redoIcon">
-                    <img src="Icons/Add_New.png" alt="Add new element" class="toolbarIcon" id="newElementIcon">
+
+                    <div class="dropdown">
+                        <img src="Icons/Add_New.png" alt="Add new element" class="toolbarIcon" id="newElementIcon">
+                        <div class="dropdown-content">
+                            <a href="#">Add new title</a>
+                            <a href="#">Add new text</a>
+                            <a href="#">Add new unordered list</a>
+                            <a href="#">Add new numbered list</a>
+                        </div>
+                    </div>
+
+
+
                     <img src="Icons/Delete.png" alt="Remove element" class="toolbarIcon" id="removeElementIcon">
 
 
@@ -99,9 +110,11 @@
             </div>
             <!--------->
             <div id="imagesToolbar">
-                <h2> Insert images <br>and video </h2>
+                <h2> Insert images, <br>video and sound </h2>
                 <hr>
-
+                <p>Option for adding an image, drag and drop/upload</p>
+                <p>Option for uploading video, embedded youtubelink</p>
+                <p>Option for adding sound</p>
 
 
 
@@ -109,33 +122,43 @@
 
             <!--------->
             <div id="templatesToolbar">
-                <h2> Slide template </h2>
+                <h2> Slide templates </h2>
                 <hr>
-
+                <img class="toolbarIcon" alt="Title template" src="Icons/Template_Title.png">
+                <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png">
+                <img class="toolbarIcon" alt="Text template" src="Icons/Template_Text.png">
+                <img class="toolbarIcon" alt="List template" src="Icons/Template_List.png">
+                <img class="toolbarIcon" alt="Text template with two textboxes" src="Icons/Template_Doubletext.png">
+                <img class="toolbarIcon" alt="List template with textbox" src="Icons/Template_ListandText.png">
 
             </div>
 
             <!--------->
             <div id="stylesToolbar">
-                <h2> Presentation style </h2>
+                <h2> Presentation theme </h2>
                 <hr>
-
-
+                <img class="themeThumbnail" alt="Pastell geometric theme" src="Themes/PastellGeometric.jpg">
+                <hr>
+                <img class="themeThumbnail" alt="Blueprint theme" src="Themes/Blueprint.jpg">
+                <hr>
+                <img class="themeThumbnail" alt="Concrete theme" src="Themes/ColdIndustrial.jpg">
+                <hr>
+                <img class="themeThumbnail" alt="Gentle theme" src="Themes/GentleMorning.jpg">
+                <hr>
+                <img class="themeThumbnail" alt="Geometric theme" src="Themes/Geometric.jpg">
+     <p></p>
+               
 
             </div>
 
-            <!--------->
-            <div id="speakerNotesToolbar">
-                <h2> Slide notes </h2>
-                <hr>
 
 
-
-            </div>
             <!--------->
             <div id="slideSettingsToolbar">
                 <h2> Slide settings </h2>
                 <hr>
+                <p>Timed sliders</p>
+                <p>Options for how things are viewed in presentation? like phone and stuff</p>
 
 
 
@@ -167,6 +190,7 @@
 
             <div id="newSlide">
                 <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
+
             </div>
 
             <aside class="numberedSlides" id="numberedSlides">
@@ -217,14 +241,14 @@
                 allImages[i].title = allImages[i].alt;
             }
         }
-        
+
         //-------------------Simplified document.getElementById-------------------------
         function get(id) {
             return document.getElementById(id);
         }
 
-        
-        
+
+
         //----------Changes the toolbar and styling to match what menu you want ----------------
         function toolbarChange(event) {
             let appcontainer = document.getElementById("appContainer");
@@ -272,7 +296,7 @@
 
             } else if (event == "speakerNotesIcon") {
                 speakerNotesToolbar.style.display = "block";
-                appContainer.style.gridTemplateColumns = "6% 30% 1fr";
+                appContainer.style.gridTemplateColumns = "6% 25% 1fr";
 
             } else if (event == "slideSettingsIcon") {
                 slideSettingsToolbar.style.display = "block";
@@ -293,6 +317,16 @@
             console.log(divWidht);
         }
 
+
+        //-----------------------------Add fonts to the select menu!---------------------------------
+        let fonts = ["Arial", "Helvetica", "Times New Roman", "Times", "Courier", "Courier New", "Verdana", "Georgia", "Garamond", "Bookman", "Palatino", "Comic Sans MS", "Trebuchet MS", "Arial Black", "Impact", "Montez", "Lobster", "Josefin Sans", "Shadows Into Light", "Pacifico", "Amatic SC", "Orbitron", "Rokkitt", "Righteous", "Dancing Script", "Bangers", "Chewy", "Sigmar One", "Architects Daughter", "Abril Fatface", "Covered By Your Grace", "Kaushan Script", "Gloria Hallelujah", "Satisfy", "Lobster Two", "Comfortaa", "Cinzel", "Courgette"];
+        let fontSelect = document.getElementById("fontSelect");
+        for (let i = 0; i < fonts.length; i++) {
+            var fontOption = document.createElement('option');
+            fontOption.value = fontOption.innerHTML = fonts[i];
+            fontOption.style.fontFamily = fonts[i];
+            fontSelect.add(fontOption);
+        }
     </script>
 
 
