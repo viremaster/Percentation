@@ -30,13 +30,20 @@
     </template>
 
     <template id="welcomeTemplate">
-        <h1>Delete User</h1>
-        <form id="DeleteUserForm">
-            <input required type="email" name="email" id="deleteEmail" placeholder="Enter your email">
-            <input required type="password" name="password" id="deletePassword" placeholder="Enter your password">
-            <input type="submit" value="Delete">
-        </form>
+        <button id="btnDeleteAccount">Delete my account</button>
         <button id="disconnectButton">Disconnect</button>
+        <form id="updateUserForm">
+            <label>
+                Old Password :
+                <input required id="oldPasswordInput" type="password">
+            </label>
+            <label>
+                New Password :
+                <input required id="newPasswordInput" type="password">
+            </label>
+            <input type="submit" value="Change password">
+        </form>
+
     </template>
     <div id="content">
     </div>
@@ -56,7 +63,6 @@
                 displayWelcomeTemplate();
             }
         })()
-
 
         function displayLoginForm() {
             let loginElement = createElementFromTemplate("loginUserTemplate");
@@ -87,7 +93,7 @@
                     }
                 }).then(json => {
                     authenticatedUser = json.authenticatedUser;
-                    token=json.token;
+                    token = json.token;
                     console.log(token);
                     localStorage.setItem("token", token);
                     localStorage.setItem("authenticatedUser", authenticatedUser.username);
@@ -150,31 +156,50 @@
             addElement(welcome);
             addElement(welcomeElement);
 
-            let DeleteUserForm = get("DeleteUserForm");
-            let disconnectButton=get("disconnectButton");
+            let btnDeleteAccount = get("btnDeleteAccount");
+            let disconnectButton = get("disconnectButton");
+            let updateUserForm = get("updateUserForm");
 
-            disconnectButton.onclick=function () {
+            updateUserForm.onsubmit = function (e) {
+                e.preventDefault();
+                fetch("/app/user", {
+                    method: 'PUT',
+                    headers: new Headers({
+                        'x-access-token': btoa(localStorage.getItem("token")),
+                        'Authorization': 'Basic ' + btoa(get("oldPasswordInput").value + ':' + get("newPasswordInput").value),
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    })
+                }).then(data => {
+                    if (data.status == 200) {
+                        alert("Your password has been changed !");
+                        return data.json();
+                    } else {
+                        alert("Wrong old password");
+                        return new PromiseRejectionEvent();
+                    }
+                }).then(json => {
+                    console.log(json);
+                })
+            }
+
+            disconnectButton.onclick = function () {
                 localStorage.removeItem("authenticatedUser");
                 localStorage.removeItem("token");
                 clearScreen();
                 displayLoginForm();
-
             }
 
-            DeleteUserForm.onsubmit = function (e) {
-                e.preventDefault();
-                let deleteEmail = document.getElementById("deleteEmail").value,
-                    deletePassword = document.getElementById("deletePassword").value;
-
+            btnDeleteAccount.onclick = function (e) {
                 fetch("app/user", {
                     method: "DELETE",
                     headers: new Headers({
-                        'Authorization': 'Basic ' + btoa(deleteEmail + ':' + deletePassword),
+                        'x-access-token': btoa(localStorage.getItem("token")),
                         'Content-Type': 'application/x-www-form-urlencoded'
                     })
                 }).then(data => {
                     if (data.status === 200) {
                         localStorage.removeItem("authenticatedUser");
+                        localStorage.removeItem("token");
                         clearScreen()
                         displayLoginForm()
                         return data.json();
@@ -220,7 +245,6 @@
         function clearScreen() {
             get("content").innerHTML = "";
         }
-
     </script>
 
 </body>
