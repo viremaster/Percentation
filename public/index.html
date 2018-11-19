@@ -26,7 +26,7 @@
             <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
             <input required type="submit" value="Login">
         </form>
-        <button id="goToCreateUserButton">register</button>
+        <button id="goToCreateUserButton">Create an account</button>
     </template>
 
     <template id="welcomeTemplate">
@@ -42,12 +42,13 @@
     </div>
     <script>
         let authenticatedUser = localStorage.getItem("authenticatedUser");
+        let token = localStorage.getItem("token")
 
         let createUserTemplate = get("createUserTemplate"),
             welcomeTemplate = get("welcomeTemplate");
 
         (function () {
-            if (authenticatedUser === 'undefined' || authenticatedUser === null) {
+            if (token === 'undefined' || token === null) {
                 //Display the login template
                 displayLoginForm();
             } else {
@@ -81,11 +82,14 @@
                     if (data.status === 200) {
                         return data.json();
                     } else {
-                        alert("This account does no exists")
+                        alert("Wrong email or password")
                         return new PromiseRejectionEvent();
                     }
                 }).then(json => {
-                    authenticatedUser = json;
+                    authenticatedUser = json.authenticatedUser;
+                    token=json.token;
+                    console.log(token);
+                    localStorage.setItem("token", token);
                     localStorage.setItem("authenticatedUser", authenticatedUser.username);
                     clearScreen();
                     displayWelcomeTemplate();
@@ -151,6 +155,7 @@
 
             disconnectButton.onclick=function () {
                 localStorage.removeItem("authenticatedUser");
+                localStorage.removeItem("token");
                 clearScreen();
                 displayLoginForm();
 

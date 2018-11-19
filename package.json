@@ -5,12 +5,14 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.16.4",
-    "pg": "^7.5.0"
+    "jsonwebtoken": "^8.4.0",
+    "pg": "^7.5.0",
+    "bcrypt": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node app.js" 
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
