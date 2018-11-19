@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box !important;
     max-height: 100vh !important;
-
+    background-size: 100% 100%;
 }
 
 body {
@@ -105,9 +105,10 @@ button {
     font-size: 1vw;
     font-family: sans-serif;
 }
-button:hover{
-     text-decoration: underline;
-    filter:brightness(0.8);
+
+button:hover {
+    text-decoration: underline;
+    filter: brightness(0.8);
 }
 
 /*--------------------------Main containers------------------------------------------------*/
@@ -184,7 +185,8 @@ button:hover{
     width: 80%;
     padding-bottom: 45%;
     box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
-
+    font-family: sans-serif;
+    color: #555555;
 
 }
 
@@ -198,9 +200,6 @@ button:hover{
 
 }
 
-#textEditorIcon {
-    filter: brightness(3);
-}
 
 .topIcon:hover {
     filter: brightness(3);
@@ -208,6 +207,8 @@ button:hover{
 
 #logo {
     font-weight: bold;
+    position: absolute;
+    left: 8%;
 }
 
 
@@ -235,12 +236,6 @@ button:hover{
 
 }
 
-/*!!! MOVE TO TOPBAR AREA*/
-#settingsIcon {
-    position: sticky;
-    left: 96%;
-
-}
 
 .toolbarSection {
     justify-content: center;
@@ -277,6 +272,26 @@ button:hover{
     left: 55%;
     text-align: center;
     font-size: 1.5vw;
+
+}
+
+/*Specific positions for icons in the top right*/
+
+#settingsIcon {
+    position: sticky;
+    left: 96%;
+
+}
+
+#saveIcon {
+    position: sticky;
+    left: 93.1%;
+
+}
+
+#shareIcon {
+    position: sticky;
+    left: 90%;
 
 }
 
@@ -376,7 +391,7 @@ button:hover{
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     left: 99%;
-    top: -70%;
+    top: -50%;
 
 }
 
@@ -448,7 +463,7 @@ button:hover{
 
 .themeThumbnail:hover {
     filter: brightness(1.05);
-    border: solid 1px black;
+    */ border: solid 1px black;
 }
 
 /*-----SpeakerNotesToolbar----*/
@@ -475,13 +490,15 @@ button:hover{
     overflow-y: auto;
 
 }
-#speakerNotesToolbar button{
+
+#speakerNotesToolbar button {
     position: absolute;
     left: 11%;
-    top:86%;
-    top:86%;
-    
+    top: 86%;
+    top: 86%;
+
 }
+
 /*-----SlideSettingsToolbar----*/
 
 
@@ -500,8 +517,8 @@ button:hover{
 
 .titleTemplate > h1 {
 
-    font-family: sans-serif;
-    border: 1px dotted gray;
+
+    /*  border: 1px dotted gray;*/
     font-size: 12%;
     top: 25%;
     width: 100%;
@@ -509,11 +526,11 @@ button:hover{
 }
 
 .titleTemplate > h3 {
-    font-family: sans-serif;
+
     position: absolute;
     top: 60%;
     width: 100%;
-    border: 1px dotted gray;
+    /*  border: 1px dotted gray;*/
     font-size: 8%;
     padding: 1% 0 1% 0;
 }

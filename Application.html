@@ -6,15 +6,15 @@
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-
     <link rel="stylesheet" href="Application.css">
+ 
     <title>
     </title>
 
 
 </head>
 
-<body onresize="resizeSlideText()">
+<body onresize="resizeSlideText()" onload="loadScripts()">
 
     <!-- Hele siden faller innenfor denne, den skal i utganspunktet dekke 100% av skjermen-->
     <div class="appContainer" id="appContainer">
@@ -22,9 +22,11 @@
         <!-- Container til workarea, med en egen til selve sliden sentrert inni-->
         <div class="workArea" id="workArea">
             <p id="slideNumber">Slide 1 / 1</p>
-            <img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon">
+            <img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation()">
 
             <div class="currentSlide" id="currentSlide">
+
+                <!-----Slide container here----->
                 <div class="titleTemplate" id="titleTemplate">
                     <h1 contenteditable="true"> Insert title here:</h1>
                     <h3 contenteditable="true"> Insert subtitle here:</h3>
@@ -43,10 +45,10 @@
                 <hr>
                 <div class="textBox">
                     <p contenteditable="true">Type notes...</p>
-                 
+
                 </div>
                 <button id="exportSpeakerNotes">Export</button>
-                
+
             </div>
 
             <div id="textToolbar">
@@ -96,12 +98,9 @@
                             <a href="#">Add new title</a>
                             <a href="#">Add new text</a>
                             <a href="#">Add new unordered list</a>
-                            <a href="#">Add new numbered list</a>
+
                         </div>
                     </div>
-
-
-
                     <img src="Icons/Delete.png" alt="Remove element" class="toolbarIcon" id="removeElementIcon">
 
 
@@ -115,8 +114,6 @@
                 <p>Option for adding an image, drag and drop/upload</p>
                 <p>Option for uploading video, embedded youtubelink</p>
                 <p>Option for adding sound</p>
-
-
 
             </div>
 
@@ -134,90 +131,64 @@
             </div>
 
             <!--------->
-            <div id="stylesToolbar">
+            <div id="stylesToolbar" onclick="changeTheme(event)">
                 <h2> Presentation theme </h2>
                 <hr>
-                <img class="themeThumbnail" alt="Pastell geometric theme" src="Themes/PastellGeometric.jpg">
+                <img id="Theme1" class="themeThumbnail" alt="Pastell geometric theme" src="Themes/PastellGeometric.jpg">
                 <hr>
-                <img class="themeThumbnail" alt="Blueprint theme" src="Themes/Blueprint.jpg">
+                <img id="Theme2" class="themeThumbnail" alt="Blueprint theme" src="Themes/Blueprint.jpg">
                 <hr>
-                <img class="themeThumbnail" alt="Concrete theme" src="Themes/ColdIndustrial.jpg">
+                <img id="Theme3" class="themeThumbnail" alt="Concrete theme" src="Themes/ColdIndustrial.jpg">
                 <hr>
-                <img class="themeThumbnail" alt="Gentle theme" src="Themes/GentleMorning.jpg">
+                <img id="Theme4" class="themeThumbnail" alt="Gentle theme" src="Themes/GentleMorning.jpg">
                 <hr>
-                <img class="themeThumbnail" alt="Geometric theme" src="Themes/Geometric.jpg">
-     <p></p>
-               
-
+                <img id="Theme5" class="themeThumbnail" alt="Geometric theme" src="Themes/Geometric.jpg">
+                <hr>
+                <img id="Theme0" class="themeThumbnail" alt="Blank theme" src="Themes/Blank.jpg">
+                <p></p>
             </div>
-
-
-
             <!--------->
             <div id="slideSettingsToolbar">
                 <h2> Slide settings </h2>
                 <hr>
                 <p>Timed sliders</p>
                 <p>Options for how things are viewed in presentation? like phone and stuff</p>
-
-
-
             </div>
-
         </div>
 
 
         <!-- Container til sidemeny-->
         <div class="sideMenu" id="sideMenu">
-
             <img src="Icons/Text.png" onclick="toolbarChange(this.id)" alt="Text editor" class="icon" id="textEditorIcon">
-
             <img src="Icons/Image.png" onclick="toolbarChange(this.id)" alt="Images and video" class="icon" id="imageIcon">
-
             <img src="Icons/List.png" onclick="toolbarChange(this.id)" alt="Templates" class="icon" id="templatesIcon">
-
             <img src="Icons/Paint_Palette.png" onclick="toolbarChange(this.id)" alt="Styles" class="icon" id="stylesIcon">
-
             <img src="Icons/Speaker_Notes.png" onclick="toolbarChange(this.id)" alt="Speaker notes" class="icon" id="speakerNotesIcon">
-
-            <img src="Icons/Automatic.png" onclick="toolbarChange(this.id)" alt="Slide Settings" class="icon" id="slideSettingsIcon">
+            <img src="Icons/Timer.png" onclick="toolbarChange(this.id)" alt="Slide Settings" class="icon" id="slideSettingsIcon">
 
         </div>
 
 
         <!-- Container til slidevelger som kan scrolles left and right-->
         <div class="slidePreview" id="slidePreview">
-
             <div id="newSlide">
                 <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
-
             </div>
-
             <aside class="numberedSlides" id="numberedSlides">
                 <p>New slide<p>
-
             </aside>
 
-
-
         </div>
-
 
         <!-- Container til toppmeny, 100 bredde plassert i toppen -->
         <div class="topMenu" id="topMenu">
 
             <img src="Icons/Back.png" alt="Back to your presentations" class="topIcon" id="BackIcon">
             <h3 id="logo">Percentation</h3>
-
-            <img src="Icons/Menu.png" alt="Presentation menu" class="topIcon" id="menuIcon">
-
-            <img src="Icons/Fil.png" alt="New file" class="topIcon" id="newFileIcon">
-
+            <p id="fileName">untitled1</p>
             <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
 
             <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
-
-            <p id="fileName">untitled1</p>
 
             <img src="Icons/Support.png" alt="Presentation settings" class="topIcon" id="settingsIcon">
 
@@ -230,106 +201,7 @@
 
     </div>
 
-    <script>
-        setImageTitle();
-        resizeSlideText();
-
-        //----------------------Sets the title of all image elements to match the alt text to show tooltips on hover------------------------
-        function setImageTitle() {
-            let allImages = document.getElementsByTagName("img");
-            for (i = 0; i < allImages.length; i++) {
-                allImages[i].title = allImages[i].alt;
-            }
-        }
-
-        //-------------------Simplified document.getElementById-------------------------
-        function get(id) {
-            return document.getElementById(id);
-        }
-
-
-
-        //----------Changes the toolbar and styling to match what menu you want ----------------
-        function toolbarChange(event) {
-            let appcontainer = document.getElementById("appContainer");
-            let textToolbar = document.getElementById("textToolbar");
-            let speakerNotesToolbar = document.getElementById("speakerNotesToolbar");
-            let imagesToolbar = document.getElementById("imagesToolbar");
-            let templatesToolbar = document.getElementById("templatesToolbar");
-            let slideSettingsToolbar = document.getElementById("slideSettingsToolbar");
-            let stylesToolbar = document.getElementById("stylesToolbar");
-
-            //-------hiding all Toolbars
-            textToolbar.style.display = "none";
-            speakerNotesToolbar.style.display = "none";
-            imagesToolbar.style.display = "none";
-            templatesToolbar.style.display = "none";
-            slideSettingsToolbar.style.display = "none";
-            stylesToolbar.style.display = "none";
-
-            //------Resetting the size of the toolbar
-            appContainer.style.gridTemplateColumns = "6% 15% 1fr";
-
-            //---Resetting the white overlay on the icons
-            get("textEditorIcon").style.filter = "";
-            get("imageIcon").style.filter = "";
-            get("templatesIcon").style.filter = "";
-            get("stylesIcon").style.filter = "";
-            get("speakerNotesIcon").style.filter = "";
-            get("slideSettingsIcon").style.filter = "";
-
-            get(event).style.filter = "brightness(3)";
-            if (event == "textEditorIcon") {
-                textToolbar.style.display = "block";
-
-            } else if (event == "imageIcon") {
-                imagesToolbar.style.display = "block";
-                appContainer.style.gridTemplateColumns = "6% 20% 1fr";
-
-            } else if (event == "templatesIcon") {
-                templatesToolbar.style.display = "block";
-                appContainer.style.gridTemplateColumns = "6% 18% 1fr";
-
-            } else if (event == "stylesIcon") {
-                stylesToolbar.style.display = "block";
-                appContainer.style.gridTemplateColumns = "6% 21% 1fr";
-
-            } else if (event == "speakerNotesIcon") {
-                speakerNotesToolbar.style.display = "block";
-                appContainer.style.gridTemplateColumns = "6% 25% 1fr";
-
-            } else if (event == "slideSettingsIcon") {
-                slideSettingsToolbar.style.display = "block";
-                appContainer.style.gridTemplateColumns = "6% 16% 1fr";
-
-
-            } else {
-
-            }
-            resizeSlideText();
-        }
-
-
-        //-------------Resizes text in the canvas based on the width of the element. Activates onload, on menuchange and on resize.------------
-        function resizeSlideText() {
-            divWidht = get("currentSlide").offsetWidth;
-            get("currentSlide").style.fontSize = divWidht + "px";
-            console.log(divWidht);
-        }
-
-
-        //-----------------------------Add fonts to the select menu!---------------------------------
-        let fonts = ["Arial", "Helvetica", "Times New Roman", "Times", "Courier", "Courier New", "Verdana", "Georgia", "Garamond", "Bookman", "Palatino", "Comic Sans MS", "Trebuchet MS", "Arial Black", "Impact", "Montez", "Lobster", "Josefin Sans", "Shadows Into Light", "Pacifico", "Amatic SC", "Orbitron", "Rokkitt", "Righteous", "Dancing Script", "Bangers", "Chewy", "Sigmar One", "Architects Daughter", "Abril Fatface", "Covered By Your Grace", "Kaushan Script", "Gloria Hallelujah", "Satisfy", "Lobster Two", "Comfortaa", "Cinzel", "Courgette"];
-        let fontSelect = document.getElementById("fontSelect");
-        for (let i = 0; i < fonts.length; i++) {
-            var fontOption = document.createElement('option');
-            fontOption.value = fontOption.innerHTML = fonts[i];
-            fontOption.style.fontFamily = fonts[i];
-            fontSelect.add(fontOption);
-        }
-    </script>
-
-
+   <script src="frontEnd.js"></script>
 </body>
 
 </html>
