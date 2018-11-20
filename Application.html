@@ -27,7 +27,7 @@
             <div class="currentSlide" id="currentSlide">
 
                 <!-----Slide container here----->
-                <div class="titleTemplate" id="titleTemplate">
+                <div class="slide" id="titleTemplate" style="display:block">
                     <h1 contenteditable="true"> Insert title here:</h1>
                     <h3 contenteditable="true"> Insert subtitle here:</h3>
                 </div>
@@ -60,17 +60,18 @@
                     <select id="fontSelect">
 
                     </select>
+                    <button id="fontName" style="display:none"></button>
                 </div>
                 <div>
-                    <p> Font size: </p><input type="range" name="points" min="0" max="20">
+                    <p> Font size: </p><input id="changeSizeInput" type="range" name="points" min="0" max="20">
                 </div>
                 <hr>
                 <h3> Text style:
                 </h3>
                 <div class="toolbarSection">
-                    <img src="Icons/Bold.png" alt="Bold" class="toolbarIcon" id="boldIcon">
-                    <img src="Icons/Italic.png" alt="Italic" class="toolbarIcon" id="italicIcon">
-                    <img src="Icons/Underline.png" alt="Underline" class="toolbarIcon" id="underlineIcon">
+                    <img src="Icons/Bold.png" alt="Bold" class="toolbarIcon" id="bold">
+                    <img src="Icons/Italic.png" alt="Italic" class="toolbarIcon" id="italic">
+                    <img src="Icons/Underline.png" alt="Underline" class="toolbarIcon" id="underline">
                     <img src="Icons/Text_Color.png" alt="Text color" class="toolbarIcon" id="textColorIcon">
                 </div>
 
@@ -79,9 +80,9 @@
 
                 <h3>Text alignment:</h3>
                 <div class="toolbarSection">
-                    <img src="Icons/Align_Lef.png" alt="Allign left" title="Allign left" class="toolbarIcon" id="allignLeftIcon">
-                    <img src="Icons/Align_Cente.png" alt="Allign center" class="toolbarIcon" id="allignCenterIcon">
-                    <img src="Icons/Align_Righ.png" alt="Allign right" class="toolbarIcon" id="allignRightIcon">
+                    <img src="Icons/Align_Lef.png" alt="Allign left" title="Allign left" class="toolbarIcon" id="justifyLeft">
+                    <img src="Icons/Align_Cente.png" alt="Allign center" class="toolbarIcon" id="justifyCenter">
+                    <img src="Icons/Align_Righ.png" alt="Allign right" class="toolbarIcon" id="justifyRight">
 
                 </div>
                 <hr>
@@ -89,8 +90,8 @@
                 <h3> Actions:</h3>
 
                 <div class="toolbarSection">
-                    <img src="Icons/Undo.png" alt="Undo" class="toolbarIcon" id="undoIcon">
-                    <img src="Icons/Redo.png" alt="Redo" class="toolbarIcon" id="redoIcon">
+                    <img src="Icons/Undo.png" alt="Undo" class="toolbarIcon" id="undo">
+                    <img src="Icons/Redo.png" alt="Redo" class="toolbarIcon" id="redo">
 
                     <div class="dropdown">
                         <img src="Icons/Add_New.png" alt="Add new element" class="toolbarIcon" id="newElementIcon">
@@ -171,7 +172,7 @@
 
         <!-- Container til slidevelger som kan scrolles left and right-->
         <div class="slidePreview" id="slidePreview">
-            <div id="newSlide">
+            <div id="newSlide" onclick="addSlide()">
                 <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
             </div>
             <aside class="numberedSlides" id="numberedSlides">
@@ -193,15 +194,11 @@
             <img src="Icons/Support.png" alt="Presentation settings" class="topIcon" id="settingsIcon">
 
         </div>
-
-
-
-
-
-
     </div>
 
    <script src="frontEnd.js"></script>
+   <script src="control.js"></script>
+   <script src="textEditor.js"></script>
 </body>
 
 </html>
