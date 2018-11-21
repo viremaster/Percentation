@@ -7,7 +7,7 @@
     <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <link rel="stylesheet" href="Application.css">
- 
+
     <title>
     </title>
 
@@ -80,7 +80,7 @@
 
                 <h3>Text alignment:</h3>
                 <div class="toolbarSection">
-                    <img src="Icons/Align_Lef.png" alt="Allign left" title="Allign left" class="toolbarIcon" id="justifyLeft">
+                    <img src="Icons/Align_Lef.png" alt="Allign left" class="toolbarIcon" id="justifyLeft">
                     <img src="Icons/Align_Cente.png" alt="Allign center" class="toolbarIcon" id="justifyCenter">
                     <img src="Icons/Align_Righ.png" alt="Allign right" class="toolbarIcon" id="justifyRight">
 
@@ -172,12 +172,18 @@
 
         <!-- Container til slidevelger som kan scrolles left and right-->
         <div class="slidePreview" id="slidePreview">
+
+
+
             <div id="newSlide" onclick="addSlide()">
+                <img src="Themes/Blank.jpg" class="miniSlideBackground">
                 <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
+
+                <p class="slideNumber">New slide<p>
             </div>
-            <aside class="numberedSlides" id="numberedSlides">
-                <p>New slide<p>
-            </aside>
+
+
+
 
         </div>
 
@@ -196,9 +202,10 @@
         </div>
     </div>
 
-   <script src="frontEnd.js"></script>
-   <script src="control.js"></script>
-   <script src="textEditor.js"></script>
+ 
+    <script src="control.js"></script>
+       <script src="frontEnd.js"></script>
+    <script src="textEditor.js"></script>
 </body>
 
 </html>
