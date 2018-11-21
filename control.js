@@ -3,12 +3,13 @@ let Presentation = document.getElementById("currentSlide");
 let actualSlideIndex = 0;
 let actualSlide = slides[actualSlideIndex];
 
-window.onkeypress = function (e) {
+window.onkeydown = function (e) {
     if (e.keyCode == 112 || e.keyCode == 37) {
         previousSlide();
     } else if (e.keyCode == 110 || e.keyCode == 32 || e.keyCode == 39) {
         nextSlide();
     }
+    
 }
 
 function nextSlide() {
@@ -22,6 +23,7 @@ function nextSlide() {
             break
         }
     }
+    displaySlideCounter()
 }
 
 function previousSlide() {
@@ -35,6 +37,7 @@ function previousSlide() {
             break
         }
     }
+    displaySlideCounter()
 }
 
 function addSlide() {
@@ -52,6 +55,8 @@ function addSlide() {
     <h1 contenteditable="true"> Insert title here:</h1>
     <h3 contenteditable="true"> This is a new slide !:</h3>
     `;
+    displaySlideCounter();
+    displaySlidePreview();
 }
 
 function deleteSlide() {

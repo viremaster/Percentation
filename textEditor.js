@@ -10,15 +10,17 @@ fonts.onchange = function () {
     changeFontButton.click();
 }
 
-changeSizeInput.onchange = function () {
+changeSizeInput.oninput = function () {
     let fontSize=changeSizeInput.value+"%";
     let selection=window.getSelection().anchorNode.parentElement;
     selection.style.fontSize=fontSize;
 }
 
 buttons.onclick = function (evt) {
+    
     if (evt.target.id != "fontSelect" && evt.target.id != "changeSizeInput") {
         console.log(evt.target.id);
+        console.log(evt.target.style.textAlign);
         if (evt.target != evt.currentTarget) {
             if (evt.target.value != "") {
                 value = evt.target.value;
