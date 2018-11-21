@@ -11,7 +11,7 @@ window.onkeydown = function (e) {
         console.log("next")
         nextSlide();
     }
-    
+
 }
 
 function nextSlide() {
@@ -26,7 +26,8 @@ function nextSlide() {
             break
         }
     }
-    displaySlideCounter()
+    displaySlidePreview();
+    displaySlideCounter();
 }
 
 function previousSlide() {
@@ -40,8 +41,26 @@ function previousSlide() {
             break
         }
     }
-    displaySlideCounter()
+    displaySlidePreview();
+    displaySlideCounter();
 }
+
+function jumpToSlide() {
+    //Index takes the number from the id of the previewSlide and removes the string, leaving only the number.
+    let index = this.id.slice(12);
+    for (let i = 0; i < slides.length; i++) {
+        if (slides[i].style.display == "block") {
+            slides[i].style.display = "none";
+            break
+        }
+    }
+    slides[index].style.display = "block";
+    actualSlide = slides[index];
+
+    displaySlidePreview();
+    displaySlideCounter();
+}
+
 
 function addSlide() {
     let newSlide = document.createElement("div");
@@ -58,10 +77,13 @@ function addSlide() {
     <div class="titleTemplate">
     <h1 contenteditable="true"> Insert title here:</h1>
     <h3 contenteditable="true"> this is a new slide</h3>
-    </div>
-    `;
-    displaySlideCounter();
+    </div>`;
     displaySlidePreview();
+    displaySlideCounter();
+}
+
+function removeSlide() {
+    console.log("This function fired because you clicked the little button in the preview. We have to use the 'deleteSlide' function instead once it has been configured to take things into account.");
 }
 
 function deleteSlide() {
