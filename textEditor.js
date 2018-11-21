@@ -17,12 +17,13 @@ fonts.onchange = function () {
     changeFontButton.click();
 }
 
+
 changeColor.onchange = function () {
     foreColorButton.value = changeColor.value;
     foreColorButton.click();
 }
 
-changeSizeInput.onchange = function () {
+changeSizeInput.oninput = function () {
     let fontSize = changeSizeInput.value + "%";
     let windowsSelection = window.getSelection();
     let selection = windowsSelection.anchorNode.parentElement;
@@ -36,6 +37,7 @@ changeSizeInput.onchange = function () {
 }
 
 buttons.onclick = function (evt) {
+    
     if (evt.target.id != "fontSelect" && evt.target.id != "changeSizeInput") {
         if (evt.target != evt.currentTarget) {
             if (evt.target.id.startsWith("justify")) {

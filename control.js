@@ -11,6 +11,7 @@ window.onkeydown = function (e) {
         console.log("next")
         nextSlide();
     }
+    
 }
 
 function nextSlide() {
@@ -25,6 +26,7 @@ function nextSlide() {
             break
         }
     }
+    displaySlideCounter()
 }
 
 function previousSlide() {
@@ -38,6 +40,7 @@ function previousSlide() {
             break
         }
     }
+    displaySlideCounter()
 }
 
 function addSlide() {
@@ -57,6 +60,8 @@ function addSlide() {
     <h3 contenteditable="true"> this is a new slide</h3>
     </div>
     `;
+    displaySlideCounter();
+    displaySlidePreview();
 }
 
 function deleteSlide() {
