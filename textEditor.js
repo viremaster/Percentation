@@ -4,30 +4,63 @@ let text = document.getElementById('titleTemplate');
 let fonts = document.getElementById("fontSelect");
 let changeFontButton = document.getElementById("fontName");
 let changeSizeInput = document.getElementById("changeSizeInput");
+let changeColor = document.getElementById("color");
+let foreColorButton = document.getElementById("foreColor");
+let textColorIcon=document.getElementById("textColorIcon");
+
+textColorIcon.onclick=function(){
+    changeColor.click();
+}
 
 fonts.onchange = function () {
     changeFontButton.value = fonts.value;
     changeFontButton.click();
 }
 
-changeSizeInput.oninput = function () {
-    let fontSize=changeSizeInput.value+"%";
-    let selection=window.getSelection().anchorNode.parentElement;
-    selection.style.fontSize=fontSize;
+changeColor.onchange = function () {
+    foreColorButton.value = changeColor.value;
+    foreColorButton.click();
+}
+
+changeSizeInput.onchange = function () {
+    let fontSize = changeSizeInput.value + "%";
+    let windowsSelection = window.getSelection();
+    let selection = windowsSelection.anchorNode.parentElement;
+    while (selection != null) {
+        if (selection.contentEditable == "true") {
+            selection.style.fontSize = fontSize;
+            break;
+        }
+        selection = selection.parentElement;
+    }
 }
 
 buttons.onclick = function (evt) {
-    
     if (evt.target.id != "fontSelect" && evt.target.id != "changeSizeInput") {
-        console.log(evt.target.id);
-        console.log(evt.target.style.textAlign);
         if (evt.target != evt.currentTarget) {
-            if (evt.target.value != "") {
-                value = evt.target.value;
+            if (evt.target.id.startsWith("justify")) {
+                let direction = evt.target.id.split("y")[1];
+
+                let windowsSelection = window.getSelection();
+
+                let selection = windowsSelection.anchorNode.parentElement;
+
+                while (selection != null) {
+                    if (selection.contentEditable == "true") {
+                        selection.style.textAlign = direction;
+                        break;
+                    }
+                    selection = selection.parentElement;
+                }
             } else {
-                value = null;
+                if (evt.target.value) {
+                    value = evt.target.value;
+                } else {
+                    value = null;
+                }
+                document.execCommand(evt.target.id, false, value);
             }
-            document.execCommand(evt.target.id, null, value);
         }
+        value = null;
     }
 }
