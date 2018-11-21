@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette'
+        rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <link rel="stylesheet" href="Application.css">
 
@@ -24,14 +25,14 @@
             <p id="slideNumber">Slide 1 / 1</p>
             <img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation()">
 
-            <div class="currentSlide" id="currentSlide">
+            <div id="slideContainer">
 
-                <!-----Slide container here----->
-                <div class="slide" id="titleTemplate" style="display:block">
-                    <h1 contenteditable="true"> Insert title here:</h1>
-                    <h3 contenteditable="true"> Insert subtitle here:</h3>
+                <div class="slide" style="display:block;">
+                    <div class="titleTemplate">
+                        <h1 contenteditable="true">title</h1>
+                        <h3 contenteditable="true"> Insert subtitle here:</h3>
+                    </div>
                 </div>
-
             </div>
 
 
@@ -72,6 +73,8 @@
                     <img src="Icons/Bold.png" alt="Bold" class="toolbarIcon" id="bold">
                     <img src="Icons/Italic.png" alt="Italic" class="toolbarIcon" id="italic">
                     <img src="Icons/Underline.png" alt="Underline" class="toolbarIcon" id="underline">
+                    <input id="color" type="color" style="display:none">
+                    <button id="foreColor" style="display:none">Change color</button>
                     <img src="Icons/Text_Color.png" alt="Text color" class="toolbarIcon" id="textColorIcon">
                 </div>
 
@@ -80,7 +83,7 @@
 
                 <h3>Text alignment:</h3>
                 <div class="toolbarSection">
-                    <img src="Icons/Align_Lef.png" alt="Allign left" class="toolbarIcon" id="justifyLeft">
+                    <img src="Icons/Align_Lef.png" alt="Allign left" title="Allign left" class="toolbarIcon" id="justifyLeft">
                     <img src="Icons/Align_Cente.png" alt="Allign center" class="toolbarIcon" id="justifyCenter">
                     <img src="Icons/Align_Righ.png" alt="Allign right" class="toolbarIcon" id="justifyRight">
 
@@ -172,18 +175,12 @@
 
         <!-- Container til slidevelger som kan scrolles left and right-->
         <div class="slidePreview" id="slidePreview">
-
-
-
             <div id="newSlide" onclick="addSlide()">
-                <img src="Themes/Blank.jpg" class="miniSlideBackground">
                 <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
-
-                <p class="slideNumber">New slide<p>
             </div>
-
-
-
+            <aside class="numberedSlides" id="numberedSlides">
+                <p>New slide<p>
+            </aside>
 
         </div>
 
@@ -202,9 +199,8 @@
         </div>
     </div>
 
- 
+    <script src="frontEnd.js"></script>
     <script src="control.js"></script>
-       <script src="frontEnd.js"></script>
     <script src="textEditor.js"></script>
 </body>
 
