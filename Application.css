@@ -523,9 +523,14 @@ button:hover {
 
 
 /*-------titleTemplate--------*/
+.slide{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
 .titleTemplate {
-
-
     font-size: inherit;
     position: absolute;
     height: 100%;
@@ -535,6 +540,7 @@ button:hover {
 
 .titleTemplate h1 {
     /*  border: 1px dotted gray;*/ 
+    position: absolute;
     font-size: 12%;
     top: 25%;
     width: 100%;
