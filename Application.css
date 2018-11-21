@@ -169,6 +169,8 @@ button:hover {
 
 .slidePreview {
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     grid-area: footer;
     background-color: #144e5f;
     box-shadow: 0px -20px 20px 10px rgba(0, 0, 0, 0.05);
@@ -177,8 +179,10 @@ button:hover {
 
 }
 
-.currentSlide {
+
+#slideContainer {
     flex-direction: column;
+
     overflow: hidden;
     background-color: white;
     margin: auto;
@@ -187,11 +191,7 @@ button:hover {
     box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
     font-family: sans-serif;
     color: #555555;
-
 }
-
-
-
 /*------------------------------Icons, general--------------------------------------------------*/
 .topIcon {
     height: 60%;
@@ -241,28 +241,6 @@ button:hover {
     justify-content: center;
 }
 
-#newSlide {
-    position: absolute;
-    flex-direction: row;
-    justify-content: center;
-    overflow: hidden;
-    background-color: white;
-    margin: auto;
-    top: 10%;
-    left: 1%;
-    width: 10%;
-    padding-bottom: 5.625%;
-    box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
-
-}
-
-#newSlideIcon {
-    position: absolute;
-    top: 10%;
-    height: 75%;
-    width: auto;
-
-}
 
 /*----------------------TopBar----------------------------*/
 #fileName {
@@ -272,7 +250,6 @@ button:hover {
     left: 55%;
     text-align: center;
     font-size: 1.5vw;
-
 }
 
 /*Specific positions for icons in the top right*/
@@ -336,6 +313,45 @@ button:hover {
 
 }
 
+#newSlide {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: auto 0 auto 1%;
+    top: -5%;
+    box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.2);
+    overflow: visible;
+
+}
+
+.miniSlide {
+   position:relative;
+   display: flex;
+   justify-content: center;
+   margin: auto 0 auto 1%;
+   top: -5%;
+   box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.2);
+   min-width: 10vw;
+}
+
+.miniSlideBackground {
+    height: 5.625vw;
+    width: 10vw;
+}
+
+#newSlideIcon {
+    position: absolute;
+    top: 10%;
+    height: 75%;
+    width: auto;
+
+}
+
+.slideNumber {
+    position: absolute;
+    top: 105%;
+
+}
 
 
 /*-------------------------------Toolbar-----------------------------*/
@@ -505,28 +521,27 @@ button:hover {
 /*-------------------------------------Templates---------------------------------------------*/
 
 
-/*-------slide--------*/
-.slide {
+
+/*-------titleTemplate--------*/
+.titleTemplate {
+
+
     font-size: inherit;
     position: absolute;
     height: 100%;
     width: 100%;
-
 }
 
 
-.slide > h1 {
-
-
-    /*  border: 1px dotted gray;*/
+.titleTemplate h1 {
+    /*  border: 1px dotted gray;*/ 
     font-size: 12%;
     top: 25%;
     width: 100%;
     padding: 1% 0 1% 0;
 }
 
-.slide > h3 {
-
+.titleTemplate h3 {
     position: absolute;
     top: 60%;
     width: 100%;
