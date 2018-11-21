@@ -177,7 +177,8 @@ button:hover {
 
 }
 
-.currentSlide {
+
+#slideContainer {
     flex-direction: column;
     overflow: hidden;
     background-color: white;
@@ -187,11 +188,7 @@ button:hover {
     box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
     font-family: sans-serif;
     color: #555555;
-
 }
-
-
-
 /*------------------------------Icons, general--------------------------------------------------*/
 .topIcon {
     height: 60%;
@@ -505,28 +502,24 @@ button:hover {
 /*-------------------------------------Templates---------------------------------------------*/
 
 
-/*-------slide--------*/
-.slide {
+/*-------titleTemplate--------*/
+.titleTemplate {
     font-size: inherit;
     position: absolute;
     height: 100%;
     width: 100%;
-
 }
 
 
-.slide > h1 {
-
-
-    /*  border: 1px dotted gray;*/
+.titleTemplate h1 {
+    /*  border: 1px dotted gray;*/ 
     font-size: 12%;
     top: 25%;
     width: 100%;
     padding: 1% 0 1% 0;
 }
 
-.slide > h3 {
-
+.titleTemplate h3 {
     position: absolute;
     top: 60%;
     width: 100%;

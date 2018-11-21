@@ -1,18 +1,21 @@
-let slides = document.getElementsByClassName("currentTemplate");
-let Presentation = document.getElementById("currentSlide");
+let slides = document.getElementsByClassName("slide");
+let Presentation = document.getElementById("slideContainer");
 let actualSlideIndex = 0;
 let actualSlide = slides[actualSlideIndex];
 
-window.onkeypress = function (e) {
+window.onkeydown = function (e) {
     if (e.keyCode == 112 || e.keyCode == 37) {
+        console.log("previous")
         previousSlide();
     } else if (e.keyCode == 110 || e.keyCode == 32 || e.keyCode == 39) {
+        console.log("next")
         nextSlide();
     }
 }
 
 function nextSlide() {
     slides = document.getElementsByClassName("slide");
+    console.log(slides)
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block" && i != slides.length - 1) {
             slides[i].style.display = "none";
@@ -49,8 +52,10 @@ function addSlide() {
         newSlide.style.display = "block"
     }
     newSlide.innerHTML = `
+    <div class="titleTemplate">
     <h1 contenteditable="true"> Insert title here:</h1>
-    <h3 contenteditable="true"> This is a new slide !:</h3>
+    <h3 contenteditable="true"> this is a new slide</h3>
+    </div>
     `;
 }
 

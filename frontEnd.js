@@ -78,8 +78,8 @@
 
         //-------------Resizes text in the canvas based on the width of the element. Activates onload, on menuchange and on resize.------------
         function resizeSlideText() {
-            divWidht = get("currentSlide").offsetWidth;
-            get("currentSlide").style.fontSize = divWidht + "px";
+            divWidht = get("slideContainer").offsetWidth;
+            get("slideContainer").style.fontSize = divWidht + "px";
 
         }
 
@@ -98,7 +98,7 @@
 
         //------------------Fullscreen------------------
 
-        const slideContainer = document.getElementById("currentSlide");
+        const slideContainer = document.getElementById("slideContainer");
         let presentationMode = false;
 
         function fullscreenPresentation() {
