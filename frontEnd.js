@@ -3,7 +3,7 @@ function setImageTitle() {
     let allImages = document.getElementsByTagName("img");
     for (i = 0; i < allImages.length; i++) {
         allImages[i].title = allImages[i].alt;
-   
+
     }
 }
 
@@ -86,6 +86,7 @@ function toolbarChange(event) {
         function resizeSlideText() {
             divWidht = get("slideContainer").offsetWidth;
             get("slideContainer").style.fontSize = divWidht + "px";
+            recalculatesize();
 
 
 }
@@ -124,6 +125,7 @@ function fullscreenPresentation() {
         slideContainer.msRequestFullscreen();
 
     }
+    startpresenting();
 
 }
 
@@ -229,19 +231,19 @@ function displaySlidePreview() {
 
         background.className = "miniSlideBackground";
         background.src = currentTheme;
-        
+
         //!!! This works, but the scale is wrong. (All elements should be 15,82% the scale of the div)
         //div.innerHTML = slideContainer.children[i].innerHTML;
-   
-        
+
+
         //!!! Add onclick for jumping to that slide
         //!!! Add delete button visible on hover
          div.appendChild(slideNumber);
         div.appendChild(background);
-      
+
 
         slidePreview.appendChild(div);
-    
+
     }
 disableDraggable();
 }

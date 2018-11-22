@@ -539,7 +539,7 @@ button:hover {
 
 
 .titleTemplate h1 {
-    /*  border: 1px dotted gray;*/ 
+    /*  border: 1px dotted gray;*/
     position: absolute;
     font-size: 12%;
     top: 25%;
@@ -554,4 +554,54 @@ button:hover {
     /*  border: 1px dotted gray;*/
     font-size: 8%;
     padding: 1% 0 1% 0;
+}
+
+.textbox{
+  position: absolute;
+  border: 1px dotted black;
+  width: 200px;
+  height: 100px;
+}
+
+  .textbox > img{
+    position: absolute;
+    width: 2vw;
+    height: 2vw;
+    right: 0px;
+    top: 0px;
+  }
+
+  .textbox > text{
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    font-size: 2%
+  }
+
+  .textbox > h1{
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+  }
+
+  .textbox > h2{
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    font-size: 3%;
+  }
+
+  .textbox > ul > li{
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    font-size: 3%;
+  }
+
+.whilepresenting > .textbox{
+  border: none;
+}
+
+.whilepresenting > .textbox > img{
+  visibility: hidden;
 }

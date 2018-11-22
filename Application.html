@@ -27,11 +27,11 @@
 
             <div id="slideContainer">
 
-                <div class="slide" style="display:block;">
-                    <div class="titleTemplate">
+                <div id = "currentslide" class="slide" style="display:block;">
+                    <!---<div class="titleTemplate">
                         <h1 contenteditable="true">title</h1>
                         <h3 contenteditable="true"> Insert subtitle here:</h3>
-                    </div>
+                    </div>--->
                 </div>
             </div>
 
@@ -99,10 +99,9 @@
                     <div class="dropdown">
                         <img src="Icons/Add_New.png" alt="Add new element" class="toolbarIcon" id="newElementIcon">
                         <div class="dropdown-content">
-                            <a href="#">Add new title</a>
-                            <a href="#">Add new text</a>
-                            <a href="#">Add new unordered list</a>
-
+                            <a id = "h1" onclick = "selectTextType(event)">Add new title</a>
+                            <a id = "h2" onclick = "selectTextType(event)">Add new subtitle</a>
+                            <a id = "text" onclick = "selectTextType(event)" >Add new text</a>
                         </div>
                     </div>
                     <img src="Icons/Delete.png" alt="Remove element" class="toolbarIcon" id="removeElementIcon">
@@ -207,8 +206,9 @@
 
 
     <script src="control.js"></script>
-       <script src="frontEnd.js"></script>
+    <script src="frontEnd.js"></script>
     <script src="textEditor.js"></script>
+    <script src="richtext.js"></script>
 </body>
 
 </html>

@@ -11,7 +11,7 @@ window.onkeydown = function (e) {
         console.log("next")
         nextSlide();
     }
-    
+
 }
 
 function nextSlide() {
@@ -54,10 +54,10 @@ function addSlide() {
         Presentation.appendChild(newSlide);
         newSlide.style.display = "block"
     }
+    // <h1 contenteditable="true"> Insert title here:</h1>
+    // <h3 contenteditable="true"> this is a new slide</h3>
     newSlide.innerHTML = `
     <div class="titleTemplate">
-    <h1 contenteditable="true"> Insert title here:</h1>
-    <h3 contenteditable="true"> this is a new slide</h3>
     </div>
     `;
     displaySlideCounter();
