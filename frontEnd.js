@@ -1,6 +1,62 @@
 //----------------------Sets the title of all image elements to match the alt text to show tooltips on hover------------------------
+let allImages = document.getElementsByTagName("img");
+let currentTheme = "Themes/Blank.jpg";
+const slideContainer = document.getElementById("slideContainer");
+let presentationMode = false;
+let themes = [{
+        name: "blank",
+        font: "sans-serif",
+        color: "lightslategray",
+        img: "none",
+        img2: "Themes/Blank.jpg",
+        stroke: "none"
+            },
+    {
+        name: "pastel",
+        font: "serif",
+        color: "White",
+        img: "url('Themes/PastellGeometric.jpg')",
+        img2: 'Themes/PastellGeometric.jpg',
+        stroke: "#4a5243"
+            },
+    {
+        name: "blueprint",
+        font: "sans-serif",
+        color: "White",
+        img: "url('Themes/Blueprint.jpg')",
+        img2: 'Themes/Blueprint.jpg',
+        stroke: "#1d7cc0"
+            },
+    {
+        name: "industrial",
+        font: "Helvetica",
+        color: "#2d373a",
+        img: "url('Themes/ColdIndustrial.jpg')",
+        img2: 'Themes/ColdIndustrial.jpg',
+        stroke: "#FFFFFF"
+            },
+    {
+        name: "gentle",
+        font: "Book Antiqua",
+        color: "#1e2622",
+        img: "url('Themes/GentleMorning.jpg')",
+        img2: 'Themes/GentleMorning.jpg',
+        stroke: "none"
+            },
+    {
+        name: "geometric",
+        font: "serif",
+        color: "White",
+        img: "url('Themes/Geometric.jpg')",
+        img2: 'Themes/Geometric.jpg',
+        stroke: "#463212"
+            }
+        ]
+
+
+
 function setImageTitle() {
-    let allImages = document.getElementsByTagName("img");
+
     for (i = 0; i < allImages.length; i++) {
         allImages[i].title = allImages[i].alt;
 
@@ -8,7 +64,7 @@ function setImageTitle() {
 }
 
 function disableDraggable() {
-    let allImages = document.getElementsByTagName("img");
+
     for (i = 0; i < allImages.length; i++) {
         allImages[i].setAttribute("draggable", "false");
     }
@@ -82,12 +138,15 @@ function toolbarChange(event) {
 }
 
 
-        //-------------Resizes text in the canvas based on the width of the element. Activates onload, on menuchange and on resize.------------
-        function resizeSlideText() {
-            divWidht = get("slideContainer").offsetWidth;
-            get("slideContainer").style.fontSize = divWidht + "px";
-            recalculatesize();
+//-------------Resizes text in the canvas based on the width of the element. Activates onload, on menuchange and on resize.------------
+function resizeSlideText() {
+    divWidht = get("slideContainer").offsetWidth;
+    get("slideContainer").style.fontSize = divWidht + "px";
+    recalculatesize();
 
+    //!!! New fontsize that scales fonts based on size of the miniDivs in the preview.
+    miniDivWidht = get("newSlide").offsetWidth;
+    get("slidePreview").style.fontSize = (miniDivWidht * 0.95) + "px";
 
 }
 
@@ -105,9 +164,6 @@ function addFontMenu() {
 }
 
 //------------------Fullscreen------------------
-
-        const slideContainer = document.getElementById("slideContainer");
-        let presentationMode = false;
 
 
 function fullscreenPresentation() {
@@ -129,56 +185,6 @@ function fullscreenPresentation() {
 
 }
 
-let themes = [{
-        name: "blank",
-        font: "sans-serif",
-        color: "lightslategray",
-        img: "none",
-        img2: "Themes/Blank.jpg",
-        stroke: "none"
-            },
-    {
-        name: "pastel",
-        font: "serif",
-        color: "White",
-        img: "url('Themes/PastellGeometric.jpg')",
-        img2: 'Themes/PastellGeometric.jpg',
-        stroke: "#4a5243"
-            },
-    {
-        name: "blueprint",
-        font: "sans-serif",
-        color: "White",
-        img: "url('Themes/Blueprint.jpg')",
-        img2: 'Themes/Blueprint.jpg',
-        stroke: "#1d7cc0"
-            },
-    {
-        name: "industrial",
-        font: "Helvetica",
-        color: "#2d373a",
-        img: "url('Themes/ColdIndustrial.jpg')",
-        img2: 'Themes/ColdIndustrial.jpg',
-        stroke: "#FFFFFF"
-            },
-    {
-        name: "gentle",
-        font: "Book Antiqua",
-        color: "#1e2622",
-        img: "url('Themes/GentleMorning.jpg')",
-        img2: 'Themes/GentleMorning.jpg',
-        stroke: "none"
-            },
-    {
-        name: "geometric",
-        font: "serif",
-        color: "White",
-        img: "url('Themes/Geometric.jpg')",
-        img2: 'Themes/Geometric.jpg',
-        stroke: "#463212"
-            }
-        ]
-let currentTheme = "Themes/Blank.jpg";
 
 function changeTheme(event) {
     //!!! If the amount of themes reach double digits this needs to change
@@ -192,7 +198,7 @@ function changeTheme(event) {
         slideContainer.style.textShadow = "-1.5px -1.5px 0" + themes[i].stroke + ",1.5px -1.5px 0" + themes[i].stroke + ",-1.5px 1.5px 0" + themes[i].stroke + ",1.5px 1.5px 0" + themes[i].stroke;
         currentTheme = themes[i].img2;
         displaySlidePreview();
-        // console.log(i,themes[i].img);
+
     }
     if (themes[i].stroke == "none") {
         slideContainer.style.textShadow = "none";
@@ -202,15 +208,7 @@ function changeTheme(event) {
 }
 slides = document.getElementsByClassName("slide");
 
-function displaySlideCounter() {
 
-    let slideCounter = document.getElementById("slideNumber");
-
-    //!!! does not work. Create new variable that shows what slide the user is currently viewing.
-    slideCounter.innerHTML = "Slide " + (actualSlideIndex + 1) + " / " + slides.length;
- //!!! Show which slide is selected by giving the preview a border.
-
-}
 let slidePreview = document.getElementById("slidePreview");
 let newSlideDiv = document.getElementById("newSlide")
 
@@ -221,32 +219,64 @@ function displaySlidePreview() {
         elements[0].parentNode.removeChild(elements[0]);
     }
     for (let i = 0; i < slides.length; i++) {
+
         let div = document.createElement("div");
         let slideNumber = document.createElement("p");
         let background = document.createElement("img");
+        let deleteBtn = document.createElement("img");
+
+        div.id = "slidePreview" + i;
         div.className = "miniSlide";
 
-        slideNumber.innerHTML = "Slide " +(i + 1);
+        slideNumber.innerHTML = "Slide " + (i + 1);
         slideNumber.className = "slideNumber";
 
         background.className = "miniSlideBackground";
         background.src = currentTheme;
 
-        //!!! This works, but the scale is wrong. (All elements should be 15,82% the scale of the div)
-        //div.innerHTML = slideContainer.children[i].innerHTML;
+        deleteBtn.src="Icons/Delete.png";
+        deleteBtn.alt="Delete slide";
+        deleteBtn.className="deleteSlide";
+        deleteBtn.onclick=removeSlide;
+
+        // <img src="Icons/Delete.png" alt="Delete slide" class="deleteSlide">
+        div.innerHTML = slideContainer.children[i].innerHTML;
+
+        div.onclick = jumpToSlide;
+
+        //!!! Fix styling so it matches!
+        //Copy somehow so the style is added to the elements before it's applied to the div with the style?
+
+        //div.style= slideContainer.children[i].style;
+        // console.log(slideContainer.children[i].style)
 
 
-        //!!! Add onclick for jumping to that slide
         //!!! Add delete button visible on hover
-         div.appendChild(slideNumber);
+        div.appendChild(slideNumber);
         div.appendChild(background);
-
+        div.appendChild(deleteBtn);
 
         slidePreview.appendChild(div);
-
     }
-disableDraggable();
+
+
+
+    disableDraggable();
 }
+
+function displaySlideCounter() {
+
+    let slideCounter = document.getElementById("slideNumber");
+    slideCounter.innerHTML = "Slide " + (1+Number(actualSlideIndex)) + " / " + slides.length;
+
+
+    let previewID = document.getElementById("slidePreview" + actualSlideIndex);
+    previewID.style.border = "2px solid black";
+    previewID.style.boxShadow = "5px 7px 50px 1px rgba(0, 0, 0, 0.4)";
+
+
+}
+
 
 
 function loadScripts() {

@@ -65,7 +65,9 @@ h3 {
     padding: 0.5%;
     text-align: center;
 }
-
+text{
+    font-size: 1%;
+}
 div {
     position: relative;
     display: flex;
@@ -182,7 +184,6 @@ button:hover {
 
 #slideContainer {
     flex-direction: column;
-
     overflow: hidden;
     background-color: white;
     margin: auto;
@@ -332,11 +333,35 @@ button:hover {
    top: -5%;
    box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.2);
    min-width: 10vw;
+       border: 2px solid transparent;
+
 }
+.miniSlide:hover{
+    border: 2px solid #092127;
+    box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.4);
+}
+
 
 .miniSlideBackground {
     height: 5.625vw;
     width: 10vw;
+}
+
+
+.deleteSlide{
+
+    position: absolute;
+    width: 1vw;
+    right: 0;
+    display: none;
+}
+
+.deleteSlide:hover{
+border: 1px solid #5596BE;
+}
+
+.miniSlide:hover>.deleteSlide{
+    display: block;
 }
 
 #newSlideIcon {
@@ -521,7 +546,6 @@ button:hover {
 /*-------------------------------------Templates---------------------------------------------*/
 
 
-
 /*-------titleTemplate--------*/
 .slide{
     position: absolute;
@@ -538,7 +562,7 @@ button:hover {
 }
 
 
-.titleTemplate h1 {
+.titleTemplate>h1 {
     /*  border: 1px dotted gray;*/
     position: absolute;
     font-size: 12%;
@@ -547,7 +571,7 @@ button:hover {
     padding: 1% 0 1% 0;
 }
 
-.titleTemplate h3 {
+.titleTemplate>h3 {
     position: absolute;
     top: 60%;
     width: 100%;
