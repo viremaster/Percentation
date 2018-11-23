@@ -83,8 +83,10 @@ router.delete("/app/user", async function (req, res) {
     let decodedToken = jwt.decode(stringToken, TOKEN_KEY);
     if (decodedToken) {
         console.log(decodedToken);
-        let query = `DELETE FROM "public"."users" WHERE userid='${decodedToken.id}' RETURNING "username", "email"`;
-        response = await db.delete(query);
+        let query=`DELETE FROM "public"."presentations" WHERE presentationownerid='${decodedToken.id}' RETURNING "presentationid"`
+        await db.delete(query);
+        query = `DELETE FROM "public"."users" WHERE userid='${decodedToken.id}' RETURNING "username", "email"`;
+        let response=await db.delete(query)
         res.status(200).json(response);
     } else {
         res.status(400).send("Wrong token");

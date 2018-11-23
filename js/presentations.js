@@ -65,4 +65,10 @@ router.delete("/app/presentations", function (req, res) {
 
 });
 
+router.get("/application",function(req,res){
+    res.sendFile(__dirname+"/Application.html");
+})
+    
+
+
 module.exports = router;

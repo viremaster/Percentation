@@ -45,9 +45,9 @@
                 <input required id="newPasswordInput" type="password">
             </label>
             <input type="submit" value="Change password">
-            <div id="presentationsMiniatures"></div>
-            <button id="newPresentationButton">New Presentation</button>
         </form>
+        <div id="presentationsMiniatures"></div>
+        <button id="newPresentationButton">New Presentation</button>
 
     </template>
 
@@ -165,7 +165,7 @@
             let btnDeleteAccount = get("btnDeleteAccount");
             let disconnectButton = get("disconnectButton");
             let updateUserForm = get("updateUserForm");
-            let newPresentationButton=get("newPresentationButton");
+            let newPresentationButton = get("newPresentationButton");
 
             (function () {
                 fetch("app/presentations", {
@@ -179,6 +179,7 @@
                     }
                 }).then(data => {
                     if (data) {
+                        console.log(data);
                         return data.json();
                     }
                 }).then(data => {
@@ -188,10 +189,12 @@
 
             function displayPresentations(data) {
                 let presentationsMiniatures = get("presentationsMiniatures");
+                console.log(data);
                 for (presentation in data) {
                     let presentationDiv = document.createElement("button");
                     presentationDiv.id = data[presentation].presentationid;
-                    let numberPresentation = presentation * 1 + 1
+                    let numberPresentation = presentation * 1 + 1;
+                    console.log(presentation);
                     presentationDiv.innerHTML = "Presentation " + numberPresentation;
                     presentationsMiniatures.appendChild(presentationDiv);
                     presentationDiv.addEventListener("click", function () {
@@ -208,15 +211,16 @@
                             }
                         }).then(json => {
                             if (json) {
-                                localStorage.setItem("presentation",json.data);
-                                window.location.href="Application.html";
+                                localStorage.setItem("presentation", json.data);
+                                //fetch("/application");
+                                window.location.href = "/application";
                             }
                         })
                     })
                 }
             }
 
-            
+
             updateUserForm.onsubmit = function (e) {
                 e.preventDefault();
                 fetch("/app/user", {
@@ -240,9 +244,9 @@
                 })
             }
 
-            newPresentationButton.addEventListener("click",function(){
+            newPresentationButton.addEventListener("click", function () {
                 localStorage.removeItem("presentation");
-                window.location.href="Application.html";
+                window.location.href = "Application.html";
             })
 
             disconnectButton.onclick = function () {
