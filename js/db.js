@@ -1,4 +1,6 @@
-const {Client} = require('pg');
+const {
+    Client
+} = require('pg');
 const dataBaseUrl = process.env.DATABASE_URL;
 
 const db = {}
@@ -16,8 +18,13 @@ async function runQuery(query) {
         }).catch(function (err) {
             console.error(err);
         });
-        if (res.rows[0])
-            response = res.rows[0];
+        if (res.rows.length!=0) {
+            if (res.rows.length == 1) {
+                response = res.rows[0];
+            } else {
+                response = res.rows;
+            }
+        }
     } catch (e) {
         console.error(e);
     }
