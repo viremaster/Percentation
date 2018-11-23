@@ -92,19 +92,21 @@
                     })
                 }).then(data => {
                     if (data.status === 200) {
+                        console.log(data);
                         return data.json();
                     } else {
                         alert("Wrong email or password")
-                        return new PromiseRejectionEvent();
                     }
                 }).then(json => {
-                    authenticatedUser = json.authenticatedUser;
-                    token = json.token;
-                    console.log(token);
-                    localStorage.setItem("token", token);
-                    localStorage.setItem("authenticatedUser", authenticatedUser.username);
-                    clearScreen();
-                    displayWelcomeTemplate();
+                    if (json) {
+                        authenticatedUser = json.authenticatedUser;
+                        token = json.token;
+                        console.log(token);
+                        localStorage.setItem("token", token);
+                        localStorage.setItem("authenticatedUser", authenticatedUser.username);
+                        clearScreen();
+                        displayWelcomeTemplate();
+                    }
                 })
             }
         }
@@ -189,12 +191,12 @@
 
             function displayPresentations(data) {
                 let presentationsMiniatures = get("presentationsMiniatures");
-                console.log(data);
                 for (presentation in data) {
                     let presentationDiv = document.createElement("button");
+
                     presentationDiv.id = data[presentation].presentationid;
                     let numberPresentation = presentation * 1 + 1;
-                    console.log(presentation);
+
                     presentationDiv.innerHTML = "Presentation " + numberPresentation;
                     presentationsMiniatures.appendChild(presentationDiv);
                     presentationDiv.addEventListener("click", function () {
@@ -219,7 +221,6 @@
                     })
                 }
             }
-
 
             updateUserForm.onsubmit = function (e) {
                 e.preventDefault();
@@ -246,7 +247,7 @@
 
             newPresentationButton.addEventListener("click", function () {
                 localStorage.removeItem("presentation");
-                window.location.href = "Application.html";
+                window.location.href = "/application";
             })
 
             disconnectButton.onclick = function () {

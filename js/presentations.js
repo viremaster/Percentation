@@ -35,6 +35,7 @@ router.get("/app/presentation/:id", async function (req, res) {
     if (decodedToken) {
         let query = `SELECT data FROM public.presentations WHERE presentationownerid=${decodedToken.id} AND presentationid=${presentationid}`;
         response = await db.select(query);
+        response=response[0];
         res.status(200).send(response);
     } else {
         res.status(400).send("Wrong token");
@@ -54,6 +55,7 @@ router.post("/app/presentation", async function (req, res) {
     if (decodedToken) {
         let query = `INSERT INTO "public"."presentations" ("presentationid","presentationownerid","data") VALUES(DEFAULT,'${decodedToken.id}','${data}') RETURNING "presentationid","presentationownerid"`;
         response = await db.insert(query);
+        response=response[0];
         res.status(200).json(response);
     } else {
         res.status(400).send("Wrong token");

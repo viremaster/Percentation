@@ -45,8 +45,10 @@ router.get("/app/user", async function (req, res) {
         let query = `SELECT userid,username,password FROM public.users WHERE email='${email}'`;
 
         let user = await db.select(query);
+        
 
         if (user) {
+            user=user[0];
             let correctPassword = await bcrypt.compare(password, user.password);
 
             if (correctPassword) {
@@ -87,6 +89,7 @@ router.delete("/app/user", async function (req, res) {
         await db.delete(query);
         query = `DELETE FROM "public"."users" WHERE userid='${decodedToken.id}' RETURNING "username", "email"`;
         let response=await db.delete(query)
+        response=response[0];
         res.status(200).json(response);
     } else {
         res.status(400).send("Wrong token");
@@ -111,10 +114,10 @@ router.put("/app/user", async function (req, res) {
         let query = `SELECT password FROM public.users WHERE userid='${decodedToken.id}'`;
 
         let hashPassword = await db.select(query);
+        hashPassword=hashPassword[0];
 
         if (hashPassword) {
             let correctPassword = await bcrypt.compare(oldPassword, hashPassword.password);
-
             if (correctPassword) {
                 await bcrypt.hash(newPassword, saltRounds, async function (err, hash) {
                     query = `UPDATE public.users SET password='${hash}' WHERE userid='${decodedToken.id}' RETURNING "userid"`;
