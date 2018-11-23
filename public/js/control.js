@@ -2,6 +2,11 @@ let slides = document.getElementsByClassName("slide");
 let Presentation = document.getElementById("slideContainer");
 let actualSlideIndex = 0;
 let actualSlide = slides[actualSlideIndex];
+let backButton=document.getElementById("BackIcon");
+
+backButton.addEventListener("click",function(){
+    window.location.href="/";
+})
 
 window.onkeydown = function (e) {
     if (e.keyCode == 112 || e.keyCode == 37) {

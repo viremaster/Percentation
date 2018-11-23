@@ -207,7 +207,7 @@
         (function(){
             if(localStorage.getItem("presentation")){
                 let slideContainer=document.getElementById("slideContainer");
-                slideContainer.innerHTML=(localStorage.getItem("presentation"));
+                slideContainer.outerHTML=localStorage.getItem("presentation");
             }
         })()
 

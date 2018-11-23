@@ -238,10 +238,8 @@ function displaySlidePreview() {
         //!!! Add delete button visible on hover
          div.appendChild(slideNumber);
         div.appendChild(background);
-      
-
-        slidePreview.appendChild(div);
     
+        slidePreview.appendChild(div);
     }
 disableDraggable();
 }

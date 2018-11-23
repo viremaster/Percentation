@@ -1,7 +1,9 @@
 //Function that takes in the filename and the text
 let uploadButton = document.getElementById("saveIcon");
 uploadButton.onclick = function () {
-    let data =document.getElementById("slideContainer").innerHTML;
+    
+    let data =document.getElementById("slideContainer").outerHTML;
+    console.log(data);
     fetch('/app/presentation', {
         method: "POST",
         headers: {

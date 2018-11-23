@@ -209,7 +209,8 @@
                         }).then(json => {
                             if (json) {
                                 localStorage.setItem("presentation",json.data);
-                                window.open("Application.html");
+                                window.location.href="Application.html";
+                                
                             }
                         })
                     })
