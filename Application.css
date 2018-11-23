@@ -583,14 +583,14 @@ border: 1px solid #5596BE;
 .textbox{
   position: absolute;
   border: 1px dotted black;
-  width: 200px;
-  height: 100px;
+  width: 15%;
+  height: 15%;
 }
 
   .textbox > img{
     position: absolute;
-    width: 2vw;
-    height: 2vw;
+    width: 5%;
+    height: 5%;
     right: 0px;
     top: 0px;
   }
@@ -606,6 +606,7 @@ border: 1px solid #5596BE;
     padding: 0px;
     margin: 0px;
     position: absolute;
+    font-size: 1%;
   }
 
   .textbox > h2{

@@ -181,7 +181,6 @@ function fullscreenPresentation() {
         slideContainer.msRequestFullscreen();
 
     }
-    startpresenting();
 
 }
 
@@ -277,6 +276,13 @@ function displaySlideCounter() {
 
 }
 
+if (document.addEventListener)
+{
+    document.addEventListener('webkitfullscreenchange', startpresenting, false);
+    document.addEventListener('mozfullscreenchange', startpresenting, false);
+    document.addEventListener('fullscreenchange', startpresenting, false);
+    document.addEventListener('MSFullscreenChange', startpresenting, false);
+}
 
 
 function loadScripts() {

@@ -30,7 +30,7 @@ document.addEventListener('mousemove',function(e){
 document.addEventListener('mouseup', function(event){
   if(!onitem && !dragging && !outside && !resizing && !justclicked && maketext){
     boxcounter++;
-    createtextbox(texttype, mouse.x , mouse.y, boxcounter);
+    createtextbox(texttype, pxtopercentx(mouse.x) , pxtopercenty(mouse.y), boxcounter);
     item = div;
     move();
   } else if(dragging || resizing || justclicked){
@@ -110,8 +110,8 @@ function draghandler(e){
     item.style.cursor = 'se-resize';
     posX = Math.min(mouse.x, slideX.max-5) - (parseInt(percenttopxx(item.style.left)));
     posY = Math.min(mouse.y, slideY.max-5) - (parseInt(percenttopxy(item.style.top)));
-    item.style.width = `${posX}px`;
-    item.style.height = `${posY}px`;
+    item.style.width = pxtopercentx(posX);
+    item.style.height = pxtopercenty(posY);
     for(element of item.getElementsByTagName("TEXT")){
       center(element, item);
     }
@@ -139,8 +139,10 @@ function recenter(e){
 }
 
 function center(element, item){
-  element.style.left = `${Math.max(0,(parseInt(item.offsetWidth) - parseInt(element.offsetWidth))/2)}px`;
-  element.style.top = `${Math.max(0,(parseInt(item.offsetHeight) - parseInt(element.offsetHeight))/2)}px`;
+  pixelsLeft = Math.max(0,(parseInt(item.offsetWidth) - parseInt(element.offsetWidth))/2);
+  element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`
+  pixelsTop = Math.max(0,(parseInt(item.offsetHeight) - parseInt(element.offsetHeight))/2);
+  element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`
 }
 
 function move(){
@@ -157,13 +159,17 @@ function deleteDiv(e){
 function startpresenting(){
   if(presenting){
     presenting = false;
-    actualSlide.classList.remove("whilepresenting");
+    for(slide of slides){
+      slide.classList.remove("whilepresenting");
+    }
     for(i of actualSlide.children){
       i.querySelector("h1, h2, text").contentEditable = true;
     }
   } else {
     presenting = true;
-    slide.classList.add("whilepresenting");
+    for(slide of slides){
+      slide.classList.add("whilepresenting");
+    }
     for(i of actualSlide.children){
       i.querySelector("h1, h2, text").contentEditable = false;
     }
@@ -174,8 +180,8 @@ function createtextbox(type, x , y, id){
   div = document.createElement("div");
   div.id = `box${id}`;
   div.className = "textbox";
-  div.style.left = pxtopercentx(x);
-  div.style.top = pxtopercenty(y);
+  div.style.left = x;
+  div.style.top = y;
   div.onmousedown = divclick;
   div.onmousemove = mousehandler;
     text = document.createElement(type);

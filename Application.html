@@ -123,11 +123,10 @@
             <div id="templatesToolbar">
                 <h2> Slide templates </h2>
                 <hr>
-                <img class="toolbarIcon" alt="Title template" src="Icons/Template_Title.png">
-                <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png">
-                <img class="toolbarIcon" alt="Text template" src="Icons/Template_Text.png">
-
-                <img class="toolbarIcon" alt="Text template with two textboxes" src="Icons/Template_Doubletext.png">
+                <img class="toolbarIcon" alt="Title template" src="Icons/Template_Title.png" onclick="clickTemplate1()">
+                <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png" onclick="clickTemplate2()">
+                <img class="toolbarIcon" alt="Text template" src="Icons/Template_Text.png" onclick="clickTemplate3()">
+                <img class="toolbarIcon" alt="Text template with two textboxes" src="Icons/Template_Doubletext.png" onclick="clickTemplate4()">
 
 
             </div>
@@ -153,7 +152,20 @@
             <div id="slideSettingsToolbar">
                 <h2> Slide settings </h2>
                 <hr>
-                <p>Timed sliders</p>
+                <!-- Adding a timer for timed presentations -->
+                  <div class="slidecontainer">
+
+                      <!-- we can change this to input field if people prefer that over the range -->
+                      Slide time: 1<input type="range" min="1" max="60" value="30" class="slider" id="timedSlide">60
+                      <label class="switch">
+                      Activate timer: <input type="checkbox" id="toggleTime">
+                  <div class="slider"></div>
+                  </label>
+                  </div>
+                  <br>
+                  <br>
+
+<!-- end of timer HTML code -->
                 <p>Options for how things are viewed in presentation? like phone and stuff</p>
             </div>
         </div>
@@ -204,9 +216,11 @@
 
 
     <script src="control.js"></script>
+    <script src="richtext.js"></script>
     <script src="frontEnd.js"></script>
     <script src="textEditor.js"></script>
-    <script src="richtext.js"></script>
+    <script src="template.js"></script>
+    <script src="timedslides.js"></script>
 </body>
 
 </html>
