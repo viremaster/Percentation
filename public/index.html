@@ -167,11 +167,6 @@
             let updateUserForm = get("updateUserForm");
             let newPresentationButton=get("newPresentationButton");
 
-            newPresentationButton.addEventListener("click",function(){
-                localStorage.removeItem("presentation");
-                window.open("Application.html");
-            })
-
             (function () {
                 fetch("app/presentations", {
                     method: "GET",
@@ -244,6 +239,11 @@
                     console.log(json);
                 })
             }
+
+            newPresentationButton.addEventListener("click",function(){
+                localStorage.removeItem("presentation");
+                window.open("Application.html");
+            })
 
             disconnectButton.onclick = function () {
                 localStorage.removeItem("authenticatedUser");
