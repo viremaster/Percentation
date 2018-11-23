@@ -46,6 +46,7 @@
             </label>
             <input type="submit" value="Change password">
             <div id="presentationsMiniatures"></div>
+            <button id="newPresentationButton">Create a new Presentation</button>
         </form>
 
     </template>
@@ -164,6 +165,12 @@
             let btnDeleteAccount = get("btnDeleteAccount");
             let disconnectButton = get("disconnectButton");
             let updateUserForm = get("updateUserForm");
+            let newPresentationButton=get("newPresentationButton");
+
+            newPresentationButton.addEventListener("click",function(){
+                localStorage.removeItem("presentation");
+                window.open("Application.html");
+            })
 
             (function () {
                 fetch("app/presentations", {
