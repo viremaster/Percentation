@@ -243,7 +243,8 @@ function displaySlidePreview() {
         deleteBtn.src = "Icons/Delete.png";
         deleteBtn.alt = "Delete slide";
         deleteBtn.className = "deleteSlide";
-        deleteBtn.onclick = removeSlide;
+        deleteBtn.id="delete"+i;
+        deleteBtn.onclick = deleteSlide;
 
 
         div.innerHTML = slideContainer.children[i].innerHTML;
@@ -357,13 +358,7 @@ function exportPresenterNotes() {
 
 }
 //Function to (Hopefully) remove the stuttering icons issue.
-function calibrateScreen() {
-    //Zoom the page in and out
-    document.body.style.zoom = 0.5;
-    document.body.style.zoom = 1;
 
-
-}
 if (document.addEventListener)
  {
 document.addEventListener('webkitfullscreenchange', startpresenting, false);
@@ -374,7 +369,6 @@ document.addEventListener('webkitfullscreenchange', startpresenting, false);
 
 
 function loadScripts() {
-    calibrateScreen();
     addFontMenu();
     resizeSlideText();
     setImageTitle();

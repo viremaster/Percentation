@@ -57,12 +57,15 @@ function jumpToSlide() {
 
     //Index takes the number from the id of the previewSlide and removes the string, leaving only the number.
     let index = parseInt(this.id.slice(12));
+    if (index>slide.length){
+    }
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block") {
             slides[i].style.display = "none";
             break
         }
     }
+    
 
     slides[index].style.display = "block";
     actualSlideIndex = index;
@@ -91,23 +94,26 @@ function addSlide() {
 
 }
 
-function removeSlide() {
-    console.log("This function fired because you clicked the delete button in the preview. We have to use the 'deleteSlide' function instead once it has been configured to take things into account.");
-}
 
 function deleteSlide() {
-    slides = document.getElementsByClassName("slide");
+    let target = this.id.slice(6);
+    console.log(target);
+   
     if (slides.length > 0) {
         if (slides.length == 1) {
-            Presentation.removeChild(Presentation.children[actualSlideIndex]);
-            actualSlideIndex = 0;
+          
         } else if (actualSlideIndex == slides.length - 1) {
-            Presentation.removeChild(Presentation.children[actualSlideIndex]);
+            Presentation.removeChild(Presentation.children[target]);
             slides[actualSlideIndex - 1].style.display = "block"
             actualSlideIndex -= 1;
+             totalSlides-=1;
         } else {
-            Presentation.removeChild(Presentation.children[actualSlideIndex]);
+            Presentation.removeChild(Presentation.children[target]);
             slides[actualSlideIndex].style.display = "block";
+             totalSlides-=1;
         }
     }
+    displaySlidePreview();
+    displayCurrentNotes();
+    displaySlideCounter();
 }

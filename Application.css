@@ -5,6 +5,8 @@
     box-sizing: border-box !important;
     max-height: 100vh !important;
     background-size: 100% 100%;
+
+   
 }
 
 body {
@@ -170,6 +172,7 @@ button:hover {
     grid-area: workArea;
     background-color: #354044;
 
+
 }
 
 .slidePreview {
@@ -195,6 +198,7 @@ button:hover {
     box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
     font-family: sans-serif;
     color: #555555;
+  
 }
 
 /*------------------------------Icons, general--------------------------------------------------*/
@@ -640,15 +644,16 @@ button:hover {
     border: 1px dotted black;
     width: 15%;
     height: 15%;
+   
 }
 
-.textbox > .deleteimg {
+/*.textbox > .deleteimg {
     position: absolute;
     width: 1vw;
     height: 1vw;
     right: 0px;
     top: 0px;
-}
+}*/
 
 .textbox > text {
     padding: 0px;
@@ -684,4 +689,22 @@ button:hover {
 
 .whilepresenting > .textbox > img {
     visibility: hidden;
+}
+
+.textboxMenu{
+    position: absolute;
+    flex-direction: column;
+    top:0%;
+    right:-0%;
+height: 30%;
+    justify-content: space-between;
+    
+}
+.textboxMenu img{
+    height: 1.5vw;
+    display: none;
+    cursor: pointer;
+}
+div:hover>.textboxMenu img{
+    display: block;
 }
