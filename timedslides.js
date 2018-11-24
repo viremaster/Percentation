@@ -6,13 +6,13 @@ function setTimer() {
     let xTime = time * 1000;
     console.log(xTime);
     let checkBox = document.getElementById("toggleTime");
-    let maxNumber = 600000;
 
 
 
     if (checkBox.checked) {
         console.log("checkbox is checked");
-        myTime = setInterval(nextSlide, xTime);  // replace nextSlide with whatever function we use to go to next slide in fullscreenmode.
+        myTime = setInterval(nextSlide, xTime);
+        // replace nextSlide with whatever function we use to go to next slide in fullscreenmode.
 
     } else {
         console.log("checkbox is not checked");
