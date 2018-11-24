@@ -26,7 +26,7 @@
 
             <div id="slideContainer">
 
-                <div id = "currentslide" class="slide" style="display:block;">
+                <div id="currentslide" class="slide" style="display:block;">
                     <!---<div class="titleTemplate">
                         <h1 contenteditable="true">title</h1>
                         <h3 contenteditable="true"> Insert subtitle here:</h3>
@@ -98,9 +98,9 @@
                     <div class="dropdown">
                         <img src="Icons/Add_New.png" alt="Add new element" class="toolbarIcon" id="newElementIcon">
                         <div class="dropdown-content">
-                            <a id = "h1" onclick = "selectTextType(event)">Add new title</a>
-                            <a id = "h2" onclick = "selectTextType(event)">Add new subtitle</a>
-                            <a id = "text" onclick = "selectTextType(event)" >Add new text</a>
+                            <a id="h1" onclick="selectTextType(event)">Add new title</a>
+                            <a id="h2" onclick="selectTextType(event)">Add new subtitle</a>
+                            <a id="text" onclick="selectTextType(event)">Add new text</a>
                         </div>
                     </div>
                     <img src="Icons/Delete.png" alt="Remove element" class="toolbarIcon" id="removeElementIcon">
@@ -153,19 +153,22 @@
                 <h2> Slide settings </h2>
                 <hr>
                 <!-- Adding a timer for timed presentations -->
-                  <div class="slidecontainer">
+                <div class="slidecontainer">
+                    <!-- this was called slidecontainer in the test version for some reason in the tester, change as pleased -->
+                    <p>Timed slides: <br> insert the number of seconds you wish to have between each slide in the input field.</p>
+                    <input id="timedSlide">
 
-                      <!-- we can change this to input field if people prefer that over the range -->
-                      Slide time: 1<input type="range" min="1" max="60" value="30" class="slider" id="timedSlide">60
-                      <label class="switch">
-                      Activate timer: <input type="checkbox" id="toggleTime">
-                  <div class="slider"></div>
-                  </label>
-                  </div>
-                  <br>
-                  <br>
+                    <!-- we can change this to input field if people prefer that over the range -->
+                    <!--   Slide time: 1<input type="range" min="1" max="60" value="30" class="slider" id="timedSlide">60 -->
+                    <label class="switch">
+                        Activate timer: <input type="checkbox" id="toggleTime">
+                        <!-- <div class="slider"></div> -->
+                    </label>
+                </div>
+                <br>
+                <br>
 
-<!-- end of timer HTML code -->
+                <!-- end of timer HTML code -->
                 <p>Options for how things are viewed in presentation? like phone and stuff</p>
             </div>
         </div>
