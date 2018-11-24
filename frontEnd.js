@@ -366,7 +366,22 @@ document.addEventListener('webkitfullscreenchange', startpresenting, false);
       document.addEventListener('fullscreenchange', startpresenting, false);
      document.addEventListener('MSFullscreenChange', startpresenting, false);
  }
-
+function test(){
+    console.log("hello");
+}
+function startPresentationMode(){
+    let container = slideContainer.outerHTML;
+    let newWindow = window.open("","", "width=200,height=100");
+    let doc = newWindow.document;
+    container.onclick=test();
+    doc.open();
+    
+    doc.write('<html><head><title>Print it!</title><link rel="stylesheet" type="text/css" href="Application.css"></head><body>');
+    doc.write(container);
+    doc.write('</body></html>');
+    doc.close();
+    
+}
 
 function loadScripts() {
     addFontMenu();
