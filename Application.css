@@ -65,9 +65,11 @@ h3 {
     padding: 0.5%;
     text-align: center;
 }
-text{
+
+text {
     font-size: 1%;
 }
+
 div {
     position: relative;
     display: flex;
@@ -102,10 +104,11 @@ button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: 10%;
     cursor: pointer;
     font-size: 1vw;
     font-family: sans-serif;
+    border: 1px solid #555;
+    box-shadow: 0.2vw 0.2vw 3vw 0 rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
@@ -193,6 +196,7 @@ button:hover {
     font-family: sans-serif;
     color: #555555;
 }
+
 /*------------------------------Icons, general--------------------------------------------------*/
 .topIcon {
     height: 60%;
@@ -304,7 +308,21 @@ button:hover {
 }
 
 
-
+.navBtns{
+    position: absolute;
+    height: 10%;
+    bottom: 40%;
+    width: 98%;
+    justify-content: space-between;
+    
+}
+.navBtns img{
+    height: 100%;
+    opacity: 0.6;
+}
+.navBtns img:hover{
+     filter: brightness(3);
+}
 /*-----------------------Slidepreview--------------------*/
 .numberedSlides {
     position: absolute;
@@ -326,17 +344,19 @@ button:hover {
 }
 
 .miniSlide {
-   position:relative;
-   display: flex;
-   justify-content: center;
-   margin: auto 0 auto 1%;
-   top: -5%;
-   box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.2);
-   min-width: 10vw;
-       border: 2px solid transparent;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: auto 0 auto 1%;
+    top: -5%;
+    box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.2);
+    min-width: 10vw;
+    border: 2px solid transparent;
+    font-family: sans-serif;
 
 }
-.miniSlide:hover{
+
+.miniSlide:hover {
     border: 2px solid #092127;
     box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.4);
 }
@@ -348,7 +368,7 @@ button:hover {
 }
 
 
-.deleteSlide{
+.deleteSlide {
 
     position: absolute;
     width: 1vw;
@@ -356,11 +376,11 @@ button:hover {
     display: none;
 }
 
-.deleteSlide:hover{
-border: 1px solid #5596BE;
+.deleteSlide:hover {
+    border: 1px solid #5596BE;
 }
 
-.miniSlide:hover>.deleteSlide{
+.miniSlide:hover > .deleteSlide {
     display: block;
 }
 
@@ -375,6 +395,9 @@ border: 1px solid #5596BE;
 .slideNumber {
     position: absolute;
     top: 105%;
+    font-family: Comfortaa !important;
+    text-shadow: none !important;
+    color: lightslategray !important;
 
 }
 
@@ -521,21 +544,28 @@ border: 1px solid #5596BE;
     font-family: sans-serif;
     overflow: none;
     left: 10%;
+    box-shadow: 0.2vw 0.2vw 3vw 0 rgba(0, 0, 0, 0.2);
+
+
 }
 
-.textBox > p {
+.textBox  text {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: vertical;
     overflow-y: auto;
+    left:0;
+    font-size: 1vw;
+    text-align: left;
+    padding: 1vw;
+   
 
 }
 
 #speakerNotesToolbar button {
     position: absolute;
     left: 11%;
-    top: 86%;
     top: 86%;
 
 }
@@ -547,13 +577,14 @@ border: 1px solid #5596BE;
 
 
 /*-------titleTemplate--------*/
-.slide{
+.slide {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
 }
+
 .titleTemplate {
     font-size: inherit;
     position: absolute;
@@ -562,7 +593,7 @@ border: 1px solid #5596BE;
 }
 
 
-.titleTemplate>h1 {
+.titleTemplate > h1 {
     /*  border: 1px dotted gray;*/
     position: absolute;
     font-size: 12%;
@@ -571,86 +602,11 @@ border: 1px solid #5596BE;
     padding: 1% 0 1% 0;
 }
 
-.titleTemplate>h3 {
+.titleTemplate > h3 {
     position: absolute;
     top: 60%;
     width: 100%;
     /*  border: 1px dotted gray;*/
     font-size: 8%;
     padding: 1% 0 1% 0;
-}
-
-.picturebox{
-  position: absolute;
-  border: 1px dotted black;
-  width: 15%;
-  height: 15%;
-}
-
-  .picturebox > .deleteimg{
-    position: absolute;
-    width: 1vw;
-    height: 1vw;
-    right: 0px;
-    top: 0px;
-  }
-
-  .picturebox > .bigimg{
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-  }
-
-
-.textbox{
-  position: absolute;
-  border: 1px dotted black;
-  width: 15%;
-  height: 15%;
-}
-
-  .textbox > .deleteimg{
-    position: absolute;
-    width: 1vw;
-    height: 1vw;
-    right: 0px;
-    top: 0px;
-  }
-
-  .textbox > text{
-    padding: 0px;
-    margin: 0px;
-    position: absolute;
-    font-size: 2%
-  }
-
-  .textbox > h1{
-    padding: 0px;
-    margin: 0px;
-    position: absolute;
-    font-size: 1%;
-  }
-
-  .textbox > h2{
-    padding: 0px;
-    margin: 0px;
-    position: absolute;
-    font-size: 3%;
-  }
-
-  .textbox > ul > li{
-    padding: 0px;
-    margin: 0px;
-    position: absolute;
-    font-size: 3%;
-  }
-
-.whilepresenting > .textbox{
-  border: none;
-}
-
-.whilepresenting > .textbox > img{
-  visibility: hidden;
 }
