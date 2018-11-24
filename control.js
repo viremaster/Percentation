@@ -3,42 +3,35 @@ let Presentation = document.getElementById("slideContainer");
 let actualSlideIndex = 0;
 let actualSlide = slides[actualSlideIndex];
 
-//Simplified version of slide.length to troubleshoot functionality in frontEnd.js
-let totalSlides = 0;
-
-
 window.onkeydown = function (e) {
-    if (document.activeElement.hasAttribute("contenteditable") == false) {
-        if (e.keyCode == 112 || e.keyCode == 37) {
-            //      console.log("previous")
-            previousSlide();
-        } else if (e.keyCode == 110 || e.keyCode == 32 || e.keyCode == 39) {
-            // console.log("next")
-            nextSlide();
-
-        }
+    if (e.keyCode == 112 || e.keyCode == 37) {
+        console.log("previous")
+        previousSlide();
+    } else if (e.keyCode == 110 || e.keyCode == 32 || e.keyCode == 39) {
+        console.log("next")
+        nextSlide();
     }
 
 }
 
 function nextSlide() {
-
+    slides = document.getElementsByClassName("slide");
+    console.log(slides)
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block" && i != slides.length - 1) {
             slides[i].style.display = "none";
             slides[i + 1].style.display = "block";
             actualSlide = slides[i + 1];
-            actualSlideIndex = actualSlideIndex + 1;
+            actualSlideIndex += 1;
             break
         }
-        // console.log("actual= " + actualSlideIndex + "currentSlide =" + currentSlide);
     }
-    displayCurrentNotes();
     displaySlidePreview();
+    displaySlideCounter();
 }
 
 function previousSlide() {
-
+    slides = document.getElementsByClassName("slide");
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block" && i != 0) {
             slides[i].style.display = "none";
@@ -47,57 +40,52 @@ function previousSlide() {
             actualSlideIndex -= 1
             break
         }
-
     }
-    displayCurrentNotes();
     displaySlidePreview();
+    displaySlideCounter();
 }
 
 function jumpToSlide() {
-
     //Index takes the number from the id of the previewSlide and removes the string, leaving only the number.
-    let index = parseInt(this.id.slice(12));
+    let index = this.id.slice(12);
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block") {
             slides[i].style.display = "none";
             break
         }
     }
-
     slides[index].style.display = "block";
-    actualSlideIndex = index;
-    currentSlide = index;
-
+    actualSlide = slides[index];
 
     displaySlidePreview();
-    displayCurrentNotes();
+    displaySlideCounter();
 }
 
 
 function addSlide() {
-    totalSlides += 1;
-    currentSlide = totalSlides;
     let newSlide = document.createElement("div");
     newSlide.className = "slide";
     newSlide.style.display = "none";
-    Presentation.insertBefore(newSlide, Presentation.children[actualSlideIndex + 1]);
-    createSlideNotes();
-    nextSlide();
-
+    if (Presentation.children.length > 0) {
+        Presentation.insertBefore(newSlide, Presentation.children[actualSlideIndex + 1]);
+        nextSlide();
+    } else {
+        Presentation.appendChild(newSlide);
+        newSlide.style.display = "block"
+    }
+    // <h1 contenteditable="true"> Insert title here:</h1>
+    // <h3 contenteditable="true"> this is a new slide</h3>
     newSlide.innerHTML = `
     <div class="titleTemplate">
-    <h1 contenteditable="true"> Insert title here:</h1>
-    <h3 contenteditable="true"> this is a new slide</h3>
-    </div>`;
-
-
+    </div>
+    `;
+    displaySlideCounter();
     displaySlidePreview();
-
-
+    displaySlideCounter();
 }
 
 function removeSlide() {
-    console.log("This function fired because you clicked the delete button in the preview. We have to use the 'deleteSlide' function instead once it has been configured to take things into account.");
+    console.log("This function fired because you clicked the little button in the preview. We have to use the 'deleteSlide' function instead once it has been configured to take things into account.");
 }
 
 function deleteSlide() {

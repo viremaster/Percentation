@@ -173,7 +173,7 @@ function startpresenting(){
       slide.classList.remove("whilepresenting");
     }
     for(i of actualSlide.children){
-      if(i.querySelector("h1, h2, text")){i.querySelector("h1, h2, text").contentEditable = true;}
+      i.querySelector("h1, h2, text").contentEditable = true;
     }
   } else {
     presenting = true;
@@ -181,7 +181,7 @@ function startpresenting(){
       slide.classList.add("whilepresenting");
     }
     for(i of actualSlide.children){
-      if(i.querySelector("h1, h2, text")){i.querySelector("h1, h2, text").contentEditable = false;}
+      i.querySelector("h1, h2, text").contentEditable = false;
     }
   }
 }
