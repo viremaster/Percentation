@@ -36,19 +36,24 @@ document.addEventListener('mouseup', function(event){
   } else if(dragging || resizing || justclicked){
     end();
   }
+  for(element of document.getElementById("textBoxCreatorMenu").children){
+    element.style.color = "lightslategray";
+  }
+  texttype = "";
+  maketext = false;
 }, false);
 
 function selectTextType(e){
   for(element of e.currentTarget.parentElement.children){
-    element.style.color = "white";
+    element.style.color = "lightslategray";
   }
   if(texttype == e.currentTarget.id){
     texttype = "";
     maketext = false;
-    e.currentTarget.style.color = "white";
+    e.currentTarget.style.color = "lightslategray";
   } else if(e.currentTarget.id != "choosebuttons") {
     texttype = e.currentTarget.id;
-    e.currentTarget.style.color = "grey";
+    e.currentTarget.style.color = "white";
     maketext = true;
   }
 }
@@ -71,15 +76,19 @@ function mousehandler(e){
 
 function divclick(e){
   if(presenting){
-  }else if(!dragging && e.target.nodeName == "DIV"){
-    item = e.target;
+  }else if(!dragging && (e.target.nodeName == "DIV" || e.target.nodeName == "IMG")){
+    if(e.target.nodeName == "IMG"){
+      item = e.target.parentElement;
+    } else {
+      item = e.target;
+    }
     if(incorner(item)){
-      offsetX = e.pageX - parseInt(percenttopxx(e.target.style.left));
-      offsetY = e.pageY - parseInt(percenttopxy(e.target.style.top));
+      offsetX = e.pageX - parseInt(percenttopxx(item.style.left));
+      offsetY = e.pageY - parseInt(percenttopxy(item.style.top));
       resizing = true;
     } else {
-      offsetX = e.pageX - parseInt(percenttopxx(e.target.style.left));
-      offsetY = e.pageY - parseInt(percenttopxy(e.target.style.top));
+      offsetX = e.pageX - parseInt(percenttopxx(item.style.left));
+      offsetY = e.pageY - parseInt(percenttopxy(item.style.top));
       item.style.opacity = 0.1;
       dragging = true;
     }
@@ -148,6 +157,7 @@ function center(element, item){
 function move(){
   posX = Math.max(0, Math.min(mouse.x-offsetX-slideX.min, slideX.max-slideX.min - item.offsetWidth));
   posY = Math.max(0, Math.min(mouse.y-offsetY-slideY.min, slideY.max-slideY.min - item.offsetHeight));
+  console.log(offsetY);
   item.style.left = pxtopercentx(posX);
   item.style.top = pxtopercenty(posY);
 }
@@ -194,6 +204,7 @@ function createtextbox(type, x , y, id){
   div.appendChild(text);
     img = document.createElement("img");
     img.src = "Icons/Cross.png";
+    img.classList.add("deleteimg");
     img.onclick = deleteDiv;
     img.onmousemove = mousehandler;
   div.appendChild(img);
