@@ -17,6 +17,10 @@ function createmediabox(content, x , y, id){
   center(content, div);
 }
 
+img = document.createElement("img");
+img.src = "Icons/Bold.png";
+createpicturebox(img, "20%", "20%", 1);
+
 function createpicturebox(picture, x, y, id){
   div = document.createElement("div");
   div.id = `picturebox${id}`;
