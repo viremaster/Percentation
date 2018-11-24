@@ -3,6 +3,9 @@ let allImages = document.getElementsByTagName("img");
 let currentTheme = "Themes/Blank.jpg";
 const slideContainer = document.getElementById("slideContainer");
 let presentationMode = false;
+let slidePreview = document.getElementById("slidePreview");
+let notesToolbar = document.getElementById("speakerNotesToolbar");
+let exportBtn = document.getElementById("exportSpeakerNotes");
 let themes = [{
         name: "blank",
         font: "sans-serif",
@@ -142,7 +145,6 @@ function toolbarChange(event) {
 function resizeSlideText() {
     divWidht = get("slideContainer").offsetWidth;
     get("slideContainer").style.fontSize = divWidht + "px";
-    recalculatesize();
 
     //!!! New fontsize that scales fonts based on size of the miniDivs in the preview.
     miniDivWidht = get("newSlide").offsetWidth;
@@ -186,16 +188,20 @@ function fullscreenPresentation() {
 
 
 function changeTheme(event) {
+
     //!!! If the amount of themes reach double digits this needs to change
-    var i = event.target.id.slice(-1);
+    let i = event.target.id.slice(-1);
     if (isNaN(i)) {
         //If you click outside the box, nothing happens
     } else {
         slideContainer.style.backgroundImage = themes[i].img;
         slideContainer.style.color = themes[i].color;
         slideContainer.style.fontFamily = themes[i].font;
-        slideContainer.style.textShadow = "-1.5px -1.5px 0" + themes[i].stroke + ",1.5px -1.5px 0" + themes[i].stroke + ",-1.5px 1.5px 0" + themes[i].stroke + ",1.5px 1.5px 0" + themes[i].stroke;
+        slideContainer.style.textShadow = "-0.05vw -0.05vw 0" + themes[i].stroke + ",0.05vw -0.05vw 0" + themes[i].stroke + ",0.05vw 0.05vw 0" + themes[i].stroke + ",0.05vw 0.05vw 0" + themes[i].stroke;
         currentTheme = themes[i].img2;
+
+
+
         displaySlidePreview();
 
     }
@@ -208,8 +214,6 @@ function changeTheme(event) {
 slides = document.getElementsByClassName("slide");
 
 
-let slidePreview = document.getElementById("slidePreview");
-let newSlideDiv = document.getElementById("newSlide")
 
 function displaySlidePreview() {
 
@@ -223,9 +227,11 @@ function displaySlidePreview() {
         let slideNumber = document.createElement("p");
         let background = document.createElement("img");
         let deleteBtn = document.createElement("img");
+        let notes = div.id = "slidePreview" + i;
 
-        div.id = "slidePreview" + i;
+        div.className = "whilepresenting";
         div.className = "miniSlide";
+
 
         slideNumber.innerHTML = "Slide " + (i + 1);
         slideNumber.className = "slideNumber";
@@ -233,62 +239,141 @@ function displaySlidePreview() {
         background.className = "miniSlideBackground";
         background.src = currentTheme;
 
-        deleteBtn.src="Icons/Delete.png";
-        deleteBtn.alt="Delete slide";
-        deleteBtn.className="deleteSlide";
-        deleteBtn.onclick=removeSlide;
+        deleteBtn.src = "Icons/Delete.png";
+        deleteBtn.alt = "Delete slide";
+        deleteBtn.className = "deleteSlide";
+        deleteBtn.onclick = removeSlide;
 
-        // <img src="Icons/Delete.png" alt="Delete slide" class="deleteSlide">
+
         div.innerHTML = slideContainer.children[i].innerHTML;
-
         div.onclick = jumpToSlide;
 
-        //!!! Fix styling so it matches!
-        //Copy somehow so the style is added to the elements before it's applied to the div with the style?
 
-        //div.style= slideContainer.children[i].style;
-        // console.log(slideContainer.children[i].style)
-
-
-        //!!! Add delete button visible on hover
         div.appendChild(slideNumber);
         div.appendChild(background);
         div.appendChild(deleteBtn);
 
         slidePreview.appendChild(div);
+
+
+
+    }
+    //---- Match style of preview to style of slide. ----- 
+    let previews = document.querySelectorAll(".miniSlide");
+
+    for (let p = 0; p < previews.length; p++) {
+        previews[p].style.color = slideContainer.style.color;
+        previews[p].style.fontFamily = slideContainer.style.fontFamily;
+        previews[p].style.textShadow = slideContainer.style.textShadow;
     }
 
-
-
+    //---- Disable contentEditable on previews ------------- 
+    let allH1 = slidePreview.querySelectorAll("h1")
+    for (let h = 0; h < allH1.length; h++) {
+        allH1[h].setAttribute("contenteditable", "false");
+    }
+    //!!! Change h3 to text once things are working as intended
+    let allText = slidePreview.querySelectorAll("h3")
+    for (let t = 0; t < allText.length; t++) {
+        allText[t].setAttribute("contenteditable", "false");
+    }
+    displaySlideCounter();
     disableDraggable();
 }
+
+
+
+//------Creating slide-specific speaker notes ----- 
+
+function createSlideNotes() {
+
+    let notesContainer = document.createElement("div");
+    let notes = slideNumber = document.createElement("TEXT");
+
+    notes.innerHTML = "Slide " + (totalSlides + 1) + " notes:";
+    notes.setAttribute("contentEditable", "true");
+
+    notesContainer.id = "slideNotes" + totalSlides;
+    notesContainer.className = "textBox";
+    notesContainer.appendChild(notes);
+    notesToolbar.insertBefore(notesContainer, exportBtn);
+
+   
+}
+
+function displayCurrentNotes() {
+    let allNotes = document.querySelectorAll(".textBox");
+    for (let i = 0; i < allNotes.length; i++) {
+        allNotes[i].style.display = "none";
+    }
+    allNotes[actualSlideIndex].style.display = "block";
+}
+
+
 
 function displaySlideCounter() {
 
     let slideCounter = document.getElementById("slideNumber");
-    slideCounter.innerHTML = "Slide " + (1+Number(actualSlideIndex)) + " / " + slides.length;
-
+    slideCounter.innerHTML = "Slide " + (Number(actualSlideIndex) + 1) + " / " + (totalSlides + 1);
 
     let previewID = document.getElementById("slidePreview" + actualSlideIndex);
     previewID.style.border = "2px solid black";
     previewID.style.boxShadow = "5px 7px 50px 1px rgba(0, 0, 0, 0.4)";
 
+}
+
+let noteString = "";
+
+function gatherPresenterNotes() {
+    noteString = "";
+    let allNoteData = document.querySelectorAll(".textBox");
+
+    for (let i = 0; i < allNoteData.length; i++) {
+        noteString += "\r\n \r\n" + allNoteData[i].firstChild.innerHTML;
+
+    }
+}
+
+function exportPresenterNotes() {
+
+    gatherPresenterNotes();
+    let fileName = "PlaceholderFilename";
+    let newFile = document.createElement('a');
+    //Replaces all unwanted divs and replaces with a linebreak
+    noteString = noteString.replace(/<div>/g, '\r\n');
+    //Replaces all other html-specific characters.
+    noteString = noteString.replace(/<[^>]*>/g, '');
+    //Removes nonebreakingspace notation in the string.
+    noteString = noteString.replace(/&nbsp;/g, '');
+    //Removes the first two linebreaks. 
+    noteString = noteString.slice(4);
+
+    newFile.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(noteString));
+    newFile.setAttribute('download', fileName);
+    document.body.appendChild(newFile);
+    newFile.click();
+    document.body.removeChild(newFile);
+
+}
+//Function to (Hopefully) remove the stuttering icons issue.
+function calibrateScreen() {
+    //Zoom the page in and out
+    document.body.style.zoom = 0.5;
+    document.body.style.zoom = 1;
+
 
 }
 
-if (document.addEventListener)
-{
-    document.addEventListener('webkitfullscreenchange', startpresenting, false);
-    document.addEventListener('mozfullscreenchange', startpresenting, false);
-    document.addEventListener('fullscreenchange', startpresenting, false);
-    document.addEventListener('MSFullscreenChange', startpresenting, false);
-}
+
 
 
 function loadScripts() {
+    calibrateScreen();
     addFontMenu();
     resizeSlideText();
     setImageTitle();
     displaySlidePreview();
     disableDraggable();
+    createSlideNotes();
+     displayCurrentNotes();
 }
