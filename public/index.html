@@ -131,7 +131,8 @@
                 fetch('/app/user', {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'Basic ' + btoa(createEmail + ':' + createName+":"+createPassword),
+                        'Authorization': 'Basic ' + btoa(createEmail + ':' + createName + ":" +
+                            createPassword),
                         'content-type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function (res) {
@@ -176,7 +177,6 @@
                     }
                 }).then(data => {
                     if (data) {
-                        console.log(data);
                         return data.json();
                     }
                 }).then(data => {
@@ -209,7 +209,6 @@
                         }).then(json => {
                             if (json) {
                                 localStorage.setItem("presentation", json.data);
-                                //fetch("/application");
                                 window.location.href = "/application";
                             }
                         })
