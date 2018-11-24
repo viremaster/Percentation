@@ -1,15 +1,15 @@
 
 function clickTemplate1(){
-  createIfNotPresent(actualSlide, "H1", 50, 10 );
-  createIfNotPresent(actualSlide, "TEXT", 50, 30);
+  createIfNotPresent(slides[actualSlideIndex], "H1", 50, 10 );
+  createIfNotPresent(slides[actualSlideIndex], "TEXT", 50, 30);
 }
 
 function clickTemplate2(){
-  createIfNotPresent(actualSlide, "H1", 20, 50);
+  createIfNotPresent(slides[actualSlideIndex], "H1", 20, 50);
 }
 
 function clickTemplate3(){
-  createIfNotPresent(actualSlide, "TEXT", 50, 20);
+  createIfNotPresent(slides[actualSlideIndex], "TEXT", 50, 20);
 }
 
 function createIfNotPresent(container, elementType, x, y){

@@ -1,4 +1,4 @@
-//We defined the variable
+//We defined the variable 
 let buttons = document.getElementById("textToolbar");
 let text = document.getElementById('titleTemplate');
 let fonts = document.getElementById("fontSelect");
@@ -6,9 +6,9 @@ let changeFontButton = document.getElementById("fontName");
 let changeSizeInput = document.getElementById("changeSizeInput");
 let changeColor = document.getElementById("color");
 let foreColorButton = document.getElementById("foreColor");
-let textColorIcon=document.getElementById("textColorIcon");
+let textColorIcon = document.getElementById("textColorIcon");
 
-textColorIcon.onclick=function(){
+textColorIcon.onclick = function () {
     changeColor.click();
 }
 

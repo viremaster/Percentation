@@ -157,7 +157,6 @@ function center(element, item){
 function move(){
   posX = Math.max(0, Math.min(mouse.x-offsetX-slideX.min, slideX.max-slideX.min - item.offsetWidth));
   posY = Math.max(0, Math.min(mouse.y-offsetY-slideY.min, slideY.max-slideY.min - item.offsetHeight));
-  console.log(offsetY);
   item.style.left = pxtopercentx(posX);
   item.style.top = pxtopercenty(posY);
 }
@@ -172,7 +171,7 @@ function startpresenting(){
     for(slide of slides){
       slide.classList.remove("whilepresenting");
     }
-    for(i of actualSlide.children){
+    for(i of slides[actualSlideIndex].children){
       i.querySelector("h1, h2, text").contentEditable = true;
     }
   } else {
@@ -180,7 +179,7 @@ function startpresenting(){
     for(slide of slides){
       slide.classList.add("whilepresenting");
     }
-    for(i of actualSlide.children){
+    for(i of slides[actualSlideIndex].children){
       i.querySelector("h1, h2, text").contentEditable = false;
     }
   }
@@ -208,7 +207,7 @@ function createtextbox(type, x , y, id){
     img.onclick = deleteDiv;
     img.onmousemove = mousehandler;
   div.appendChild(img);
-  actualSlide.appendChild(div);
+ slides[actualSlideIndex].appendChild(div);
   center(text, div);
 }
 
