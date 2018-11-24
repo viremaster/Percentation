@@ -125,20 +125,15 @@
             let createUserForm = get("createUserForm");
             createUserForm.onsubmit = function (e) {
                 e.preventDefault();
-                let createEmail = document.getElementById('createEmail'),
-                    createName = document.getElementById('createName'),
-                    createPassword = document.getElementById('createPassword');
+                let createEmail = document.getElementById('createEmail').value,
+                    createName = document.getElementById('createName').value,
+                    createPassword = document.getElementById('createPassword').value;
                 fetch('/app/user', {
                     method: 'POST',
                     headers: {
-                        'accept': '*/*',
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: createName.value,
-                        password: createPassword.value,
-                        email: createEmail.value
-                    })
+                        'Authorization': 'Basic ' + btoa(createEmail + ':' + createName+":"+createPassword),
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
                 }).then(function (res) {
                     console.log(res);
                     if (res.status == 200) {
