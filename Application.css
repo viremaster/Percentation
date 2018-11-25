@@ -6,7 +6,7 @@
     max-height: 100vh !important;
     background-size: 100% 100%;
 
-   
+
 }
 
 body {
@@ -197,7 +197,7 @@ button:hover {
     box-shadow: 10px 15px 80px 10px rgba(0, 0, 0, 0.5);
     font-family: sans-serif;
     color: #555555;
-  
+
 }
 
 /*------------------------------Icons, general--------------------------------------------------*/
@@ -339,7 +339,7 @@ button:hover {
      filter: brightness(3);
     width: 3.5%;
     transition: width 0.1s;
-    
+
 }
 /*-----------------------Slidepreview--------------------*/
 .numberedSlides {
@@ -371,6 +371,8 @@ button:hover {
     min-width: 10vw;
     border: 2px solid transparent;
     font-family: sans-serif;
+
+
 
 }
 
@@ -653,11 +655,15 @@ button:hover {
 .textbox {
     position: absolute;
     border: 1px dotted black;
-    width: 15%;
-    height: 15%;
-   
-}
+    padding: 2%;
+    width: 70%;
+    height: 30%;
 
+}
+.miniSlide .textBox{
+  border: none;
+  overflow: hidden;
+}
 /*.textbox > .deleteimg {
     position: absolute;
     width: 1vw;
@@ -670,28 +676,21 @@ button:hover {
     padding: 0px;
     margin: 0px;
     position: absolute;
-    font-size: 2%
+    font-size: 5%
 }
 
 .textbox > h1 {
     padding: 0px;
     margin: 0px;
     position: absolute;
-    font-size: 1%;
+    font-size: 12%;
 }
 
 .textbox > h2 {
     padding: 0px;
     margin: 0px;
     position: absolute;
-    font-size: 3%;
-}
-
-.textbox > ul > li {
-    padding: 0px;
-    margin: 0px;
-    position: absolute;
-    font-size: 3%;
+    font-size: 8%;
 }
 
 .whilepresenting > .textbox {
@@ -709,7 +708,7 @@ button:hover {
     right:-0%;
 height: 30%;
     justify-content: space-between;
-    
+
 }
 .textboxMenu img{
     height: 1.5vw;
@@ -723,3 +722,7 @@ height: 30%;
 .miniSlide .textbox:hover>.textboxMenu img{
     display: none;
 }
+
+.boxTEXT{}
+.boxH1{}
+.boxH2{}

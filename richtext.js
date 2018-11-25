@@ -136,7 +136,7 @@ function draghandler(e) {
         item.style.width = pxtopercentx(posX);
         item.style.height = pxtopercenty(posY);
         for (element of item.getElementsByTagName("TEXT")) {
-            center(element, item);
+             center(element, item);
         }
         for (element of item.getElementsByTagName("H1")) {
             center(element, item);
@@ -159,7 +159,7 @@ function recenter(e) {
     element = e.target;
     box = e.target.parentElement;
     center(element, box);
-   
+
 }
 
 function center(element, item) {
@@ -167,7 +167,7 @@ function center(element, item) {
     element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`
     pixelsTop = Math.max(0, (parseInt(item.offsetHeight) - parseInt(element.offsetHeight)) / 2);
     element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`
-   
+
 }
 
 function move() {
@@ -180,7 +180,6 @@ function move() {
 
 function deleteDiv(e) {
     e.currentTarget.parentElement.parentElement.remove();
-    console.log(e.currentTarget.parentElement);
 }
 
 function sendForward(e) {
@@ -218,6 +217,7 @@ function createtextbox(type, x, y, id) {
 
     div.id = `box${id}`;
     div.className = "textbox";
+    div.classList.add(`box${type}`);
     div.style.left = x;
     div.style.top = y;
     div.onmousedown = divclick;
@@ -259,8 +259,8 @@ function createtextbox(type, x, y, id) {
     div.appendChild(div2);
     slides[actualSlideIndex].appendChild(div);
     center(text, div);
-    
- 
+    return div;
+
 
 }
 

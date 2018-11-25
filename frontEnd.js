@@ -1,4 +1,5 @@
 //----------------------Sets the title of all image elements to match the alt text to show tooltips on hover------------------------
+let previews;
 let allImages = document.getElementsByTagName("img");
 let currentTheme = "Themes/Blank.jpg";
 const slideContainer = document.getElementById("slideContainer");
@@ -230,9 +231,9 @@ function displaySlidePreview() {
         let deleteBtn = document.createElement("img");
         let notes = div.id = "slidePreview" + i;
 
-        div.className = "whilepresenting";
+        div.classList.add("whilepresenting");
         div.classList.add("miniSlide");
-
+        div.classList.add(lastTemplate);
 
         slideNumber.innerHTML = "Slide " + (i + 1);
         slideNumber.className = "slideNumber";
@@ -259,9 +260,10 @@ function displaySlidePreview() {
 
 
 
+
     }
-    //---- Match style of preview to style of slide. ----- 
-    let previews = document.querySelectorAll(".miniSlide");
+    //---- Match style of preview to style of slide. -----
+    previews = document.querySelectorAll(".miniSlide");
 
     for (let p = 0; p < previews.length; p++) {
         previews[p].style.color = slideContainer.style.color;
@@ -269,7 +271,7 @@ function displaySlidePreview() {
         previews[p].style.textShadow = slideContainer.style.textShadow;
     }
 
-    //---- Disable contentEditable on previews ------------- 
+    //---- Disable contentEditable on previews -------------
     let allH1 = slidePreview.querySelectorAll("h1")
     for (let h = 0; h < allH1.length; h++) {
         allH1[h].setAttribute("contenteditable", "false");
@@ -285,7 +287,7 @@ function displaySlidePreview() {
 
 
 
-//------Creating slide-specific speaker notes ----- 
+//------Creating slide-specific speaker notes -----
 
 function createSlideNotes() {
 
@@ -347,7 +349,7 @@ function exportPresenterNotes() {
     noteString = noteString.replace(/<[^>]*>/g, '');
     //Removes nonebreakingspace notation in the string.
     noteString = noteString.replace(/&nbsp;/g, '');
-    //Removes the first two linebreaks. 
+    //Removes the first two linebreaks.
     noteString = noteString.slice(4);
 
     newFile.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(noteString));
@@ -375,12 +377,12 @@ function startPresentationMode(){
     let doc = newWindow.document;
     container.onclick=test();
     doc.open();
-    
+
     doc.write('<html><head><title>Print it!</title><link rel="stylesheet" type="text/css" href="Application.css"></head><body>');
     doc.write(container);
     doc.write('</body></html>');
     doc.close();
-    
+
 }
 
 function loadScripts() {
