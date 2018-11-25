@@ -5,12 +5,23 @@ let btnSharePrivate = document.getElementById("btnSharePrivate"),
 btnSharePerson.addEventListener("click", function () {
     let presentationid = verifPresSave();
     if (presentationid) {
-
+        let username = prompt("Enter the username :");
+        if (username){
+            fetch("/app/share/"+username+"/"+presentationid,{
+                method:"PUT",
+                headers:new Headers({
+                    'x-access-token': btoa(localStorage.getItem("token"))
+                })
+            }).then(data => {
+                if (data.status===200){
+                    alert("Presentation shared to "+username);
+                }
+            })
+        }
     }
 })
 
 function changeVisibility(visibility) {
-    console.log("change to " + visibility);
     let presentationid = verifPresSave();
     if (presentationid) {
         fetch("app/presentation/" + visibility + "/" + presentationid, {
@@ -19,22 +30,22 @@ function changeVisibility(visibility) {
                 'x-access-token': btoa(localStorage.getItem("token"))
             })
         }).then(data => {
-            if (data.status===200){
-                alert("Presentation shared to "+visibility);
-            }else{
+            if (data.status === 200) {
+                alert("The presentation is now " + visibility);
+            } else {
                 alert("A problem occured");
             }
         })
-    }else{
+    } else {
         alert("You have to save the presentation to the cloud first");
     }
 }
 
-btnSharePublic.addEventListener("click",function () {
+btnSharePublic.addEventListener("click", function () {
     changeVisibility("public");
 });
 
-btnSharePrivate.addEventListener("click",function () {
+btnSharePrivate.addEventListener("click", function () {
     changeVisibility("private");
 });
 
