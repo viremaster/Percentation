@@ -4,8 +4,8 @@
 //only dataInput is necessary for the document so far, but only because of the video options. It can be changed but its a little bit more work than its worth right now, the rest are all a couple clicks from being removable.
 //imagesToolbar is the (id) for all the buttons to append to upon loading this script, initialplacement is where you wish to place the output.
 //var xhttp = new XMLHttpRequest();
-var x = "100%";
-var y = "100%";
+var x = "0%";
+var y = "0%";
 var id = 0;
 var dataInput = 0;
 var iFWidth = "100%";
@@ -25,31 +25,31 @@ function testYoutube() {
         console.log("Not a valid youtube link!");
     }
     else if(testYoutubeW != -1 && testYoutube == -1) {
-        
+
         dataInput = document.getElementById("createVideo").value;
         dataInputConvert = dataInput.substr(32);
         console.log(dataInputConvert);
         dataInput = "https://www.youtube.com/embed/"+dataInputConvert;
-        
-        prepareFrame();        
+
+        prepareFrame();
 }
 else if(testYoutubeBE != -1 && testYoutube == -1) {
     //console.log("valid youtube link, needs converting");
     dataInput = document.getElementById("createVideo").value;
     dataInputConvert = dataInput.substr(16);
-    
+
     dataInput = "https://www.youtube.com/embed/"+dataInputConvert+"?ecver=2";
-    
-    prepareFrame();        
+
+    prepareFrame();
 }
-    
+
     else {
-        
+
         dataInput = document.getElementById("createVideo").value;
         prepareFrame();
-        
+
     }
-    
+
 
 }
 //Testing Soundcloud if it is a valid soundcloud embed link.
@@ -59,18 +59,19 @@ function testEitherSou() {
         console.log("Not a valid soundcloud embed link!");
     }
     else {
-        
-        let soundCloudInput = document.getElementById("createSound").value;
-        console.log(soundCloudInput);
+
+      let soundCloudIn = document.getElementById("createSound").value;
+      let soundCloudInSlice = soundCloudIn.slice(32);
+      let soundCloudInput = '<iframe width="100%" height="100%"'+soundCloudInSlice;
         let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
         setID = ID();
         id = setID;
-        createmediabox2(soundCloudInput, x , y, id+"1");
+        createaudiobox(soundCloudInput, x , y, id+"1");
 
     }
 }
 
-    
+
 // This function just tests if there is anything written in the image and video fields
 //just so you don't run parts of the code unnecessarily.
 function testEitherImg() {
@@ -79,29 +80,29 @@ function testEitherImg() {
             dataInput = document.getElementById("createImage").value;
             prepareImg();
         }
-   
+
 }
 /*let loadFile = function(event) {
-    
+
     let imgFr = document.createElement("img");
     imgFr.setAttribute("id", "output");
     imgFr.style.width = iMWidth;
     imgFr.style.height = iMHeight;
     imgFr.src = URL.createObjectURL(event.target.files[0]);
     initialPlacement.appendChild(imgFr);
-    
+
   };
     */
 function testEitherVid() {
     if (document.getElementById("createVideo").value.length != 0)
         {
             testYoutube();
-            
+
 }}
-   
+
 // This function creates a youtube video, probably want to change the thing it appends to for real integration but for now its ok.
 function prepareFrame() {
-        
+
         let ifrm = document.createElement("iframe");
         ifrm.setAttribute("src", dataInput);
         let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
@@ -112,7 +113,7 @@ function prepareFrame() {
         ifrm.style.width = iFWidth;
         ifrm.style.height = iFHeight;
         //initialPlacement.appendChild(ifrm); //Videos are placed.
-        createmediabox(ifrm, x , y, id+"1");     
+        createvideobox(ifrm, x , y, id+"1");
 }
 
 
@@ -134,47 +135,6 @@ function prepareImg() {
         createpicturebox(imgFr, x, y, id+"1");
 }
 
-
-function createmediabox(content, x , y, id){
-  div = document.createElement("div");
-  div.id = `mediabox${id}`;
-  div.className = "textbox";
-  div.style.left = x;
-  div.style.top = y;
-  div.onmousedown = divclick;
-  div.onmousemove = mousehandler;
-  div.appendChild(content);
-    img = document.createElement("img");
-    img.src = "Icons/Cross.png";
-    img.classList.add("deleteimg");
-    img.onclick = deleteDiv;
-    img.onmousemove = mousehandler;
-  div.appendChild(img);
-  actualSlide.appendChild(div);
-  center(content, div);
-  console.log(div);
-}
-
-function createpicturebox(picture, x, y, id){
-  div = document.createElement("div");
-  div.id = `picturebox${id}`;
-  div.className = "picturebox";
-  div.style.left = x;
-  div.style.top = y;
-  div.onmousedown = divclick;
-  div.onmousemove = mousehandler;
-    picture.classList.add("bigimg")
-  div.appendChild(picture);
-    img = document.createElement("img");
-    img.src = "Icons/Cross.png";
-    img.classList.add("deleteimg");
-    img.onclick = deleteDiv;
-    img.onmousemove = mousehandler;
-  div.appendChild(img);
-  console.log(div);
-  actualSlide.appendChild(div);
-  
-}
 
 //Initialize Starting State
 function initState() {
@@ -203,7 +163,7 @@ function initState() {
     createInput1.setAttribute("id", "createImage");
     createInput1.setAttribute("placeholder", "Insert Image Link");
     imgForm.appendChild(createInput1);
-    
+
 
     let createBtn1 = document.createElement("Button");
     createBtn1.setAttribute("type", "Button");
@@ -212,31 +172,31 @@ function initState() {
     //document.getElementById("imgUploadForm").appendChild(createBtn1);
     imgForm.appendChild(createBtn1);
     createBtn1.onclick = function() {testEitherImg()};
-   
+
 
     let createInput2 = document.createElement("INPUT");
     createInput2.setAttribute("type", "text");
     createInput2.setAttribute("id", "createVideo");
     createInput2.setAttribute("placeholder", "Insert youtube link");
     vidForm.appendChild(createInput2);
-    
- 
+
+
 
     let createBtn2 = document.createElement("Button");
     createBtn2.setAttribute("type", "Button");
     createBtn2.setAttribute("id", "vidEvent");
     createBtn2.appendChild(document.createTextNode("Import Video"));
     vidForm.appendChild(createBtn2);
-    
+
     createBtn2.onclick = function() {testEitherVid()};
-    
+
     let createInput3 = document.createElement("INPUT");
     createInput3.setAttribute("type", "text");
     createInput3.setAttribute("id", "createSound");
     createInput3.setAttribute("placeholder", "Embed soundcloud Link");
     souForm.appendChild(createInput3);
-    
-   
+
+
 
     let createBtn3 = document.createElement("Button");
     createBtn3.setAttribute("type", "Button");
@@ -249,9 +209,9 @@ function initState() {
     document.getElementById("imagesToolbar").appendChild(imgForm);
     document.getElementById("imagesToolbar").appendChild(vidForm);
     document.getElementById("imagesToolbar").appendChild(souForm);
-    
-    
-    
+
+
+
 }
 
 initState();
