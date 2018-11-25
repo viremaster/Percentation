@@ -6,9 +6,9 @@ let changeFontButton = document.getElementById("fontName");
 let changeSizeInput = document.getElementById("changeSizeInput");
 let changeColor = document.getElementById("color");
 let foreColorButton = document.getElementById("foreColor");
-let textColorIcon=document.getElementById("textColorIcon");
+let textColorIcon = document.getElementById("textColorIcon");
 
-textColorIcon.onclick=function(){
+textColorIcon.onclick = function () {
     changeColor.click();
 }
 
@@ -30,6 +30,7 @@ changeSizeInput.oninput = function () {
     while (selection != null) {
         if (selection.contentEditable == "true") {
             selection.style.fontSize = fontSize;
+            center(selection, selection.parentElement);
             break;
         }
         selection = selection.parentElement;
@@ -37,7 +38,7 @@ changeSizeInput.oninput = function () {
 }
 
 buttons.onclick = function (evt) {
-    
+
     if (evt.target.id != "fontSelect" && evt.target.id != "changeSizeInput") {
         if (evt.target != evt.currentTarget) {
             if (evt.target.id.startsWith("justify")) {

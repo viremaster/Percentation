@@ -1,16 +1,18 @@
 //imagesToolbar
 //presentation.children[datathingie].appendchild(item); To connect everything together you have to change the input links in testEitherSou() prepareFrame() prepareImg()
 //The most vital piece of information in the entire code, the datainput will test all values input into the youtube or imgur fields, returning the appropriate value for the next steps. It will always change right before its called upon for a function.
-//
-
 //only dataInput is necessary for the document so far, but only because of the video options. It can be changed but its a little bit more work than its worth right now, the rest are all a couple clicks from being removable.
+//imagesToolbar is the (id) for all the buttons to append to upon loading this script, initialplacement is where you wish to place the output.
+//var xhttp = new XMLHttpRequest();
+var x = "100%";
+var y = "100%";
+var id = 0;
 var dataInput = 0;
-var iFWidth = "640px";
-var iFHeight = "480px";
-var iMWidth = "640px";
-var iMHeight = "480px";
-var WherToPutAllThisStuffIDontKnowPleaseTellMeBeforeIDoSomethingStupidIReallyNeedHelpIAmNotSmartEnoughToFigureOutWhatItReallyWas = 0;
-var initialPlacement = WherToPutAllThisStuffIDontKnowPleaseTellMeBeforeIDoSomethingStupidIReallyNeedHelpIAmNotSmartEnoughToFigureOutWhatItReallyWas;
+var iFWidth = "100%";
+var iFHeight = "100%";
+var iMWidth = "100%";
+var iMHeight = "100%";
+
 
 
 
@@ -59,7 +61,11 @@ function testEitherSou() {
     else {
         
         let soundCloudInput = document.getElementById("createSound").value;
-        document.getElementById("testBody").insertAdjacentHTML("afterend", soundCloudInput); //Needs Change If i don't remember completely wrong, this one had a special placement requirement, but its basically initialPlacement here too.
+        console.log(soundCloudInput);
+        let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
+        setID = ID();
+        id = setID;
+        createmediabox2(soundCloudInput, x , y, id+"1");
 
     }
 }
@@ -70,10 +76,22 @@ function testEitherSou() {
 function testEitherImg() {
     if (document.getElementById("createImage").value.length != 0)
         {
-    prepareImg();
+            dataInput = document.getElementById("createImage").value;
+            prepareImg();
+        }
+   
+}
+/*let loadFile = function(event) {
     
-}}
+    let imgFr = document.createElement("img");
+    imgFr.setAttribute("id", "output");
+    imgFr.style.width = iMWidth;
+    imgFr.style.height = iMHeight;
+    imgFr.src = URL.createObjectURL(event.target.files[0]);
+    initialPlacement.appendChild(imgFr);
     
+  };
+    */
 function testEitherVid() {
     if (document.getElementById("createVideo").value.length != 0)
         {
@@ -86,47 +104,77 @@ function prepareFrame() {
         
         let ifrm = document.createElement("iframe");
         ifrm.setAttribute("src", dataInput);
-        ifrm.style.width = iFWidth;
-        ifrm.style.height = iFHeight;
-        initialPlacement.appendChild(ifrm); //Videos and other iframe products are placed
-        
-}
-//This function makes an image element with imgur elements, probably want to change the thing it appends to for real integration but for now its ok.
-function prepareImg() {
-        dataInput = document.getElementById("createImage").value;
-        let imgFr = document.createElement("img");
-        
-        imgFr.setAttribute("src", dataInput);
-        imgFr.style.width = iMWidth;
-        imgFr.style.height = iMHeight;
-        initialPlacement.appendChild(imgFr);  //where the images are places
-        
         let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
         setID = ID();
-        tempID = setID;
-        
-        imgFr.setAttribute("id", tempID);
-        imgFr.setAttribute("onerror", errorReplace())
-        
-        
-
-}
-//upon an error being detected with whatever image you put into the image field, an error duck will appear, if you have internet, its not set up to work in offline, yet.
-function errorReplace() {
-      let image = document.getElementById(tempID);
-      
-        console.log(image+"Yes an error");
-        image.onerror = function () {
-        alert('error loading ' + this.src);
-        
-};
-
-image.src = 'https://i.imgur.com/33G5tIG.jpg';
-}
-function sendData() {
-
+        id = setID;
+        ifrm.setAttribute("id", id);
+        ifrm.setAttribute("allowfullscreen", "allowfullscreen");
+        ifrm.style.width = iFWidth;
+        ifrm.style.height = iFHeight;
+        //initialPlacement.appendChild(ifrm); //Videos are placed.
+        createmediabox(ifrm, x , y, id+"1");     
 }
 
+
+//This function makes an image element with imgur elements, probably want to change the thing it appends to for real integration but for now its ok.
+function prepareImg() {
+        let imgFr = document.createElement("img");
+        console.log(dataInput);
+        imgFr.setAttribute("src", dataInput);
+        console.log(dataInput);
+        imgFr.style.width = iMWidth;
+        imgFr.style.height = iMHeight;
+        //initialPlacement.appendChild(imgFr);//where the images are placed
+        let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
+        setID = ID();
+        id = setID;
+        console.log(id);
+        imgFr.setAttribute("id", id);
+        console.log(imgFr);
+        createpicturebox(imgFr, x, y, id+"1");
+}
+
+
+function createmediabox(content, x , y, id){
+  div = document.createElement("div");
+  div.id = `mediabox${id}`;
+  div.className = "textbox";
+  div.style.left = x;
+  div.style.top = y;
+  div.onmousedown = divclick;
+  div.onmousemove = mousehandler;
+  div.appendChild(content);
+    img = document.createElement("img");
+    img.src = "Icons/Cross.png";
+    img.classList.add("deleteimg");
+    img.onclick = deleteDiv;
+    img.onmousemove = mousehandler;
+  div.appendChild(img);
+  actualSlide.appendChild(div);
+  center(content, div);
+  console.log(div);
+}
+
+function createpicturebox(picture, x, y, id){
+  div = document.createElement("div");
+  div.id = `picturebox${id}`;
+  div.className = "picturebox";
+  div.style.left = x;
+  div.style.top = y;
+  div.onmousedown = divclick;
+  div.onmousemove = mousehandler;
+    picture.classList.add("bigimg")
+  div.appendChild(picture);
+    img = document.createElement("img");
+    img.src = "Icons/Cross.png";
+    img.classList.add("deleteimg");
+    img.onclick = deleteDiv;
+    img.onmousemove = mousehandler;
+  div.appendChild(img);
+  console.log(div);
+  actualSlide.appendChild(div);
+  
+}
 
 //Initialize Starting State
 function initState() {
@@ -137,14 +185,25 @@ function initState() {
     vidForm.setAttribute("id", "vidUploadForm");
     let souForm = document.createElement("form");
     souForm.setAttribute("id", "souUploadForm");
-   
-
+/*
+   //from here is new
+    let createInputUpload1 = document.createElement("INPUT");
+    createInputUpload1.setAttribute("type", "file");
+    createInputUpload1.setAttribute("id", "createImgUpload");
+    //createInputUpload1.setAttribute("title", "your text");
+    createInputUpload1.appendChild(document.createTextNode("Upload Image"));
+    imgForm.appendChild(createInputUpload1);
+    createInputUpload1.onchange = function() {loadFile(event)};
+    let BR1 = document.createElement("BR");
+    imgForm.appendChild(BR1);
+    // till here.;.;.,
+*/
     let createInput1 = document.createElement("INPUT");
     createInput1.setAttribute("type", "text");
     createInput1.setAttribute("id", "createImage");
-    createInput1.setAttribute("placeholder", "Insert imgur image link");
+    createInput1.setAttribute("placeholder", "Insert Image Link");
     imgForm.appendChild(createInput1);
-   
+    
 
     let createBtn1 = document.createElement("Button");
     createBtn1.setAttribute("type", "Button");
@@ -194,4 +253,5 @@ function initState() {
     
     
 }
+
 initState();
