@@ -48,7 +48,8 @@
         </form>
         <div id="presentationsMiniatures"></div>
         <button id="newPresentationButton">New Presentation</button>
-
+        <button id="showPublicButton">Show public presentations</button>
+        <div id="publicPresentationsMiniatures"></div>
     </template>
 
     <div id="content">
@@ -164,6 +165,7 @@
             let disconnectButton = get("disconnectButton");
             let updateUserForm = get("updateUserForm");
             let newPresentationButton = get("newPresentationButton");
+            let showPublicButton = get("showPublicButton");
 
             (function () {
                 fetch("app/presentations", {
@@ -180,21 +182,47 @@
                         return data.json();
                     }
                 }).then(data => {
-                    displayPresentations(data)
+                    displayPresentations(data,"presentationsMiniatures");
                 })
             })()
 
-            function displayPresentations(data) {
-                let presentationsMiniatures = get("presentationsMiniatures");
-                for (presentation in data) {
-                    let presentationDiv = document.createElement("button");
+            showPublicButton.onclick=function(){
+                fetch("app/presentations/public",{
+                    method:"GET",
+                    headers: new Headers({
+                        'x-access-token': btoa(localStorage.getItem("token"))
+                    })
+                }).then(data => {
+                    if (data.status===200){
+                        return data;
+                    }
+                }).then(data => {
+                    if (data){
+                        return data.json();
+                    }
+                }).then(data => {
+                    displayPresentations(data,"publicPresentationsMiniatures");
+                })
+            }
 
-                    presentationDiv.id = data[presentation].presentationid;
+            function displayPresentations(data,idElement) {
+                let presentationsMiniatures = get(idElement);
+                for (presentation in data) {
+                    let prensentationDiv = document.createElement("div");
+
+                    let deletePresentationButton = document.createElement("button");
+                    deletePresentationButton.innerHTML = "🞮";
+
+                    let presentationBtn = document.createElement("button");
+
+                    presentationBtn.id = data[presentation].presentationid;
                     let numberPresentation = presentation * 1 + 1;
 
-                    presentationDiv.innerHTML = "Presentation " + numberPresentation;
-                    presentationsMiniatures.appendChild(presentationDiv);
-                    presentationDiv.addEventListener("click", function () {
+                    presentationBtn.innerHTML = "Presentation " + numberPresentation;
+                    prensentationDiv.appendChild(presentationBtn);
+                    prensentationDiv.appendChild(deletePresentationButton);
+                    presentationsMiniatures.appendChild(prensentationDiv);
+                    presentationBtn.addEventListener("click", function () {
                         fetch("/app/presentation/" + this.id, {
                             method: "GET",
                             headers: new Headers({
@@ -209,7 +237,22 @@
                         }).then(json => {
                             if (json) {
                                 localStorage.setItem("presentation", json.data);
+                                localStorage.setItem("presentationid", this.id);
                                 window.location.href = "/application";
+                            }
+                        })
+                    })
+
+                    deletePresentationButton.addEventListener("click", function () {
+                        fetch("/app/presentation/" + presentationBtn.id, {
+                            method: "DELETE",
+                            headers: new Headers({
+                                'x-access-token': btoa(localStorage.getItem("token"))
+                            })
+                        }).then(data => {
+                            if (data.status == 200) {
+                                alert("Deleted");
+                                this.parentElement.remove();
                             }
                         })
                     })
@@ -241,6 +284,7 @@
 
             newPresentationButton.addEventListener("click", function () {
                 localStorage.removeItem("presentation");
+                localStorage.removeItem("presentationid");
                 window.location.href = "/application";
             })
 
