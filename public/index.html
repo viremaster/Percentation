@@ -187,7 +187,7 @@
             })()
 
             showPublicButton.onclick=function(){
-                fetch("app/presentations/public",{
+                fetch("/app/presentations/public",{
                     method:"GET",
                     headers: new Headers({
                         'x-access-token': btoa(localStorage.getItem("token"))

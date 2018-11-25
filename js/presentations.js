@@ -18,7 +18,7 @@ router.get("/app/presentations", authenticated.valideAuthentication, async funct
 
 });
 
-router.get("app/presentations/public",authenticated.valideAuthentication,async function(req,res){
+router.get("/app/presentations/public",authenticated.valideAuthentication,async function(req,res){
     let query=`SELECT data FROM public.presentations WHERE visibility='public'`
     let response=await db.select(query);
     res.status(200).send(response);
