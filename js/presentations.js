@@ -19,7 +19,7 @@ router.get("/app/presentations", authenticated.valideAuthentication, async funct
 });
 
 router.get("/app/presentations/public",authenticated.valideAuthentication,async function(req,res){
-    let query=`SELECT presentationid FROM public.presentations WHERE visibility='public'`
+    let query=`SELECT presentationid FROM public.presentations WHERE visibility='public' AND presentationownerid!='${req.token.id}'`
     let response=await db.select(query);
     res.status(200).send(response);
     res.end();
