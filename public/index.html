@@ -182,31 +182,64 @@
                         return data.json();
                     }
                 }).then(data => {
-                    displayPresentations(data,"presentationsMiniatures");
+                    displayMyPresentations(data);
                 })
             })()
 
-            showPublicButton.onclick=function(){
-                fetch("/app/presentations/public",{
-                    method:"GET",
+            showPublicButton.onclick = function () {
+                fetch("/app/presentations/public", {
+                    method: "GET",
                     headers: new Headers({
                         'x-access-token': btoa(localStorage.getItem("token"))
                     })
                 }).then(data => {
-                    if (data.status===200){
+                    if (data.status === 200) {
                         return data;
                     }
                 }).then(data => {
-                    if (data){
+                    if (data) {
                         return data.json();
                     }
                 }).then(data => {
-                    displayPresentations(data,"publicPresentationsMiniatures");
+                    displayPublicPresentations(data);
                 })
             }
 
-            function displayPresentations(data,idElement) {
-                let presentationsMiniatures = get(idElement);
+            function displayPublicPresentations(data) {
+                let publicPresentationsMiniatures = get("publicPresentationsMiniatures");
+                console.log(data);
+                for (presentation in data) {
+                    let presentationBtn = document.createElement("button");
+                    console.log(data[presentation].presentationid)
+                    presentationBtn.id =data[presentation].presentationid;
+                    let numberPresentation=presentation*1+1;
+                    presentationBtn.innerHTML="Public presentation "+numberPresentation;
+                    publicPresentationsMiniatures.appendChild(presentationBtn);
+                    presentationBtn.addEventListener("click",function(){
+                        fetch("/app/presentation/public/" + this.id, {
+                            method: "GET",
+                            headers: new Headers({
+                                'x-access-token': btoa(localStorage.getItem("token"))
+                            })
+                        }).then(data => {
+                            if (data.status === 200) {
+                                return data.json();
+                            } else {
+                                alert("an error occured");
+                            }
+                        }).then(json => {
+                            if (json) {
+                                localStorage.setItem("presentation", json.data);
+                                localStorage.setItem("presentationid", this.id);
+                                window.location.href = "/application";
+                            }
+                        })
+                    })
+                }
+            }
+
+            function displayMyPresentations(data) {
+                let presentationsMiniatures = get("presentationsMiniatures");
                 for (presentation in data) {
                     let prensentationDiv = document.createElement("div");
 

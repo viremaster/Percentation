@@ -19,7 +19,7 @@ router.get("/app/presentations", authenticated.valideAuthentication, async funct
 });
 
 router.get("/app/presentations/public",authenticated.valideAuthentication,async function(req,res){
-    let query=`SELECT data FROM public.presentations WHERE visibility='public'`
+    let query=`SELECT presentationid FROM public.presentations WHERE visibility='public'`
     let response=await db.select(query);
     res.status(200).send(response);
     res.end();
@@ -76,6 +76,15 @@ router.put("/app/presentation/:visibility/:id",authenticated.valideAuthenticatio
     res.end()
 })
 
+router.get("/app/presentation/public/:id",authenticated.valideAuthentication,async function(req,res){
+    let presentationid = req.params.id;
+    console.log(presentationid);
+    let query = `SELECT data FROM public.presentations WHERE visibility='public' AND presentationid=${presentationid}`;
+    response = await db.select(query);
+    response = response[0];
+    res.status(200).send(response);
+    res.end();
+})
 
 
 
