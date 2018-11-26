@@ -157,7 +157,7 @@ let authenticatedUser = localStorage.getItem("authenticatedUser");
                 let FriendPresentationMiniatures=get("FriendPresentationMiniatures");
                 FriendPresentationMiniatures.innerHTML="";
                 for(presentation in data){
-                    let presentationBtn = document.createElement("button");
+                    let presentationBtn = document.createElement("h3");
                     presentationBtn.id =data[presentation].presentationid;
                     let numberPresentation=presentation*1+1;
                     presentationBtn.innerHTML="friend's presentation "+numberPresentation;
@@ -189,7 +189,7 @@ let authenticatedUser = localStorage.getItem("authenticatedUser");
                 let publicPresentationsMiniatures = get("publicPresentationsMiniatures");
                 publicPresentationsMiniatures.innerHTML="";
                 for (presentation in data) {
-                    let presentationBtn = document.createElement("button");
+                    let presentationBtn = document.createElement("h3");
                     presentationBtn.id =data[presentation].presentationid;
                     let numberPresentation=presentation*1+1;
                     presentationBtn.innerHTML="Public presentation "+numberPresentation;
@@ -225,7 +225,7 @@ let authenticatedUser = localStorage.getItem("authenticatedUser");
                     let deletePresentationButton = document.createElement("button");
                     deletePresentationButton.innerHTML = "🞮";
 
-                    let presentationBtn = document.createElement("button");
+                    let presentationBtn = document.createElement("h3");
 
                     presentationBtn.id = data[presentation].presentationid;
                     let numberPresentation = presentation * 1 + 1;

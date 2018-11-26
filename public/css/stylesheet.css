@@ -1,0 +1,218 @@
+/* --- Overall formatting --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box !important;
+    max-height: 100vh !important;
+}
+
+body {
+    font-family: 'Comfortaa', cursive;
+    color: lightslategray;
+    font-size: 1px;
+    overflow: hidden;
+    padding: 0;
+    background-color: #354044;
+}
+
+/* --- General formatting --- */
+hr {
+
+    height: 1px;
+    border: 0;
+    border-top: 1px solid lightslategray;
+    margin: 3% auto 3% auto;
+    padding: 4%;
+    width: 90%;
+    left: 50%;
+}
+
+p {
+    position: absolute;
+    font-size: 1vw;
+}
+
+h1 {
+    font-size: 1.7vw;
+    padding: 0.5%;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.4vw;
+    padding: 0.5%;
+    text-align: center;
+}
+
+div {
+    position: relative;
+    display: flex;
+    padding: 0;
+}
+
+/*
+button {
+    position: relative;
+    background-color: #5596BE;
+    border: none;
+    color: white;
+    padding: 3%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10%; 
+    cursor: pointer;
+    font-size: 1vw;
+    font-family: sans-serif;
+} /*
+/* --- Main containers --- */
+
+.appContainer {
+    box-sizing: border-box;
+    position: absolute;
+    display: grid;
+    grid-template-areas:
+        'head head'
+        'userArea presArea'
+        'userArea presArea'
+        'userArea presArea';
+    grid-template-rows: 10% 1fr 20% 20%;
+    grid-template-columns: 20% 1fr;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100%;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+.topMenu {
+    align-items: center;
+    grid-area: head;
+    background-color: #144e5f;
+    box-shadow: 0px 30px 50px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* --- grid placement --- */
+.presArea {
+    grid-area: presArea;
+    align-items: center;
+    border: solid;
+    border-color: beige;
+}
+
+.userArea {
+    grid-area: userArea;
+    align-items: center;
+    border: solid;
+    border-color: beige;
+}
+
+/* user icon set in dropdown*/
+.dropdown {
+    position: sticky;
+    left: 96%;
+    margin-right: 2%;
+    float: right;
+
+}
+
+.dropdown img {
+    height: 3vw;
+    width: 3vw;
+    margin: 2%;
+    margin-bottom: 10%;
+}
+
+#menuIcon {
+    margin-left: 2%;
+}
+
+/* --- Icons, general --- */
+
+.topIcon {
+    height: 60%;
+    width: auto;
+    margin: 0.4%;
+    cursor: pointer;
+}
+
+#textEditorIcon {
+    filter: brightness(3);
+}
+
+.topIcon:hover {
+    filter: brightness(3);
+}
+
+#logo {
+    font-weight: bold;
+}
+
+
+.toolbarIcon {
+    height: 3vw;
+    width: 3vw;
+    margin: 2%;
+    margin-bottom: 10%;
+}
+
+.toolbarIcon:hover {
+    filter: brightness(3);
+}
+/*
+.workArea {
+    display: flex;
+    grid-area: workArea;
+    margin-left: 2%;
+    background-color: #354044;
+}*/
+
+/* --- New slide preview --- */
+/*.newSlide {
+    margin-top: 25px;
+    position: absolute;
+    margin-right: 2%;
+}*/
+/*
+#whiteBack {
+    position: absolute;
+    border-radius: 5%;
+}
+*/
+
+.slidePreview {
+    display: block;
+    grid-area: presArea;
+    box-shadow: 0px -20px 20px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    padding-top: 1%;
+
+}
+
+
+.slidesContainer {
+
+    grid-area: presArea;
+    font-size: 40px;
+    margin-top: 0%;
+
+}
+
+/* --- To make test presentations visible --- */
+.someSlide {
+    border-color: antiquewhite;
+    border: solid;
+    height: 25%;
+    width: 25%;
+    margin: 1%;
+    font-size: 5vh;
+    text-align: center;
+    display: block;
+    padding: 1%;
+}
+
+.template {
+    padding: 1%;
+    margin: 1%;
+}
