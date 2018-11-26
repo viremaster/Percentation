@@ -164,10 +164,9 @@ function recenter(e) {
 
 function center(element, item) {
     pixelsLeft = Math.max(0, (parseInt(item.offsetWidth) - parseInt(element.offsetWidth)) / 2);
-    element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`
+    element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`;
     pixelsTop = Math.max(0, (parseInt(item.offsetHeight) - parseInt(element.offsetHeight)) / 2);
-    element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`
-
+    element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`;
 }
 
 function move() {
@@ -230,8 +229,8 @@ function createtextbox(type, x, y, id) {
     text.id = `text${id}`;
     text.contentEditable = true;
     text.innerHTML = "click to edit";
-    text.oninput = recenter;
-    text.oninput = displaySlidePreview;
+    //text.addEventListener("input", recenter);
+    text.addEventListener("input", displaySlidePreview);
     text.onmousemove = mousehandler;
     text.draggable = false;
     div.appendChild(text);
@@ -258,7 +257,7 @@ function createtextbox(type, x, y, id) {
     div2.appendChild(img3);
     div.appendChild(div2);
     slides[actualSlideIndex].appendChild(div);
-    center(text, div);
+    //center(text, div);
     return div;
 
 

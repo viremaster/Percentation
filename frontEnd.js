@@ -218,7 +218,6 @@ slides = document.getElementsByClassName("slide");
 
 
 function displaySlidePreview() {
-
     let elements = document.getElementsByClassName("miniSlide");
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
@@ -233,7 +232,6 @@ function displaySlidePreview() {
 
         div.classList.add("whilepresenting");
         div.classList.add("miniSlide");
-        div.classList.add(lastTemplate);
 
         slideNumber.innerHTML = "Slide " + (i + 1);
         slideNumber.className = "slideNumber";
@@ -269,6 +267,8 @@ function displaySlidePreview() {
         previews[p].style.color = slideContainer.style.color;
         previews[p].style.fontFamily = slideContainer.style.fontFamily;
         previews[p].style.textShadow = slideContainer.style.textShadow;
+        previews[p].classList.add(slides[p].classList[1]);
+
     }
 
     //---- Disable contentEditable on previews -------------

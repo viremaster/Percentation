@@ -653,9 +653,9 @@ button:hover {
 }
 
 .textbox {
+    padding: 2%;
     position: absolute;
     border: 1px dotted black;
-    padding: 2%;
     width: 70%;
     height: 30%;
 
@@ -676,7 +676,11 @@ button:hover {
     padding: 0px;
     margin: 0px;
     position: absolute;
-    font-size: 5%
+    font-size: 5%;
+    width: 96%;
+    height: 96%;
+    left: 2%;
+    top: 2%;
 }
 
 .textbox > h1 {
@@ -684,6 +688,10 @@ button:hover {
     margin: 0px;
     position: absolute;
     font-size: 12%;
+    width: 96%;
+    height: 96%;
+    left: 2%;
+    top: 2%;
 }
 
 .textbox > h2 {
@@ -691,6 +699,10 @@ button:hover {
     margin: 0px;
     position: absolute;
     font-size: 8%;
+    width: 96%;
+    height: 96%;
+    left: 2%;
+    top: 2%;
 }
 
 .whilepresenting > .textbox {
