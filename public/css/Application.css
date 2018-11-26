@@ -513,6 +513,54 @@ button:hover {
 
 /*-----ImagesToolbar-----*/
 
+#imagesToolbar {
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+#imagesToolbar input {
+    position: absolute;
+    padding: 1%;
+    width: 60%;
+    max-width: 60%;
+    left: 5%;
+    margin: 0;
+    padding: 0;
+}
+
+#imagesToolbar button {
+    margin: 0;
+    padding: 0%;
+    font-size: 0.7vw;
+    position: absolute;
+    right: 5%;
+    height: 2.5%;
+    width: 29%;
+    max-width: 29%;
+    overflow: hidden;
+}
+
+#createImage {
+    top: 20%;
+}
+#imgEvent{
+    top:20%;
+}
+
+#createVideo {
+    top: 25%;
+}
+#vidEvent{
+    top: 25%;
+}
+
+#createSound {
+    top: 30%;
+}
+#souEvent{
+    top:30%;
+}
+
 /*-----TemplatesToolbar----*/
 
 #templatesToolbar {
