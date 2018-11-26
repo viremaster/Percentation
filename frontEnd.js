@@ -1,4 +1,5 @@
 //----------------------Sets the title of all image elements to match the alt text to show tooltips on hover------------------------
+let previews;
 let allImages = document.getElementsByTagName("img");
 let currentTheme = "Themes/Blank.jpg";
 const slideContainer = document.getElementById("slideContainer");
@@ -6,6 +7,9 @@ let presentationMode = false;
 let slidePreview = document.getElementById("slidePreview");
 let notesToolbar = document.getElementById("speakerNotesToolbar");
 let exportBtn = document.getElementById("exportSpeakerNotes");
+let appcontainer = document.getElementById("appContainer");
+
+let myTime;
 let themes = [{
         name: "blank",
         font: "sans-serif",
@@ -67,7 +71,6 @@ function setImageTitle() {
 }
 
 function disableDraggable() {
-
     for (i = 0; i < allImages.length; i++) {
         allImages[i].setAttribute("draggable", "false");
     }
@@ -78,17 +81,14 @@ function get(id) {
 }
 
 
-
 //----------Changes the toolbar and styling to match what menu you want ----------------
 function toolbarChange(event) {
-    let appcontainer = document.getElementById("appContainer");
     let textToolbar = document.getElementById("textToolbar");
     let speakerNotesToolbar = document.getElementById("speakerNotesToolbar");
     let imagesToolbar = document.getElementById("imagesToolbar");
     let templatesToolbar = document.getElementById("templatesToolbar");
     let slideSettingsToolbar = document.getElementById("slideSettingsToolbar");
     let stylesToolbar = document.getElementById("stylesToolbar");
-
     //-------hiding all Toolbars
     textToolbar.style.display = "none";
     speakerNotesToolbar.style.display = "none";
@@ -151,10 +151,6 @@ function resizeSlideText() {
     get("slidePreview").style.fontSize = (miniDivWidht * 0.95) + "px";
     recalculatesize();
 
-    /*if (newWindow) {
-        console.log("Hello from resize");
-    }*/
-
 }
 
 
@@ -170,10 +166,18 @@ function addFontMenu() {
     }
 }
 
-//------------------Fullscreen------------------
-
 
 function fullscreenPresentation() {
+    let myTime;
+    let time = document.getElementById("timedSlide").value;
+    let xTime = time * 1000;
+    let checkBox = document.getElementById("toggleTime");
+
+
+    if (checkBox.checked) {
+        myTime = setInterval(nextSlide, xTime);
+
+    }
 
     if (slideContainer.requestFullscreen) {
         slideContainer.requestFullscreen();
@@ -188,7 +192,7 @@ function fullscreenPresentation() {
         slideContainer.msRequestFullscreen();
 
     }
-    resizeSlideText();
+
 }
 
 
@@ -221,7 +225,6 @@ slides = document.getElementsByClassName("slide");
 
 
 function displaySlidePreview() {
-
     let elements = document.getElementsByClassName("miniSlide");
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
@@ -234,9 +237,8 @@ function displaySlidePreview() {
         let deleteBtn = document.createElement("img");
         let notes = div.id = "slidePreview" + i;
 
-        div.className = "whilepresenting";
+        div.classList.add("whilepresenting");
         div.classList.add("miniSlide");
-
 
         slideNumber.innerHTML = "Slide " + (i + 1);
         slideNumber.className = "slideNumber";
@@ -253,35 +255,32 @@ function displaySlidePreview() {
 
         div.innerHTML = slideContainer.children[i].innerHTML;
         div.onclick = jumpToSlide;
-
-
         div.appendChild(slideNumber);
         div.appendChild(background);
         div.appendChild(deleteBtn);
-
         slidePreview.appendChild(div);
 
 
 
+
     }
-    //---- Match style of preview to style of slide. ----- 
-    let previews = document.querySelectorAll(".miniSlide");
+    //---- Match style of preview to style of slide. -----
+    previews = document.querySelectorAll(".miniSlide");
 
     for (let p = 0; p < previews.length; p++) {
         previews[p].style.color = slideContainer.style.color;
         previews[p].style.fontFamily = slideContainer.style.fontFamily;
         previews[p].style.textShadow = slideContainer.style.textShadow;
+        previews[p].classList.add(slides[p].classList[1]);
+
     }
 
-    //---- Disable contentEditable on previews ------------- 
-    let allH1 = slidePreview.querySelectorAll("h1")
-    for (let h = 0; h < allH1.length; h++) {
-        allH1[h].setAttribute("contenteditable", "false");
-    }
+    //---- Disable contentEditable on previews -------------
+
     //!!! Change h3 to text once things are working as intended
-    let allText = slidePreview.querySelectorAll("h3")
-    for (let t = 0; t < allText.length; t++) {
-        allText[t].setAttribute("contenteditable", "false");
+    let allText = slidePreview.querySelectorAll("h1, h2, text")
+    for (let i = 0; i < allText.length; i++) {
+        allText[i].setAttribute("contenteditable", "false");
     }
     displaySlideCounter();
     disableDraggable();
@@ -289,14 +288,16 @@ function displaySlidePreview() {
 
 
 
-//------Creating slide-specific speaker notes ----- 
+//------Creating slide-specific speaker notes -----
 
 function createSlideNotes() {
 
     let notesContainer = document.createElement("div");
     let notes = slideNumber = document.createElement("TEXT");
+
     notes.innerHTML = "Slide " + (totalSlides + 1) + " notes:";
     notes.setAttribute("contentEditable", "true");
+
     notesContainer.id = "slideNotes" + totalSlides;
     notesContainer.className = "textBox";
     notesContainer.appendChild(notes);
@@ -349,7 +350,7 @@ function exportPresenterNotes() {
     noteString = noteString.replace(/<[^>]*>/g, '');
     //Removes nonebreakingspace notation in the string.
     noteString = noteString.replace(/&nbsp;/g, '');
-    //Removes the first two linebreaks. 
+    //Removes the first two linebreaks.
     noteString = noteString.slice(4);
 
     newFile.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(noteString));
@@ -358,6 +359,10 @@ function exportPresenterNotes() {
     newFile.click();
     document.body.removeChild(newFile);
 
+    for (let i = 0; i < allNoteData.length; i++) {
+        noteString += "\r\n \r\n" + allNoteData[i].firstChild.innerHTML;
+
+    }
 }
 //Function to (Hopefully) remove the stuttering icons issue.
 
@@ -396,6 +401,7 @@ function runInitPresenterMode(doc, container) {
 }
 
 function loadScripts() {
+    get("textEditorIcon").style.filter = "brightness(3)";
     addFontMenu();
     resizeSlideText();
     setImageTitle();

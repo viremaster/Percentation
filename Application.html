@@ -7,6 +7,7 @@
     <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <link rel="stylesheet" href="Application.css">
+    <link rel="stylesheet" href="template.css">
 
     <title>
     </title>
@@ -26,7 +27,7 @@
                 <img src="Icons/Previous_page.png" class="navBtn" alt="Previous slide" onclick="previousSlide()">
                 <img src="Icons/Next_page.png" class="navBtn" alt="Next slide" onclick="nextSlide()">
             </div>
-            <img src="Icons/Presentationmode.png" alt="Presentation mode" id="presentationModeBtn" onclick="startPresenterMode()">
+            <img src="Icons/Presentationmode.png" alt="Presenter mode" id="presentationModeBtn" onclick="startPresentationMode()">
             <img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation()">
 
             <div id="slideContainer">
@@ -106,7 +107,7 @@
 
                         </div>
                     </div>
-                 
+
 
                 </div>
 
@@ -130,7 +131,6 @@
                 <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png" onclick="clickTemplate2()">
 
                 <img class="toolbarIcon" alt="Text template" src="Icons/Template_Text.png" onclick="clickTemplate3()">
-                <img class="toolbarIcon" alt="Text template with two textboxes" src="Icons/Template_Doubletext.png" onclick="clickTemplate4()">
             </div>
 
             <!--------->
@@ -152,26 +152,22 @@
             </div>
             <!--------->
             <div id="slideSettingsToolbar">
-                <h2> Slide settings </h2>
+                <h2> Automatic transitions </h2>
                 <hr>
                 <!-- Adding a timer for timed presentations -->
-                <div class="slidecontainer">
+                <div id="timedTransitions">
                     <!-- this was called slidecontainer in the test version for some reason in the tester, change as pleased -->
-                    <p>Timed slides: <br> insert the number of seconds you wish to have between each slide in the input field.</p>
-                    <input id="timedSlide">
-                    <!-- we can change this to input field if people prefer that over the range -->
-                    <!--   Slide time: 1<input type="range" min="1" max="60" value="30" class="slider" id="timedSlide">60 -->
-                    <label class="switch">
-                        Activate timer: <input type="checkbox" id="toggleTime">
-                        <!-- <div class="slider"></div> -->
-                    </label>
+                    <p>Activate slideshow mode:</p>
+                    <input type="checkbox" id="toggleTime">
+                    <p id="tranistionInputTitle">Time between each slide:</p>
+                    <input id="timedSlide" type="number" placeholder="Time in seconds" min="1">
+                    <p id="timerExplanation">Note: The timer will start once you put the presentation in fullscreen</p>
                 </div>
                 <br>
-                <br>
+
                 <!-- end of timer HTML code -->
             </div>
         </div>
-
 
         <!-- Container til sidemeny-->
         <div class="sideMenu" id="sideMenu">
@@ -180,7 +176,7 @@
             <img src="Icons/List.png" onclick="toolbarChange(this.id)" alt="Templates" class="icon" id="templatesIcon">
             <img src="Icons/Paint_Palette.png" onclick="toolbarChange(this.id)" alt="Styles" class="icon" id="stylesIcon">
             <img src="Icons/Speaker_Notes.png" onclick="toolbarChange(this.id)" alt="Speaker notes" class="icon" id="speakerNotesIcon">
-            <img src="Icons/Timer.png" onclick="toolbarChange(this.id)" alt="Slide Settings" class="icon" id="slideSettingsIcon">
+            <img src="Icons/Timer.png" onclick="toolbarChange(this.id)" alt="Timed transitions" class="icon" id="slideSettingsIcon">
 
         </div>
 
@@ -188,16 +184,11 @@
         <!-- Container til slidevelger som kan scrolles left and right-->
         <div class="slidePreview" id="slidePreview">
 
-
-
             <div id="newSlide" onclick="addSlide()">
                 <img src="Themes/Blank.jpg" class="miniSlideBackground">
                 <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
                 <p class="slideNumber">New slide<p>
             </div>
-
-
-
 
         </div>
 
@@ -207,12 +198,11 @@
             <img src="Icons/Back.png" alt="Back to your presentations" class="topIcon" id="BackIcon">
             <h3 id="logo">Percentation</h3>
             <p id="fileName">untitled1</p>
+            <div id= topMenuBtns>
             <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
-
             <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
-
-            <img src="Icons/Support.png" alt="Presentation settings" class="topIcon" id="settingsIcon">
-
+            <img src="Icons/User.png" alt="User settings" class="topIcon" id="userIcon">
+            </div>
         </div>
     </div>
 
@@ -222,7 +212,7 @@
     <script src="frontEnd.js"></script>
     <script src="textEditor.js"></script>
     <script src="template.js"></script>
-    <script src="timedslides.js"></script>
+
     <script src="mediaMovement.js"></script>
     <script src="BasicMedia.js"></script>
 </body>

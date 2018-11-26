@@ -25,10 +25,13 @@ window.onkeydown = function (e) {
 
 function nextSlide() {
     if (newWindow) {
-        newWindow.nextPresenterSlide();   
+        newWindow.nextPresenterSlide();
 }
-  
+
     for (let i = 0; i < slides.length; i++) {
+        if (slides.length - 1){
+
+        }
         if (slides[i].style.display == "block" && i != slides.length - 1) {
             slides[i].style.display = "none";
             slides[i + 1].style.display = "block";
@@ -38,7 +41,7 @@ function nextSlide() {
         }
         // console.log("actual= " + actualSlideIndex + "currentSlide =" + currentSlide);
     }
-    
+
     displayCurrentNotes();
     displaySlidePreview();
 
@@ -47,9 +50,9 @@ function nextSlide() {
 function previousSlide() {
  if (newWindow) {
         newWindow.previousPresenterSlide();
-        
+
 }
- 
+
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block" && i != 0) {
             slides[i].style.display = "none";
@@ -60,20 +63,20 @@ function previousSlide() {
         }
 
     }
-    
     displayCurrentNotes();
     displaySlidePreview();
 }
 
 function jumpToSlide() {
+
     //Index takes the number from the id of the previewSlide and removes the string, leaving only the number.
     let index = parseInt(this.id.slice(12));
-    
+
     if (newWindow) {
-      
+
         container = slideContainer.outerHTML;
         newWindow.jumpToPresenterSlide(index);
-        
+
 }
     else{
         console.log("presenterModeNotRunning");
@@ -86,11 +89,15 @@ function jumpToSlide() {
             break
         }
     }
-    
+
 
     slides[index].style.display = "block";
     actualSlideIndex = index;
     currentSlide = index;
+
+
+    displaySlidePreview();
+    displayCurrentNotes();
 
 }
 
@@ -102,7 +109,7 @@ function addSlide() {
     newSlide.className = "slide";
     newSlide.style.display = "none";
     Presentation.insertBefore(newSlide, Presentation.children[actualSlideIndex + 1]);
-    
+
     createSlideNotes();
     nextSlide();
     displaySlidePreview();
@@ -113,10 +120,10 @@ function addSlide() {
 function deleteSlide() {
     let target = this.id.slice(6);
     console.log(target);
-   
+
     if (slides.length > 0) {
         if (slides.length == 1) {
-          
+
         } else if (actualSlideIndex == slides.length - 1) {
             Presentation.removeChild(Presentation.children[target]);
             slides[actualSlideIndex - 1].style.display = "block"

@@ -56,7 +56,7 @@ document.addEventListener('mouseup', function (event) {
 }, false);
 
 function selectTextType(e) {
-      document.body.style.cursor = "cell";
+    document.body.style.cursor = "cell";
     for (element of e.currentTarget.parentElement.children) {
         element.style.color = "lightslategray";
     }
@@ -107,7 +107,7 @@ function divclick(e) {
     } else if (e.target.nodeName != "DIV") {
         justclicked = true;
         e.target.parentElement.style.visibility = 'visible';
-         displaySlidePreview();
+        displaySlidePreview();
     }
 }
 
@@ -120,7 +120,7 @@ function end() {
     }
     resizing = false;
     justclicked = false;
-     displaySlidePreview();
+    displaySlidePreview();
 }
 
 function draghandler(e) {
@@ -159,7 +159,7 @@ function recenter(e) {
     element = e.target;
     box = e.target.parentElement;
     center(element, box);
-   
+
 }
 
 function center(element, item) {
@@ -167,7 +167,7 @@ function center(element, item) {
     element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`
     pixelsTop = Math.max(0, (parseInt(item.offsetHeight) - parseInt(element.offsetHeight)) / 2);
     element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`
-   
+
 }
 
 function move() {
@@ -175,12 +175,12 @@ function move() {
     posY = Math.max(0, Math.min(mouse.y - offsetY - slideY.min, slideY.max - slideY.min - item.offsetHeight));
     item.style.left = pxtopercentx(posX);
     item.style.top = pxtopercenty(posY);
-     displaySlidePreview();
+    displaySlidePreview();
 }
 
 function deleteDiv(e) {
     e.currentTarget.parentElement.parentElement.remove();
-    console.log(e.currentTarget.parentElement);
+    displaySlidePreview();
 }
 
 function sendForward(e) {
@@ -194,21 +194,23 @@ function sendBackward(e) {
 }
 
 function startpresenting() {
+  let selector = slideContainer.querySelectorAll("h1, h2, text");
     if (presenting) {
         presenting = false;
+        clearInterval(myTime);
         for (slide of slides) {
             slide.classList.remove("whilepresenting");
         }
-        for (i of slides[actualSlideIndex].children) {
-            i.querySelector("h1, h2, text").contentEditable = true;
+        for(let i = 0; i < selector.length; i++){
+          selector[i].setAttribute("contentEditable", "true");
         }
     } else {
         presenting = true;
         for (slide of slides) {
             slide.classList.add("whilepresenting");
         }
-        for (i of slides[actualSlideIndex].children) {
-            i.querySelector("h1, h2, text").contentEditable = false;
+        for(let i = 0; i < selector.length; i++){
+          selector[i].setAttribute("contentEditable", "false");
         }
     }
 }
@@ -218,8 +220,10 @@ function createtextbox(type, x, y, id) {
 
     div.id = `box${id}`;
     div.className = "textbox";
+    div.classList.add(`box${type}`);
     div.style.left = x;
     div.style.top = y;
+    div.style.zIndex = 5;
     div.onmousedown = divclick;
     div.onmousemove = mousehandler;
 
@@ -230,8 +234,7 @@ function createtextbox(type, x, y, id) {
     text.id = `text${id}`;
     text.contentEditable = true;
     text.innerHTML = "click to edit";
-    text.oninput = recenter;
-    text.oninput = displaySlidePreview;
+    text.addEventListener("input", displaySlidePreview);
     text.onmousemove = mousehandler;
     text.draggable = false;
     div.appendChild(text);
@@ -258,9 +261,8 @@ function createtextbox(type, x, y, id) {
     div2.appendChild(img3);
     div.appendChild(div2);
     slides[actualSlideIndex].appendChild(div);
-    center(text, div);
-    
- 
+    return div;
+
 
 }
 

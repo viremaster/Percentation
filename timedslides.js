@@ -7,7 +7,7 @@ function setTimer() {
     console.log(xTime);
     let checkBox = document.getElementById("toggleTime");
 
-//Should happen in the fullscreen function. 
+//Should happen in the fullscreen function.
 
     if (checkBox.checked) {
         console.log("checkbox is checked");
