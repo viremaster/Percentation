@@ -409,4 +409,5 @@ function loadScripts() {
     disableDraggable();
     createSlideNotes();
     displayCurrentNotes();
+    clickTemplate2();
 }

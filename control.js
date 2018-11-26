@@ -109,11 +109,10 @@ function addSlide() {
     newSlide.className = "slide";
     newSlide.style.display = "none";
     Presentation.insertBefore(newSlide, Presentation.children[actualSlideIndex + 1]);
-
     createSlideNotes();
     nextSlide();
     displaySlidePreview();
-
+    clickTemplate3();
 }
 
 
