@@ -109,10 +109,12 @@ function addSlide() {
     newSlide.className = "slide";
     newSlide.style.display = "none";
     Presentation.insertBefore(newSlide, Presentation.children[actualSlideIndex + 1]);
+
     createSlideNotes();
     nextSlide();
-    displaySlidePreview();
     clickTemplate3();
+    displaySlidePreview();
+
 }
 
 
@@ -141,6 +143,7 @@ function deleteSlide() {
 
 
 function nextPresenterSlide() {
+
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block" && i != slides.length - 1) {
             slides[i].style.display = "none";

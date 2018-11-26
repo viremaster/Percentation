@@ -10,6 +10,7 @@ let exportBtn = document.getElementById("exportSpeakerNotes");
 let appcontainer = document.getElementById("appContainer");
 
 let myTime;
+
 let themes = [{
         name: "blank",
         font: "sans-serif",
@@ -166,19 +167,44 @@ function addFontMenu() {
     }
 }
 
+let time = "";
+let xTime = "";
+let checkBox = "";
 
 function fullscreenPresentation() {
-    let myTime;
-    let time = document.getElementById("timedSlide").value;
-    let xTime = time * 1000;
-    let checkBox = document.getElementById("toggleTime");
+    time = document.getElementById("timedSlide").value;
+    xTime = time * 1000;
+    checkBox = document.getElementById("toggleTime");
 
 
     if (checkBox.checked) {
         myTime = setInterval(nextSlide, xTime);
+    }
+
+    if (slideContainer.requestFullscreen) {
+        slideContainer.requestFullscreen();
+
+    } else if (slideContainer.mozRequestFullScreen) {
+        slideContainer.mozRequestFullScreen();
+
+    } else if (slideContainer.webkitRequestFullscreen) {
+        slideContainer.webkitRequestFullscreen();
+
+    } else if (slideContainer.msRequestFullscreen) {
+        slideContainer.msRequestFullscreen();
 
     }
 
+}
+//Separate fullscreen for the presenter mode 
+function fullscreenPresentation2() {
+    time = window.opener.document.getElementById("timedSlide").value;
+    xTime = time * 1000;
+    checkBox = window.opener.document.getElementById("toggleTime");
+    if (checkBox.checked) {
+        myTime = setInterval(window.opener.nextSlide, xTime);
+    }
+    
     if (slideContainer.requestFullscreen) {
         slideContainer.requestFullscreen();
 
@@ -259,10 +285,6 @@ function displaySlidePreview() {
         div.appendChild(background);
         div.appendChild(deleteBtn);
         slidePreview.appendChild(div);
-
-
-
-
     }
     //---- Match style of preview to style of slide. -----
     previews = document.querySelectorAll(".miniSlide");
@@ -277,7 +299,6 @@ function displaySlidePreview() {
 
     //---- Disable contentEditable on previews -------------
 
-    //!!! Change h3 to text once things are working as intended
     let allText = slidePreview.querySelectorAll("h1, h2, text")
     for (let i = 0; i < allText.length; i++) {
         allText[i].setAttribute("contenteditable", "false");
@@ -365,7 +386,12 @@ function exportPresenterNotes() {
     }
 }
 //Function to (Hopefully) remove the stuttering icons issue.
-
+function disableContentEditable() {
+    let allText = document.querySelectorAll("h1, h2, text")
+    for (let i = 0; i < allText.length; i++) {
+        allText[i].setAttribute("contenteditable", "false");
+    }
+}
 if (document.addEventListener) {
     document.addEventListener('webkitfullscreenchange', startpresenting, false);
     document.addEventListener('mozfullscreenchange', startpresenting, false);
@@ -376,28 +402,36 @@ if (document.addEventListener) {
 var presenterModeRun = false;
 var newWindow = "";
 //Initializing the presentermode when you click on the presentermode icon.
-function startPresenterMode(){
+function startPresenterMode() {
     let container = slideContainer.outerHTML;
-    newWindow = window.open("","", "width=200,height=100");
+    newWindow = window.open("", "", "width=200,height=100");
     let doc = newWindow.document;
     presenterModeRun = true;
     runInitPresenterMode(doc, container);
     toolbarChange("speakerNotesIcon");
+
     newWindow.onbeforeunload = function () {
         presenterModeRun = false;
-        newWindow = 0;
+        newWindow = "";
+    }
+
+    newWindow.onload = function () {
+        newWindow.disableContentEditable();
+        //console.log(window.opener);
     }
 }
 
+
 function runInitPresenterMode(doc, container) {
     doc.open();
-    doc.write('<html><head><title>Presenter mode</title><link rel="stylesheet" type="text/css" href="Application.css"><link rel="stylesheet" type="text/css" href="presentermode.css"></head><body>');
+    doc.write('<html><head><title>Presenter mode</title><link rel="stylesheet" type="text/css" href="Application.css"><link rel="stylesheet" type="text/css" href="presentermode.css"><link rel="stylesheet" type="text/css" href="template.css"></head><body>');
     doc.write(container);
-    doc.write('<img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation()"></img>');
-    doc.write('<script src="control.js"></script><script src="richtext.js"></script><script src="frontEnd.js"></script></script><script src="template.js"></script><script src="template.js"></script>');
+    doc.write('<img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation2()">');
+    doc.write('<script src="control.js"></script><script src="richtext.js"></script><script src="frontEnd.js"></script><script src="template.js"></script><script src="template.js"></script>');
     doc.write('</body></html>');
     doc.close();
     toolbarChange("speakerNotesIcon");
+
 }
 
 function loadScripts() {

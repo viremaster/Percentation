@@ -1,6 +1,5 @@
 classes = ["template1", "template2", "template3"]
 
-let lastTemplate=0;
 function clickTemplate1(){
   for(i in classes){
     slides[actualSlideIndex].classList.remove(classes[i]);
@@ -8,7 +7,6 @@ function clickTemplate1(){
   }
   slides[actualSlideIndex].classList.add("template1");
   document.getElementById(`slidePreview${actualSlideIndex}`).classList.add("template1");
-  lastTemplate='template1';
   createIfNotPresent(slides[actualSlideIndex], "H1", 15, 35);
   displaySlidePreview();
 }
@@ -20,7 +18,6 @@ function clickTemplate2(){
   }
   slides[actualSlideIndex].classList.add("template2");
   document.getElementById(`slidePreview${actualSlideIndex}`).classList.add("template2");
-  lastTemplate='template2';
   createIfNotPresent(slides[actualSlideIndex], "H1", 15, 18);
   createIfNotPresent(slides[actualSlideIndex], "TEXT", 15, 50);
   displaySlidePreview();
@@ -33,7 +30,6 @@ function clickTemplate3(){
   }
   slides[actualSlideIndex].classList.add("template3");
   document.getElementById(`slidePreview${actualSlideIndex}`).classList.add("template3");
-  lastTemplate='template3';
   createIfNotPresent(slides[actualSlideIndex], "H1", 5, 5);
   createIfNotPresent(slides[actualSlideIndex], "TEXT", 5 , 26);
   displaySlidePreview();
