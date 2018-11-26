@@ -192,21 +192,22 @@ function sendBackward(e) {
 }
 
 function startpresenting() {
+  let selector = slideContainer.querySelectorAll("h1, h2, text");
     if (presenting) {
         presenting = false;
         for (slide of slides) {
             slide.classList.remove("whilepresenting");
         }
-        for (i of slides[actualSlideIndex].children) {
-            i.querySelector("h1, h2, text").contentEditable = true;
+        for(let i = 0; i < selector.length; i++){
+          selector[i].setAttribute("contentEditable", "true");
         }
     } else {
         presenting = true;
         for (slide of slides) {
             slide.classList.add("whilepresenting");
         }
-        for (i of slides[actualSlideIndex].children) {
-            i.querySelector("h1, h2, text").contentEditable = false;
+        for(let i = 0; i < selector.length; i++){
+          selector[i].setAttribute("contentEditable", "false");
         }
     }
 }
