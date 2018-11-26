@@ -1,10 +1,9 @@
-function createvideobox(content, x , y, id){
+function createmediabox(content, x , y, id){
   div = document.createElement("div");
   div.id = `mediabox${id}`;
   div.className = "textbox";
   div.style.left = x;
   div.style.top = y;
-  div.style.padding = "0.5%";
   div.onmousedown = divclick;
   div.onmousemove = mousehandler;
   div.appendChild(content);
@@ -17,14 +16,12 @@ function createvideobox(content, x , y, id){
   actualSlide.appendChild(div);
   center(content, div);
 }
-
-function createaudiobox(content, x , y, id){
+function createmediabox2(content, x , y, id){
   div = document.createElement("div");
   div.id = `mediabox${id}`;
   div.className = "textbox";
   div.style.left = x;
   div.style.top = y;
-  div.style.padding = "0.5%";
   div.onmousedown = divclick;
   div.onmousemove = mousehandler;
   div.insertAdjacentHTML("afterbegin", content);
@@ -35,6 +32,7 @@ function createaudiobox(content, x , y, id){
     img.onmousemove = mousehandler;
   div.appendChild(img);
   actualSlide.appendChild(div);
+  //center(div);
   console.log(div+"made it here");
 }
 

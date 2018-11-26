@@ -21,8 +21,13 @@ window.onkeydown = function (e) {
 
 }
 
-function nextSlide() {
 
+
+function nextSlide() {
+    if (newWindow) {
+        newWindow.nextPresenterSlide();   
+}
+  
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block" && i != slides.length - 1) {
             slides[i].style.display = "none";
@@ -33,12 +38,18 @@ function nextSlide() {
         }
         // console.log("actual= " + actualSlideIndex + "currentSlide =" + currentSlide);
     }
+    
     displayCurrentNotes();
     displaySlidePreview();
+
 }
 
 function previousSlide() {
-
+ if (newWindow) {
+        newWindow.previousPresenterSlide();
+        
+}
+ 
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].style.display == "block" && i != 0) {
             slides[i].style.display = "none";
@@ -49,14 +60,24 @@ function previousSlide() {
         }
 
     }
+    
     displayCurrentNotes();
     displaySlidePreview();
 }
 
 function jumpToSlide() {
-
     //Index takes the number from the id of the previewSlide and removes the string, leaving only the number.
     let index = parseInt(this.id.slice(12));
+    
+    if (newWindow) {
+      
+        container = slideContainer.outerHTML;
+        newWindow.jumpToPresenterSlide(index);
+        
+}
+    else{
+        console.log("presenterModeNotRunning");
+    }
     if (index>slide.length){
     }
     for (let i = 0; i < slides.length; i++) {
@@ -71,9 +92,6 @@ function jumpToSlide() {
     actualSlideIndex = index;
     currentSlide = index;
 
-
-    displaySlidePreview();
-    displayCurrentNotes();
 }
 
 
@@ -84,13 +102,10 @@ function addSlide() {
     newSlide.className = "slide";
     newSlide.style.display = "none";
     Presentation.insertBefore(newSlide, Presentation.children[actualSlideIndex + 1]);
+    
     createSlideNotes();
     nextSlide();
-
-   
-
     displaySlidePreview();
-
 
 }
 
@@ -116,4 +131,49 @@ function deleteSlide() {
     displaySlidePreview();
     displayCurrentNotes();
     displaySlideCounter();
+}
+
+
+function nextPresenterSlide() {
+    for (let i = 0; i < slides.length; i++) {
+        if (slides[i].style.display == "block" && i != slides.length - 1) {
+            slides[i].style.display = "none";
+            slides[i + 1].style.display = "block";
+            actualSlide = slides[i + 1];
+            actualSlideIndex = actualSlideIndex + 1;
+            break
+        }
+        // console.log("actual= " + actualSlideIndex + "currentSlide =" + currentSlide);
+    }
+
+}
+
+function previousPresenterSlide() {
+    for (let i = 0; i < slides.length; i++) {
+        if (slides[i].style.display == "block" && i != 0) {
+            slides[i].style.display = "none";
+            slides[i - 1].style.display = "block";
+            actualSlide = slides[i - 1];
+            actualSlideIndex -= 1
+            break
+        }
+
+    }
+}
+
+function jumpToPresenterSlide(index) {
+    //Index takes the number from the id of the previewSlide and removes the string, leaving only the number.
+
+    if (index>slide.length){
+    }
+    for (let i = 0; i < slides.length; i++) {
+        if (slides[i].style.display == "block") {
+            slides[i].style.display = "none";
+            break
+        }
+    }
+
+    slides[index].style.display = "block";
+    actualSlideIndex = index;
+    currentSlide = index;
 }

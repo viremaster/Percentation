@@ -151,6 +151,10 @@ function resizeSlideText() {
     get("slidePreview").style.fontSize = (miniDivWidht * 0.95) + "px";
     recalculatesize();
 
+    /*if (newWindow) {
+        console.log("Hello from resize");
+    }*/
+
 }
 
 
@@ -184,7 +188,7 @@ function fullscreenPresentation() {
         slideContainer.msRequestFullscreen();
 
     }
-
+    resizeSlideText();
 }
 
 
@@ -243,7 +247,7 @@ function displaySlidePreview() {
         deleteBtn.src = "Icons/Delete.png";
         deleteBtn.alt = "Delete slide";
         deleteBtn.className = "deleteSlide";
-        deleteBtn.id="delete"+i;
+        deleteBtn.id = "delete" + i;
         deleteBtn.onclick = deleteSlide;
 
 
@@ -291,10 +295,8 @@ function createSlideNotes() {
 
     let notesContainer = document.createElement("div");
     let notes = slideNumber = document.createElement("TEXT");
-
     notes.innerHTML = "Slide " + (totalSlides + 1) + " notes:";
     notes.setAttribute("contentEditable", "true");
-
     notesContainer.id = "slideNotes" + totalSlides;
     notesContainer.className = "textBox";
     notesContainer.appendChild(notes);
@@ -359,28 +361,38 @@ function exportPresenterNotes() {
 }
 //Function to (Hopefully) remove the stuttering icons issue.
 
-if (document.addEventListener)
- {
-document.addEventListener('webkitfullscreenchange', startpresenting, false);
-     document.addEventListener('mozfullscreenchange', startpresenting, false);
-      document.addEventListener('fullscreenchange', startpresenting, false);
-     document.addEventListener('MSFullscreenChange', startpresenting, false);
- }
-function test(){
-    console.log("hello");
+if (document.addEventListener) {
+    document.addEventListener('webkitfullscreenchange', startpresenting, false);
+    document.addEventListener('mozfullscreenchange', startpresenting, false);
+    document.addEventListener('fullscreenchange', startpresenting, false);
+    document.addEventListener('MSFullscreenChange', startpresenting, false);
 }
-function startPresentationMode(){
+//various values to start presentermode
+var presenterModeRun = false;
+var newWindow = window.open("","", "width=200,height=100");
+//Initializing the presentermode when you click on the presentermode icon.
+function startPresenterMode(){
     let container = slideContainer.outerHTML;
-    let newWindow = window.open("","", "width=200,height=100");
+    newWindow = window.open("","", "width=200,height=100");
     let doc = newWindow.document;
-    container.onclick=test();
+    presenterModeRun = true;
+    runInitPresenterMode(doc, container);
+    toolbarChange("speakerNotesIcon");
+    newWindow.onbeforeunload = function () {
+        presenterModeRun = false;
+        newWindow = 0;
+    }
+}
+
+function runInitPresenterMode(doc, container) {
     doc.open();
-    
-    doc.write('<html><head><title>Print it!</title><link rel="stylesheet" type="text/css" href="Application.css"></head><body>');
+    doc.write('<html><head><title>Presenter mode</title><link rel="stylesheet" type="text/css" href="Application.css"><link rel="stylesheet" type="text/css" href="presentermode.css"></head><body>');
     doc.write(container);
+    doc.write('<img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation()"></img>');
+    doc.write('<script src="control.js"></script><script src="richtext.js"></script><script src="frontEnd.js"></script></script><script src="template.js"></script><script src="template.js"></script>');
     doc.write('</body></html>');
     doc.close();
-    
+    toolbarChange("speakerNotesIcon");
 }
 
 function loadScripts() {

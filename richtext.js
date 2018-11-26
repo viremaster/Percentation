@@ -76,7 +76,7 @@ function mousehandler(e) {
     let type = e.currentTarget.nodeName;
     if (presenting) {
         e.currentTarget.style.cursor = 'auto';
-    } else if (type == "TEXT" || type == "H1" || type == "H2") {
+    } else if (type == "TEXT" || type == "H1" || type == "H2" || type == "UL") {
         e.currentTarget.style.cursor = 'text';
     } else if (type == "IMG") {
         e.currentTarget.style.cursor = 'pointer';
@@ -159,7 +159,7 @@ function recenter(e) {
     element = e.target;
     box = e.target.parentElement;
     center(element, box);
-
+   
 }
 
 function center(element, item) {
@@ -167,7 +167,7 @@ function center(element, item) {
     element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`
     pixelsTop = Math.max(0, (parseInt(item.offsetHeight) - parseInt(element.offsetHeight)) / 2);
     element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`
-
+   
 }
 
 function move() {
@@ -175,7 +175,7 @@ function move() {
     posY = Math.max(0, Math.min(mouse.y - offsetY - slideY.min, slideY.max - slideY.min - item.offsetHeight));
     item.style.left = pxtopercentx(posX);
     item.style.top = pxtopercenty(posY);
-    displaySlidePreview();
+     displaySlidePreview();
 }
 
 function deleteDiv(e) {
@@ -200,9 +200,7 @@ function startpresenting() {
             slide.classList.remove("whilepresenting");
         }
         for (i of slides[actualSlideIndex].children) {
-          if(i.querySelector("h1, h2, text")){
             i.querySelector("h1, h2, text").contentEditable = true;
-          }
         }
     } else {
         presenting = true;
@@ -210,9 +208,7 @@ function startpresenting() {
             slide.classList.add("whilepresenting");
         }
         for (i of slides[actualSlideIndex].children) {
-            if(i.querySelector("h1, h2, text")){
-              i.querySelector("h1, h2, text").contentEditable = false;
-            }
+            i.querySelector("h1, h2, text").contentEditable = false;
         }
     }
 }
@@ -263,8 +259,8 @@ function createtextbox(type, x, y, id) {
     div.appendChild(div2);
     slides[actualSlideIndex].appendChild(div);
     center(text, div);
-
-
+    
+ 
 
 }
 
