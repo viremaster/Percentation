@@ -14,8 +14,10 @@ btnSharePerson.addEventListener("click", function () {
                 })
             }).then(data => {
                 if (data.status===200){
-                    alert("Presentation shared to "+username);
+                    return data.json();
                 }
+            }).then(json => {
+                alert("Presentation "+json.action+ " to "+username);
             })
         }
     }

@@ -98,11 +98,24 @@ router.put("/app/share/:username/:presentationid", authenticated.valideAuthentic
     let response = await db.select(query);
     if (response && username && presentationid) {
         userid = response[0].userid;
-        query = `UPDATE public.presentations SET sharediduser=array_append(sharediduser,'${userid}') WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' RETURNING "presentationid"`
+
+        query = `SELECT presentationid from public.presentations WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' AND sharediduser @> '{${userid}}'`
+        response = await db.select(query);
+        let action;
+        if (response) {
+            query = `UPDATE public.presentations SET sharediduser=array_remove(sharediduser,'${userid}') WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' RETURNING "presentationid"`
+            action = "unshared";
+        } else {
+            query = `UPDATE public.presentations SET sharediduser=array_append(sharediduser,'${userid}') WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' RETURNING "presentationid"`
+            action = "shared"
+        }
         response = await db.update(query);
         if (response) {
             response = response[0];
-            res.status(200).json(response).end();
+            res.status(200).json({
+                response:response,
+                action:action
+            }).end();
         } else {
             res.status(400).send("problem").end();
         }

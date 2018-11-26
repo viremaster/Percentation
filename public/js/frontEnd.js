@@ -3,7 +3,7 @@ function setImageTitle() {
     let allImages = document.getElementsByTagName("img");
     for (i = 0; i < allImages.length; i++) {
         allImages[i].title = allImages[i].alt;
-   
+
     }
 }
 
@@ -82,12 +82,10 @@ function toolbarChange(event) {
 }
 
 
-        //-------------Resizes text in the canvas based on the width of the element. Activates onload, on menuchange and on resize.------------
-        function resizeSlideText() {
-            divWidht = get("slideContainer").offsetWidth;
-            get("slideContainer").style.fontSize = divWidht + "px";
-
-
+//-------------Resizes text in the canvas based on the width of the element. Activates onload, on menuchange and on resize.------------
+function resizeSlideText() {
+    divWidht = get("slideContainer").offsetWidth;
+    get("slideContainer").style.fontSize = divWidht + "px";
 }
 
 
@@ -105,8 +103,8 @@ function addFontMenu() {
 
 //------------------Fullscreen------------------
 
-        const slideContainer = document.getElementById("slideContainer");
-        let presentationMode = false;
+const slideContainer = document.getElementById("slideContainer");
+let presentationMode = false;
 
 
 function fullscreenPresentation() {
@@ -134,7 +132,7 @@ let themes = [{
         img: "none",
         img2: "Themes/Blank.jpg",
         stroke: "none"
-            },
+    },
     {
         name: "pastel",
         font: "serif",
@@ -142,7 +140,7 @@ let themes = [{
         img: "url('Themes/PastellGeometric.jpg')",
         img2: 'Themes/PastellGeometric.jpg',
         stroke: "#4a5243"
-            },
+    },
     {
         name: "blueprint",
         font: "sans-serif",
@@ -150,7 +148,7 @@ let themes = [{
         img: "url('Themes/Blueprint.jpg')",
         img2: 'Themes/Blueprint.jpg',
         stroke: "#1d7cc0"
-            },
+    },
     {
         name: "industrial",
         font: "Helvetica",
@@ -158,7 +156,7 @@ let themes = [{
         img: "url('Themes/ColdIndustrial.jpg')",
         img2: 'Themes/ColdIndustrial.jpg',
         stroke: "#FFFFFF"
-            },
+    },
     {
         name: "gentle",
         font: "Book Antiqua",
@@ -166,7 +164,7 @@ let themes = [{
         img: "url('Themes/GentleMorning.jpg')",
         img2: 'Themes/GentleMorning.jpg',
         stroke: "none"
-            },
+    },
     {
         name: "geometric",
         font: "serif",
@@ -174,8 +172,8 @@ let themes = [{
         img: "url('Themes/Geometric.jpg')",
         img2: 'Themes/Geometric.jpg',
         stroke: "#463212"
-            }
-        ]
+    }
+]
 let currentTheme = "Themes/Blank.jpg";
 
 function changeTheme(event) {
@@ -206,7 +204,7 @@ function displaySlideCounter() {
 
     //!!! does not work. Create new variable that shows what slide the user is currently viewing.
     slideCounter.innerHTML = "Slide " + (actualSlideIndex + 1) + " / " + slides.length;
- //!!! Show which slide is selected by giving the preview a border.
+    //!!! Show which slide is selected by giving the preview a border.
 
 }
 let slidePreview = document.getElementById("slidePreview");
@@ -224,24 +222,24 @@ function displaySlidePreview() {
         let background = document.createElement("img");
         div.className = "miniSlide";
 
-        slideNumber.innerHTML = "Slide " +(i + 1);
+        slideNumber.innerHTML = "Slide " + (i + 1);
         slideNumber.className = "slideNumber";
 
         background.className = "miniSlideBackground";
         background.src = currentTheme;
-        
+
         //!!! This works, but the scale is wrong. (All elements should be 15,82% the scale of the div)
         //div.innerHTML = slideContainer.children[i].innerHTML;
-   
-        
+
+
         //!!! Add onclick for jumping to that slide
         //!!! Add delete button visible on hover
-         div.appendChild(slideNumber);
+        div.appendChild(slideNumber);
         div.appendChild(background);
-    
+
         slidePreview.appendChild(div);
     }
-disableDraggable();
+    disableDraggable();
 }
 
 
