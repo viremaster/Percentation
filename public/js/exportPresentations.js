@@ -7,11 +7,8 @@ exportButton.onclick = function () {
     newElement.style.fontSize = "100vw";
 
     let picturesrc = newElement.style.backgroundImage.split('"')[1]
-    let img = document.createElement("img");
-    img.src = picturesrc;
-
-    let imgBase64 = getBase64Img(img);
-    //newElement.style.backgroundImage="url("+imgBase64+")";7
+    let src="https://percentation.herokuapp.com/"+picturesrc;
+    newElement.style.backgroundImage="url("+src+")";
 
     let page=`<html>
 
@@ -129,22 +126,11 @@ function createElementFromHTML(string) {
     return div.firstChild;
 }
 
-function getBase64Img(img) {
-    let canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    let ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-    let dataURL = canvas.toDataURL("image/png");
-    return dataURL;
-}
-
 function download(data) {
     let fileName = "Filename";
     let newFile = document.createElement('a');
     newFile.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(data));
     newFile.setAttribute('download',fileName);
-    console.log(newFile);
     document.body.appendChild(newFile);
     newFile.click();
     document.body.removeChild(newFile);
