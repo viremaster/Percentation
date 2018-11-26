@@ -329,6 +329,7 @@ function createSlideNotes() {
 
 function displayCurrentNotes() {
     let allNotes = document.querySelectorAll(".textBox");
+    console.log(allNotes);
     for (let i = 0; i < allNotes.length; i++) {
         allNotes[i].style.display = "none";
     }

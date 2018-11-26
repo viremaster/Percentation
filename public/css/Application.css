@@ -486,6 +486,11 @@ button:hover {
 
 }
 
+.topMenu .dropdown-content{
+    left: -50%;
+    top: 99%;
+}
+
 /*--The links within the menu--*/
 .dropdown-content a {
     font-size: 1vw;

@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "dependencies": {
-    "express": "^4.16.4",
-    "jsonwebtoken": "^8.4.0",
-    "pg": "^7.5.0",
-    "bcrypt": "^3.0.0"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
@@ -23,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/viremaster/Percentation/issues"
   },
-  "homepage": "https://github.com/viremaster/Percentation#readme"
+  "homepage": "https://github.com/viremaster/Percentation#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "pg": "^7.6.1"
+  }
 }

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette'
+        rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <link rel="stylesheet" href="css/Application.css">
     <link rel="stylesheet" href="css/template.css">
@@ -126,7 +127,8 @@
                 <h2> Slide templates </h2>
                 <hr> <img class="toolbarIcon" alt="Title template" src="Icons/Template_Title.png" onclick="clickTemplate1()">
 
-                <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png" onclick="clickTemplate2()">
+                <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png"
+                    onclick="clickTemplate2()">
 
                 <img class="toolbarIcon" alt="Text template" src="Icons/Template_Text.png" onclick="clickTemplate3()">
             </div>
@@ -196,22 +198,30 @@
             <img src="Icons/Back.png" alt="Back to your presentations" class="topIcon" id="BackIcon">
             <h3 id="logo">Percentation</h3>
             <p id="fileName">untitled1</p>
-            <div id= topMenuBtns>
-            <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
-            <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
-            <img src="Icons/User.png" alt="User settings" class="topIcon" id="userIcon">
+            <div id=topMenuBtns>
+                <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
+                <img src="Icons/Export.png" alt="Export presentation" class="topIcon" id="exportIcon">
+                <div class="dropdown">
+                    <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
+                    <div id="textBoxCreatorMenu" class="dropdown-content">
+                        <a id="btnSharePublic">Share to public</a>
+                        <a id="btnSharePrivate">Share to private</a>
+                        <a id="btnSharePerson">Share to a person</a>
+
+                    </div>
+                </div>
+                <img src="Icons/User.png" alt="User settings" class="topIcon" id="userIcon">
             </div>
         </div>
     </div>
 
     <script>
-        (function(){
-            if(localStorage.getItem("presentation")){
-                let slideContainer=document.getElementById("slideContainer");
-                slideContainer.outerHTML=localStorage.getItem("presentation");
+        (function () {
+            if (localStorage.getItem("presentation")) {
+                let slideContainer = document.getElementById("slideContainer");
+                slideContainer.outerHTML = localStorage.getItem("presentation");
             }
         })()
-
     </script>
     <script src="js/control.js"></script>
     <script src="js/richtext.js"></script>
@@ -220,6 +230,9 @@
     <script src="js/template.js"></script>
     <script src="js/mediaMovement.js"></script>
     <script src="js/BasicMedia.js"></script>
+    <script src="js/saveIntoDatabase.js"></script>
+    <script src="js/sharePresentations.js"></script>
+    <script src="js/exportPresentations.js"></script>
 </body>
 
 </html>

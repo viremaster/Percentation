@@ -1,6 +1,7 @@
 //Function that takes in the filename and the text
 let uploadButton = document.getElementById("saveIcon");
 uploadButton.onclick = function () {
+    console.log("hey");
 
     let data = document.getElementById("slideContainer").outerHTML;
     let url;
