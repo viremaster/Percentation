@@ -22,8 +22,10 @@ window.onkeydown = function (e) {
 }
 
 function nextSlide() {
-
     for (let i = 0; i < slides.length; i++) {
+        if (slides.length - 1){
+            
+        }
         if (slides[i].style.display == "block" && i != slides.length - 1) {
             slides[i].style.display = "none";
             slides[i + 1].style.display = "block";
@@ -31,7 +33,7 @@ function nextSlide() {
             actualSlideIndex = actualSlideIndex + 1;
             break
         }
-        // console.log("actual= " + actualSlideIndex + "currentSlide =" + currentSlide);
+     
     }
     displayCurrentNotes();
     displaySlidePreview();
@@ -74,6 +76,7 @@ function jumpToSlide() {
 
     displaySlidePreview();
     displayCurrentNotes();
+ 
 }
 
 

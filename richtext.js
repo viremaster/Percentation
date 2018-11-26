@@ -56,7 +56,7 @@ document.addEventListener('mouseup', function (event) {
 }, false);
 
 function selectTextType(e) {
-      document.body.style.cursor = "cell";
+    document.body.style.cursor = "cell";
     for (element of e.currentTarget.parentElement.children) {
         element.style.color = "lightslategray";
     }
@@ -107,7 +107,7 @@ function divclick(e) {
     } else if (e.target.nodeName != "DIV") {
         justclicked = true;
         e.target.parentElement.style.visibility = 'visible';
-         displaySlidePreview();
+        displaySlidePreview();
     }
 }
 
@@ -120,7 +120,7 @@ function end() {
     }
     resizing = false;
     justclicked = false;
-     displaySlidePreview();
+    displaySlidePreview();
 }
 
 function draghandler(e) {
@@ -159,7 +159,7 @@ function recenter(e) {
     element = e.target;
     box = e.target.parentElement;
     center(element, box);
-   
+
 }
 
 function center(element, item) {
@@ -167,7 +167,7 @@ function center(element, item) {
     element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`
     pixelsTop = Math.max(0, (parseInt(item.offsetHeight) - parseInt(element.offsetHeight)) / 2);
     element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`
-   
+
 }
 
 function move() {
@@ -175,12 +175,13 @@ function move() {
     posY = Math.max(0, Math.min(mouse.y - offsetY - slideY.min, slideY.max - slideY.min - item.offsetHeight));
     item.style.left = pxtopercentx(posX);
     item.style.top = pxtopercenty(posY);
-     displaySlidePreview();
+    displaySlidePreview();
 }
 
 function deleteDiv(e) {
     e.currentTarget.parentElement.parentElement.remove();
     console.log(e.currentTarget.parentElement);
+    displaySlidePreview();
 }
 
 function sendForward(e) {
@@ -196,6 +197,7 @@ function sendBackward(e) {
 function startpresenting() {
     if (presenting) {
         presenting = false;
+        clearInterval(myTime);
         for (slide of slides) {
             slide.classList.remove("whilepresenting");
         }
@@ -220,6 +222,7 @@ function createtextbox(type, x, y, id) {
     div.className = "textbox";
     div.style.left = x;
     div.style.top = y;
+    div.style.zIndex = 5;
     div.onmousedown = divclick;
     div.onmousemove = mousehandler;
 
@@ -259,8 +262,8 @@ function createtextbox(type, x, y, id) {
     div.appendChild(div2);
     slides[actualSlideIndex].appendChild(div);
     center(text, div);
-    
- 
+
+
 
 }
 

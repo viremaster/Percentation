@@ -6,6 +6,9 @@ let presentationMode = false;
 let slidePreview = document.getElementById("slidePreview");
 let notesToolbar = document.getElementById("speakerNotesToolbar");
 let exportBtn = document.getElementById("exportSpeakerNotes");
+let appcontainer = document.getElementById("appContainer");
+
+let myTime;
 let themes = [{
         name: "blank",
         font: "sans-serif",
@@ -67,7 +70,6 @@ function setImageTitle() {
 }
 
 function disableDraggable() {
-
     for (i = 0; i < allImages.length; i++) {
         allImages[i].setAttribute("draggable", "false");
     }
@@ -78,17 +80,14 @@ function get(id) {
 }
 
 
-
 //----------Changes the toolbar and styling to match what menu you want ----------------
 function toolbarChange(event) {
-    let appcontainer = document.getElementById("appContainer");
     let textToolbar = document.getElementById("textToolbar");
     let speakerNotesToolbar = document.getElementById("speakerNotesToolbar");
     let imagesToolbar = document.getElementById("imagesToolbar");
     let templatesToolbar = document.getElementById("templatesToolbar");
     let slideSettingsToolbar = document.getElementById("slideSettingsToolbar");
     let stylesToolbar = document.getElementById("stylesToolbar");
-
     //-------hiding all Toolbars
     textToolbar.style.display = "none";
     speakerNotesToolbar.style.display = "none";
@@ -166,10 +165,18 @@ function addFontMenu() {
     }
 }
 
-//------------------Fullscreen------------------
-
 
 function fullscreenPresentation() {
+    let myTime;
+    let time = document.getElementById("timedSlide").value;
+    let xTime = time * 1000;
+    let checkBox = document.getElementById("toggleTime");
+
+
+    if (checkBox.checked) {
+        myTime = setInterval(nextSlide, xTime);
+
+    }
 
     if (slideContainer.requestFullscreen) {
         slideContainer.requestFullscreen();
@@ -243,18 +250,15 @@ function displaySlidePreview() {
         deleteBtn.src = "Icons/Delete.png";
         deleteBtn.alt = "Delete slide";
         deleteBtn.className = "deleteSlide";
-        deleteBtn.id="delete"+i;
+        deleteBtn.id = "delete" + i;
         deleteBtn.onclick = deleteSlide;
 
 
         div.innerHTML = slideContainer.children[i].innerHTML;
         div.onclick = jumpToSlide;
-
-
         div.appendChild(slideNumber);
         div.appendChild(background);
         div.appendChild(deleteBtn);
-
         slidePreview.appendChild(div);
 
 
@@ -262,7 +266,7 @@ function displaySlidePreview() {
     }
     //---- Match style of preview to style of slide. ----- 
     let previews = document.querySelectorAll(".miniSlide");
-
+  
     for (let p = 0; p < previews.length; p++) {
         previews[p].style.color = slideContainer.style.color;
         previews[p].style.fontFamily = slideContainer.style.fontFamily;
@@ -270,14 +274,11 @@ function displaySlidePreview() {
     }
 
     //---- Disable contentEditable on previews ------------- 
-    let allH1 = slidePreview.querySelectorAll("h1")
-    for (let h = 0; h < allH1.length; h++) {
-        allH1[h].setAttribute("contenteditable", "false");
-    }
+   
     //!!! Change h3 to text once things are working as intended
-    let allText = slidePreview.querySelectorAll("h3")
-    for (let t = 0; t < allText.length; t++) {
-        allText[t].setAttribute("contenteditable", "false");
+    let allText = slidePreview.querySelectorAll("h1, h2, text")
+    for (let i = 0; i < allText.length; i++) {
+        allText[i].setAttribute("contenteditable", "false");
     }
     displaySlideCounter();
     disableDraggable();
@@ -359,31 +360,35 @@ function exportPresenterNotes() {
 }
 //Function to (Hopefully) remove the stuttering icons issue.
 
-if (document.addEventListener)
- {
-document.addEventListener('webkitfullscreenchange', startpresenting, false);
-     document.addEventListener('mozfullscreenchange', startpresenting, false);
-      document.addEventListener('fullscreenchange', startpresenting, false);
-     document.addEventListener('MSFullscreenChange', startpresenting, false);
- }
-function test(){
-    console.log("hello");
+if (document.addEventListener) {
+    document.addEventListener('webkitfullscreenchange', startpresenting, false);
+    document.addEventListener('mozfullscreenchange', startpresenting, false);
+    document.addEventListener('fullscreenchange', startpresenting, false);
+    document.addEventListener('MSFullscreenChange', startpresenting, false);
 }
-function startPresentationMode(){
+
+function test() {
+    console.log("hello");
+    window.alert("Hello");
+}
+
+function startPresentationMode() {
     let container = slideContainer.outerHTML;
-    let newWindow = window.open("","", "width=200,height=100");
+    let newWindow = window.open("", "", "width=200,height=100");
     let doc = newWindow.document;
-    container.onclick=test();
-    doc.open();
-    
+    newWindow.onresize = test();
+
+    // doc.open();
+
     doc.write('<html><head><title>Print it!</title><link rel="stylesheet" type="text/css" href="Application.css"></head><body>');
     doc.write(container);
     doc.write('</body></html>');
-    doc.close();
-    
+    //  doc.close();
+
 }
 
 function loadScripts() {
+    get("textEditorIcon").style.filter = "brightness(3)";
     addFontMenu();
     resizeSlideText();
     setImageTitle();
