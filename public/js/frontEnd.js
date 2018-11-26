@@ -424,10 +424,10 @@ function startPresenterMode() {
 
 function runInitPresenterMode(doc, container) {
     doc.open();
-    doc.write('<html><head><title>Presenter mode</title><link rel="stylesheet" type="text/css" href="Application.css"><link rel="stylesheet" type="text/css" href="presentermode.css"><link rel="stylesheet" type="text/css" href="template.css"></head><body>');
+    doc.write('<html><head><title>Presenter mode</title><link rel="stylesheet" type="text/css" href="css/Application.css"><link rel="stylesheet" type="text/css" href="css/presentermode.css"><link rel="stylesheet" type="text/css" href="css/template.css"></head><body>');
     doc.write(container);
     doc.write('<img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation2()">');
-    doc.write('<script src="control.js"></script><script src="richtext.js"></script><script src="frontEnd.js"></script><script src="template.js"></script><script src="template.js"></script>');
+    doc.write('<script src="js/control.js"></script><script src="js/richtext.js"></script><script src="js/frontEnd.js"></script><script src="js/template.js"></script>');
     doc.write('</body></html>');
     doc.close();
     toolbarChange("speakerNotesIcon");
