@@ -32,7 +32,6 @@ function clickTemplate3(){
     document.getElementById(`slidePreview${actualSlideIndex}`).classList.remove(classes[i]);
   }
   slides[actualSlideIndex].classList.add("template3");
-  console.log(document.getElementById(`slidePreview${actualSlideIndex}`))
   document.getElementById(`slidePreview${actualSlideIndex}`).classList.add("template3");
   lastTemplate='template3';
   createIfNotPresent(slides[actualSlideIndex], "H1", 5, 5);

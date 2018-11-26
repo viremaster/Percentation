@@ -374,7 +374,7 @@ if (document.addEventListener) {
 }
 //various values to start presentermode
 var presenterModeRun = false;
-var newWindow = window.open("","", "width=200,height=100");
+var newWindow = "";
 //Initializing the presentermode when you click on the presentermode icon.
 function startPresenterMode(){
     let container = slideContainer.outerHTML;

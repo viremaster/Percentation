@@ -724,7 +724,23 @@ button:hover {
     border: none;
 }
 
-.whilepresenting > .textbox > img {
+.whilepresenting > .textbox > .textboxMenu {
+    visibility: hidden;
+}
+
+.whilepresenting > .picturebox {
+    border: none;
+}
+
+.whilepresenting > .picturebox> .textboxMenu {
+    visibility: hidden;
+}
+
+.whilepresenting > .mediabox {
+    border: none;
+}
+
+.whilepresenting > .mediabox> .textboxMenu {
     visibility: hidden;
 }
 
@@ -748,8 +764,33 @@ button:hover {
     display: block;
 }
 
+.picturebox:hover> .textboxMenu img {
+    display: block;
+}
+
+.picturebox> .textboxMenu img {
+    display: none;
+}
+
 .miniSlide .textbox:hover > .textboxMenu img {
     display: none;
+}
+
+.mediabox:hover> .textboxMenu img {
+    display: block;
+}
+
+.mediabox> .textboxMenu img {
+    display: none;
+}
+
+.mediabox {
+    padding: 1%;
+    position: absolute;
+    border: 1px dotted black;
+    width: 20%;
+    height: 20%;
+
 }
 
 #timedTransitions {

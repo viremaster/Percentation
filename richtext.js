@@ -227,9 +227,6 @@ function createtextbox(type, x, y, id) {
     div.onmousedown = divclick;
     div.onmousemove = mousehandler;
 
-    div2 = document.createElement("div");
-    div2.className = "textboxMenu";
-
     text = document.createElement(type);
     text.id = `text${id}`;
     text.contentEditable = true;
@@ -238,6 +235,10 @@ function createtextbox(type, x, y, id) {
     text.onmousemove = mousehandler;
     text.draggable = false;
     div.appendChild(text);
+
+    div2 = document.createElement("div");
+    div2.className = "textboxMenu";
+    div2.classList.add("whilepresenting");
 
     img = document.createElement("img");
     img.src = "Icons/Cross.png";
