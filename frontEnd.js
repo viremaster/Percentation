@@ -1,4 +1,5 @@
 //----------------------Sets the title of all image elements to match the alt text to show tooltips on hover------------------------
+let previews;
 let allImages = document.getElementsByTagName("img");
 let currentTheme = "Themes/Blank.jpg";
 const slideContainer = document.getElementById("slideContainer");
@@ -224,7 +225,6 @@ slides = document.getElementsByClassName("slide");
 
 
 function displaySlidePreview() {
-
     let elements = document.getElementsByClassName("miniSlide");
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
@@ -237,9 +237,8 @@ function displaySlidePreview() {
         let deleteBtn = document.createElement("img");
         let notes = div.id = "slidePreview" + i;
 
-        div.className = "whilepresenting";
+        div.classList.add("whilepresenting");
         div.classList.add("miniSlide");
-
 
         slideNumber.innerHTML = "Slide " + (i + 1);
         slideNumber.className = "slideNumber";
@@ -263,18 +262,21 @@ function displaySlidePreview() {
 
 
 
+
     }
-    //---- Match style of preview to style of slide. ----- 
-    let previews = document.querySelectorAll(".miniSlide");
-  
+    //---- Match style of preview to style of slide. -----
+    previews = document.querySelectorAll(".miniSlide");
+
     for (let p = 0; p < previews.length; p++) {
         previews[p].style.color = slideContainer.style.color;
         previews[p].style.fontFamily = slideContainer.style.fontFamily;
         previews[p].style.textShadow = slideContainer.style.textShadow;
+        previews[p].classList.add(slides[p].classList[1]);
+
     }
 
-    //---- Disable contentEditable on previews ------------- 
-   
+    //---- Disable contentEditable on previews -------------
+
     //!!! Change h3 to text once things are working as intended
     let allText = slidePreview.querySelectorAll("h1, h2, text")
     for (let i = 0; i < allText.length; i++) {
@@ -286,7 +288,7 @@ function displaySlidePreview() {
 
 
 
-//------Creating slide-specific speaker notes ----- 
+//------Creating slide-specific speaker notes -----
 
 function createSlideNotes() {
 
@@ -348,7 +350,7 @@ function exportPresenterNotes() {
     noteString = noteString.replace(/<[^>]*>/g, '');
     //Removes nonebreakingspace notation in the string.
     noteString = noteString.replace(/&nbsp;/g, '');
-    //Removes the first two linebreaks. 
+    //Removes the first two linebreaks.
     noteString = noteString.slice(4);
 
     newFile.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(noteString));
@@ -376,14 +378,13 @@ function startPresentationMode() {
     let container = slideContainer.outerHTML;
     let newWindow = window.open("", "", "width=200,height=100");
     let doc = newWindow.document;
-    newWindow.onresize = test();
-
-    // doc.open();
+    container.onclick=test();
+    doc.open();
 
     doc.write('<html><head><title>Print it!</title><link rel="stylesheet" type="text/css" href="Application.css"></head><body>');
     doc.write(container);
     doc.write('</body></html>');
-    //  doc.close();
+    doc.close();
 
 }
 

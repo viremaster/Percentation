@@ -136,7 +136,7 @@ function draghandler(e) {
         item.style.width = pxtopercentx(posX);
         item.style.height = pxtopercenty(posY);
         for (element of item.getElementsByTagName("TEXT")) {
-            center(element, item);
+             center(element, item);
         }
         for (element of item.getElementsByTagName("H1")) {
             center(element, item);
@@ -164,10 +164,9 @@ function recenter(e) {
 
 function center(element, item) {
     pixelsLeft = Math.max(0, (parseInt(item.offsetWidth) - parseInt(element.offsetWidth)) / 2);
-    element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`
+    element.style.left = `${(pixelsLeft/item.offsetWidth)*100}%`;
     pixelsTop = Math.max(0, (parseInt(item.offsetHeight) - parseInt(element.offsetHeight)) / 2);
-    element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`
-
+    element.style.top = `${(pixelsTop/item.offsetHeight)*100}%`;
 }
 
 function move() {
@@ -180,7 +179,6 @@ function move() {
 
 function deleteDiv(e) {
     e.currentTarget.parentElement.parentElement.remove();
-    console.log(e.currentTarget.parentElement);
     displaySlidePreview();
 }
 
@@ -195,22 +193,23 @@ function sendBackward(e) {
 }
 
 function startpresenting() {
+  let selector = slideContainer.querySelectorAll("h1, h2, text");
     if (presenting) {
         presenting = false;
         clearInterval(myTime);
         for (slide of slides) {
             slide.classList.remove("whilepresenting");
         }
-        for (i of slides[actualSlideIndex].children) {
-            i.querySelector("h1, h2, text").contentEditable = true;
+        for(let i = 0; i < selector.length; i++){
+          selector[i].setAttribute("contentEditable", "true");
         }
     } else {
         presenting = true;
         for (slide of slides) {
             slide.classList.add("whilepresenting");
         }
-        for (i of slides[actualSlideIndex].children) {
-            i.querySelector("h1, h2, text").contentEditable = false;
+        for(let i = 0; i < selector.length; i++){
+          selector[i].setAttribute("contentEditable", "false");
         }
     }
 }
@@ -220,6 +219,7 @@ function createtextbox(type, x, y, id) {
 
     div.id = `box${id}`;
     div.className = "textbox";
+    div.classList.add(`box${type}`);
     div.style.left = x;
     div.style.top = y;
     div.style.zIndex = 5;
@@ -233,8 +233,8 @@ function createtextbox(type, x, y, id) {
     text.id = `text${id}`;
     text.contentEditable = true;
     text.innerHTML = "click to edit";
-    text.oninput = recenter;
-    text.oninput = displaySlidePreview;
+    //text.addEventListener("input", recenter);
+    text.addEventListener("input", displaySlidePreview);
     text.onmousemove = mousehandler;
     text.draggable = false;
     div.appendChild(text);
@@ -261,8 +261,7 @@ function createtextbox(type, x, y, id) {
     div2.appendChild(img3);
     div.appendChild(div2);
     slides[actualSlideIndex].appendChild(div);
-    center(text, div);
-
+    return div;
 
 
 }
