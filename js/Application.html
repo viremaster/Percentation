@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette'
-        rel='stylesheet' type='text/css'>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <link rel="stylesheet" href="css/Application.css">
+    <link rel="stylesheet" href="css/template.css">
+
     <title>
     </title>
+
+
 </head>
 
 <body onresize="resizeSlideText()" onload="loadScripts()">
@@ -20,15 +23,19 @@
         <!-- Container til workarea, med en egen til selve sliden sentrert inni-->
         <div class="workArea" id="workArea">
             <p id="slideNumber">Slide 1 / 1</p>
+            <div class=navBtns>
+                <img src="Icons/Previous_page.png" class="navBtn" alt="Previous slide" onclick="previousSlide()">
+                <img src="Icons/Next_page.png" class="navBtn" alt="Next slide" onclick="nextSlide()">
+            </div>
+            <img src="Icons/Presentationmode.png" alt="Presenter mode" id="presentationModeBtn" onclick="startPresenterMode()">
             <img src="Icons/Fit_to_Width.png" alt="Fullscreen presentation" id="fullscreenIcon" onclick="fullscreenPresentation()">
 
             <div id="slideContainer">
-
                 <div class="slide" style="display:block;">
-                    <div class="titleTemplate">
-                        <h1 contenteditable="true">title</h1>
-                        <h3 contenteditable="true"> Insert subtitle here:</h3>
-                    </div>
+                    <!-- <div class="titleTemplate">
+                        <h1 contenteditable="true" oninput="displaySlidePreview();">Insert title:</h1>
+                        <h3 contenteditable="true" oninput="displaySlidePreview();"> Insert subtitle here:</h3>
+                    </div>-->
                 </div>
             </div>
 
@@ -41,11 +48,8 @@
             <div id="speakerNotesToolbar">
                 <h2> Slide notes</h2>
                 <hr>
-                <div class="textBox">
-                    <p contenteditable="true">Type notes...</p>
 
-                </div>
-                <button id="exportSpeakerNotes">Export</button>
+                <button id="exportSpeakerNotes" onclick="exportPresenterNotes()">Save notes to disk</button>
 
             </div>
 
@@ -75,7 +79,6 @@
                     <img src="Icons/Text_Color.png" alt="Text color" class="toolbarIcon" id="textColorIcon">
                 </div>
 
-
                 <hr>
 
                 <h3>Text alignment:</h3>
@@ -95,25 +98,17 @@
 
                     <div class="dropdown">
                         <img src="Icons/Add_New.png" alt="Add new element" class="toolbarIcon" id="newElementIcon">
-                        <div class="dropdown-content">
-                            <a href="#">Add new title</a>
-                            <a href="#">Add new text</a>
-                            <a href="#">Add new unordered list</a>
-                        </div>
-                    </div>
+                        <div id="textBoxCreatorMenu" class="dropdown-content">
+                            <a id="h1" onclick="selectTextType(event)">Add new title</a>
+                            <a id="h2" onclick="selectTextType(event)">Add new subtitle</a>
+                            <a id="text" onclick="selectTextType(event)">Add new text</a>
 
-                    <div class="dropdown">
-                        <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
-                        <div class="dropdown-content">
-                            <a id="btnSharePublic" href="#">Share to public</a>
-                            <a id="btnSharePrivate" href="#">Share to private</a>
-                            <a id="btnSharePerson" href="#">Share to a person</a>
                         </div>
                     </div>
-                    <img src="Icons/Delete.png" alt="Remove element" class="toolbarIcon" id="removeElementIcon">
 
 
                 </div>
+
                 <hr>
             </div>
             <!--------->
@@ -129,14 +124,11 @@
             <!--------->
             <div id="templatesToolbar">
                 <h2> Slide templates </h2>
-                <hr>
-                <img class="toolbarIcon" alt="Title template" src="Icons/Template_Title.png">
-                <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png">
-                <img class="toolbarIcon" alt="Text template" src="Icons/Template_Text.png">
-                <img class="toolbarIcon" alt="List template" src="Icons/Template_List.png">
-                <img class="toolbarIcon" alt="Text template with two textboxes" src="Icons/Template_Doubletext.png">
-                <img class="toolbarIcon" alt="List template with textbox" src="Icons/Template_ListandText.png">
+                <hr> <img class="toolbarIcon" alt="Title template" src="Icons/Template_Title.png" onclick="clickTemplate1()">
 
+                <img class="toolbarIcon" alt="Title template with subtitle" src="Icons/Template_Titleandsubtitle.png" onclick="clickTemplate2()">
+
+                <img class="toolbarIcon" alt="Text template" src="Icons/Template_Text.png" onclick="clickTemplate3()">
             </div>
 
             <!--------->
@@ -158,13 +150,22 @@
             </div>
             <!--------->
             <div id="slideSettingsToolbar">
-                <h2> Slide settings </h2>
+                <h2> Automatic transitions </h2>
                 <hr>
-                <p>Timed sliders</p>
-                <p>Options for how things are viewed in presentation? like phone and stuff</p>
+                <!-- Adding a timer for timed presentations -->
+                <div id="timedTransitions">
+                    <!-- this was called slidecontainer in the test version for some reason in the tester, change as pleased -->
+                    <p>Activate slideshow mode:</p>
+                    <input type="checkbox" id="toggleTime">
+                    <p id="tranistionInputTitle">Time between each slide:</p>
+                    <input id="timedSlide" type="number" placeholder="Time in seconds" min="1">
+                    <p id="timerExplanation">Note: The timer will start once you put the presentation in fullscreen</p>
+                </div>
+                <br>
+
+                <!-- end of timer HTML code -->
             </div>
         </div>
-
 
         <!-- Container til sidemeny-->
         <div class="sideMenu" id="sideMenu">
@@ -173,7 +174,7 @@
             <img src="Icons/List.png" onclick="toolbarChange(this.id)" alt="Templates" class="icon" id="templatesIcon">
             <img src="Icons/Paint_Palette.png" onclick="toolbarChange(this.id)" alt="Styles" class="icon" id="stylesIcon">
             <img src="Icons/Speaker_Notes.png" onclick="toolbarChange(this.id)" alt="Speaker notes" class="icon" id="speakerNotesIcon">
-            <img src="Icons/Timer.png" onclick="toolbarChange(this.id)" alt="Slide Settings" class="icon" id="slideSettingsIcon">
+            <img src="Icons/Timer.png" onclick="toolbarChange(this.id)" alt="Timed transitions" class="icon" id="slideSettingsIcon">
 
         </div>
 
@@ -181,17 +182,11 @@
         <!-- Container til slidevelger som kan scrolles left and right-->
         <div class="slidePreview" id="slidePreview">
 
-
-
             <div id="newSlide" onclick="addSlide()">
                 <img src="Themes/Blank.jpg" class="miniSlideBackground">
                 <img src="Icons/Add_New.png" alt="Create new slide" class="icon" id="newSlideIcon">
-
                 <p class="slideNumber">New slide<p>
             </div>
-
-
-
 
         </div>
 
@@ -201,10 +196,11 @@
             <img src="Icons/Back.png" alt="Back to your presentations" class="topIcon" id="BackIcon">
             <h3 id="logo">Percentation</h3>
             <p id="fileName">untitled1</p>
-            <img src="Icons/Export.png" alt="Export your presentation" id="exportIcon">
+            <div id= topMenuBtns>
             <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
-            <img src="Icons/Support.png" alt="Presentation settings" class="topIcon" id="settingsIcon">
-
+            <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
+            <img src="Icons/User.png" alt="User settings" class="topIcon" id="userIcon">
+            </div>
         </div>
     </div>
 
@@ -218,11 +214,12 @@
 
     </script>
     <script src="js/control.js"></script>
+    <script src="js/richtext.js"></script>
     <script src="js/frontEnd.js"></script>
     <script src="js/textEditor.js"></script>
-    <script src="js/saveIntoDatabase.js"></script>
-    <script src="js/sharePresentations.js"></script>
-    <script src="js/exportPresentations.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/mediaMovement.js"></script>
+    <script src="js/BasicMedia.js"></script>
 </body>
 
 </html>

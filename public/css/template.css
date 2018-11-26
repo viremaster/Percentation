@@ -1,0 +1,37 @@
+.template1{
+}
+    .template1 > .textbox > h1{
+      position: absolute;
+      font-size: 12%;
+    }
+
+.template2{
+}
+
+    .template2 > .textbox > h1{
+      position: absolute;
+      font-size: 12%;
+    }
+
+    .template2 > .textbox > h2{
+      position: absolute;
+      font-size: 8%;
+    }
+
+.template3{
+}
+    .template3 > .boxTEXT{
+      position: absolute;
+      width: 90%;
+      height: 60%;
+    }
+
+    .template3 > .boxH1{
+      width: 90%;
+      height: 19%;
+    }
+
+    .template3 > .textbox > h1{
+      position: absolute;
+      font-size: 6%;
+    }

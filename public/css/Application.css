@@ -10,7 +10,6 @@
 body {
     font-family: 'Comfortaa', cursive;
     color: lightslategray;
-    font-size: 1px;
     overflow: hidden;
     padding: 0;
 }
@@ -72,7 +71,7 @@ div {
     padding: 0;
 }
 
-div>select {
+div > select {
     position: absolute;
     left: 48%;
     width: 45%;
@@ -81,7 +80,7 @@ div>select {
     height: 1.6vw;
 }
 
-div>input {
+div > input {
     position: absolute;
     width: 45%;
     right: 1%;
@@ -100,10 +99,11 @@ button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: 10%;
     cursor: pointer;
     font-size: 1vw;
     font-family: sans-serif;
+    border: 1px solid #555;
+    box-shadow: 0.2vw 0.2vw 3vw 0 rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
@@ -254,25 +254,19 @@ button:hover {
 }
 
 /*Specific positions for icons in the top right*/
-
-#settingsIcon {
-    position: sticky;
-    left: 96%;
-
-}
-
-#saveIcon {
-    position: sticky;
-    left: 93.1%;
+#topMenuBtns{
+    position: absolute;
+    justify-content: space-between;
+    top:10%;
+    right: 1%;
+    height: 100%;
+    width: 10%;
 
 }
-
-#shareIcon {
-    position: sticky;
-    left: 90%;
+#topMenuBtns img{
+    height: 80%;
 
 }
-
 /*------------------------------------- WorkArea------------------------------------------*/
 
 
@@ -288,23 +282,75 @@ button:hover {
 #fullscreenIcon {
     padding: 0.5%;
     position: absolute;
-    bottom: 1%;
-    right: 0.5%;
+    bottom: 2%;
+    right: 1%;
     height: auto;
     width: 3%;
-    border: 1px solid #5596BE;
+  margin: 0;
+    padding: 0;
 
 }
 
 #fullscreenIcon:hover {
     filter: brightness(3);
-    border: 1px solid white;
-    width: 3.5%;
+    width: 4%;
     transition: width 0.1s;
 }
 
 
+.navBtns {
+    position: absolute;
+    height: 10%;
+    bottom: 40%;
+    width: 98%;
+    justify-content: space-between;
 
+}
+
+.navBtns img {
+    height: 100%;
+    opacity: 0.6;
+}
+
+.navBtns img:hover {
+    filter: brightness(3);
+}
+
+#presentationModeBtn {
+    position: absolute;
+    width: 3%;
+    bottom: 10%;
+    right: 1%;
+}
+
+#presentationModeBtn:hover {
+    filter: brightness(3);
+    width: 3.5%;
+    transition: width 0.1s;
+
+}
+
+.navBtns img {
+    height: 100%;
+    opacity: 0.6;
+}
+
+.navBtns img:hover {
+    filter: brightness(3);
+}
+
+#presentationModeBtn{
+    position: absolute;
+    width: 3%;
+    bottom: 10%;
+    right: 1%;
+}
+#presentationModeBtn:hover{
+     filter: brightness(3);
+    width: 3.5%;
+    transition: width 0.1s;
+
+}
 /*-----------------------Slidepreview--------------------*/
 .numberedSlides {
     position: absolute;
@@ -333,11 +379,36 @@ button:hover {
     top: -5%;
     box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.2);
     min-width: 10vw;
+    border: 2px solid transparent;
+    font-family: sans-serif;
+
 }
+
+.miniSlide:hover {
+    border: 2px solid #092127;
+    box-shadow: 5px 7px 50px 1px rgba(0, 0, 0, 0.4);
+}
+
 
 .miniSlideBackground {
     height: 5.625vw;
     width: 10vw;
+}
+
+
+.deleteSlide {
+    position: absolute;
+    width: 1vw;
+    right: 0;
+    display: none;
+}
+
+.deleteSlide:hover {
+    border: 1px solid #5596BE;
+}
+
+.miniSlide:hover > .deleteSlide {
+    display: block;
 }
 
 #newSlideIcon {
@@ -351,13 +422,16 @@ button:hover {
 .slideNumber {
     position: absolute;
     top: 105%;
+    font-family: Comfortaa !important;
+    text-shadow: none !important;
+    color: lightslategray !important;
 
 }
 
 
 /*-------------------------------Toolbar-----------------------------*/
 
-.toolbar>div {
+.toolbar > div {
     display: none;
     flex-direction: column;
     justify-content: flex-start;
@@ -480,7 +554,6 @@ button:hover {
 
 .themeThumbnail:hover {
     filter: brightness(1.05);
-    border: solid 1px black;
 }
 
 /*-----SpeakerNotesToolbar----*/
@@ -497,14 +570,22 @@ button:hover {
     font-family: sans-serif;
     overflow: none;
     left: 10%;
+    box-shadow: 0.2vw 0.2vw 3vw 0 rgba(0, 0, 0, 0.2);
+
+
 }
 
-.textBox>p {
+.textBox text {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: vertical;
     overflow-y: auto;
+    left: 0;
+    font-size: 1vw;
+    text-align: left;
+    padding: 1vw;
+
 
 }
 
@@ -512,15 +593,12 @@ button:hover {
     position: absolute;
     left: 11%;
     top: 86%;
-    top: 86%;
-
 }
 
 /*-----SlideSettingsToolbar----*/
 
 
 /*-------------------------------------Templates---------------------------------------------*/
-
 
 
 /*-------titleTemplate--------*/
@@ -540,7 +618,7 @@ button:hover {
 }
 
 
-.titleTemplate h1 {
+.titleTemplate > h1 {
     /*  border: 1px dotted gray;*/
     position: absolute;
     font-size: 12%;
@@ -549,7 +627,7 @@ button:hover {
     padding: 1% 0 1% 0;
 }
 
-.titleTemplate h3 {
+.titleTemplate > h3 {
     position: absolute;
     top: 60%;
     width: 100%;
@@ -557,3 +635,205 @@ button:hover {
     font-size: 8%;
     padding: 1% 0 1% 0;
 }
+
+.picturebox {
+    position: absolute;
+    border: 1px dotted black;
+    width: 15%;
+    height: 15%;
+}
+
+.picturebox > .deleteimg {
+    position: absolute;
+    width: 1vw;
+    height: 1vw;
+    right: 0px;
+    top: 0px;
+}
+
+.picturebox > .bigimg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.textbox {
+    padding: 2%;
+    position: absolute;
+    border: 1px dotted black;
+    width: 70%;
+    height: 30%;
+
+}
+.miniSlide .textBox{
+  border: none;
+  overflow: hidden;
+}
+/*.textbox > .deleteimg {
+    position: absolute;
+    width: 1vw;
+    height: 1vw;
+    right: 0px;
+    top: 0px;
+}*/
+
+.textbox > text {
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    font-size: 5%;
+    width: 96%;
+    height: 96%;
+    left: 2%;
+    top: 2%;
+}
+
+.textbox > h1 {
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    font-size: 12%;
+    width: 96%;
+    height: 96%;
+    left: 2%;
+    top: 2%;
+}
+
+.textbox > h2 {
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    font-size: 8%;
+    width: 96%;
+    height: 96%;
+    left: 2%;
+    top: 2%;
+}
+
+.whilepresenting > .textbox {
+    border: none;
+}
+
+.whilepresenting > .textbox > .textboxMenu {
+    visibility: hidden;
+}
+
+.whilepresenting > .picturebox {
+    border: none;
+}
+
+.whilepresenting > .picturebox> .textboxMenu {
+    visibility: hidden;
+}
+
+.whilepresenting > .mediabox {
+    border: none;
+}
+
+.whilepresenting > .mediabox> .textboxMenu {
+    visibility: hidden;
+}
+
+.textboxMenu {
+    position: absolute;
+    flex-direction: column;
+    top: 0%;
+    right: -0%;
+    height: 30%;
+    justify-content: space-between;
+
+}
+
+.textboxMenu img {
+    height: 1.5vw;
+    display: none;
+    cursor: pointer;
+}
+
+.textbox:hover > .textboxMenu img {
+    display: block;
+}
+
+.picturebox:hover> .textboxMenu img {
+    display: block;
+}
+
+.picturebox> .textboxMenu img {
+    display: none;
+}
+
+.miniSlide .textbox:hover > .textboxMenu img {
+    display: none;
+}
+
+.mediabox:hover> .textboxMenu img {
+    display: block;
+}
+
+.mediabox> .textboxMenu img {
+    display: none;
+}
+
+.mediabox {
+    padding: 1%;
+    position: absolute;
+    border: 1px dotted black;
+    width: 20%;
+    height: 20%;
+
+}
+
+#timedTransitions {
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    height: 75%;
+}
+
+#timedTransitions input {
+    position: absolute;
+}
+
+#timedTransitions p {
+  font-size: 0.9vw;
+}
+
+#toggleTime {
+    max-height: 1vw;
+    min-height: 1vw;
+    max-width: 1vw;
+    min-width: 1vw;
+    margin: 0;
+    padding: 0;
+    right: 4%;
+    top: 1.5%;
+}
+
+#timedSlide {
+    top: 15%;
+    left: 3%;
+    margin: 0;
+    padding: 0;
+    height: 5%;
+    min-width: 95%;
+    max-width: 95%;
+}
+
+#tranistionInputTitle{
+    position: absolute;
+    top: 7%;
+    left:0%;
+    font-size: 0.7vw;
+}
+
+#timerExplanation{
+    position: absolute;
+    top: 30%;
+
+}
+
+.boxTEXT{}
+.boxH1{}
+.boxH2{}

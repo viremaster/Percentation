@@ -1,0 +1,37 @@
+* {
+    box-shadow: none !important;
+    border: none !important;
+
+}
+
+#slideContainer {
+    width: 100vw;
+    padding-bottom: 56.25vw;
+    border: 1px solid black !important;
+    font-size: 100vw !important;
+}
+#slideContainer div{
+    background: none !important;
+}
+
+#fullscreenIcon {
+    opacity: 1 !important;
+    bottom: 40%;
+    right: 40%;
+    opacity: 0.8;
+    padding: 0.5%;
+    width: 20%;
+    z-index: 10;
+  
+}
+
+#fullscreenIcon:hover {
+    opacity: 1;
+    filter: brightness(3);
+    width: 20%;
+    transition: width 0.1s;
+}
+
+.textbox:hover > .textboxMenu img {
+    display: none;
+}
