@@ -55,8 +55,8 @@ router.get("/app/user", async function (req, res) {
 
         let user = await db.select(query);
 
-
-        if (user) {
+        console.log(user);
+        if (user.length!=0) {
             user = user[0];
             let correctPassword = await bcrypt.compare(password, user.password);
 
