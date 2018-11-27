@@ -1,0 +1,204 @@
+/* --- Overall formatting --- */
+
+
+body {
+    text-align: center;
+    color: slategray;
+    background-color: #354044;
+    font-family: 'Comfortaa', cursive;
+}
+
+/* --- General formatting --- */
+label{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+button {
+    cursor: pointer;
+    padding: 5px;
+    margin: 1%;
+}
+
+input {
+    padding: 6px;
+}
+
+/* --- buttonstuff --- */
+
+
+
+#btnLog, #goToCreateUserButton,#goToLoginUserButton,#btnID{
+    margin: auto;
+    border: none;
+    background: transparent;
+    font-family: 'Comfortaa', cursive;
+    font-size: 15px;
+    color: slategray;
+}
+
+#btnLog:hover, #goToCreateUserButton:hover,#goToLoginUserButton:hover,#btnID:hover{
+    filter: brightness(3);
+}
+
+
+/* --- div's around templates as mini conntainers --- */
+
+
+
+
+#userLogin * , #createUser *{
+    margin:2px;
+}
+
+
+#createUser h1,#userLogin h1 {
+    margin-top: 2px;
+    margin-bottom: 15px;
+    font-size: 5vw
+}
+
+#welcome {
+    display: grid;
+    grid-template-areas:
+        "logout createPres"
+        "update overview"
+        "delete overview";
+    grid-template-columns: 25% 1fr;
+}
+
+
+#updateUserForm {
+    margin: 5px;
+    border: solid;
+    grid-area: update;
+    padding: 5px;
+}
+
+#deleteAcc {
+    margin: 5px;
+    border: solid;
+    grid-area: delete;
+    padding: 5px;
+
+}
+
+#createPresentation{
+    margin: 5px;
+    border: solid;
+    grid-area: createPres;
+    padding: 5px;
+}
+
+#newPresentationButton{
+    vertical-align: middle;
+    height: 50px;
+}
+
+#presentationsMiniatures  button{
+    vertical-align: middle;
+}
+
+#createUser,#userLogin{
+    margin-top:5%;
+}
+
+
+
+
+#logOut {
+    margin: 5px;
+    border: solid;
+    grid-area: logout;
+    padding: 5px;
+
+}
+
+#PresentationOverView {
+    margin: 5px;
+    border: solid;
+    grid-area: overview;
+    padding: 5px;
+
+}
+
+/* --- Presentations preview --- */
+.presArea {
+    text-align: center;
+}
+
+.someSlide {
+    cursor: pointer;
+}
+
+/* --- new icon stuff from old css --- */
+.topIcon {
+    cursor: pointer;
+    vertical-align: top;
+}
+
+.topIcon:hover {
+    filter: brightness(3);
+}
+
+.toolbarIcon {
+    height: 3vw;
+    width: 3vw;
+    margin-bottom: 10%;
+}
+
+.toolbarIcon:hover {
+    filter: brightness(3);
+}
+
+.someSlide h3:hover {
+    filter: brightness(3);
+}
+button {
+    background-color: #5596BE;
+    border: none;
+    color: white;
+    padding: 1%;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+#presentationsMiniatures div{
+    display: flex;
+    justify-content: center;
+    
+}
+
+#presentationsMiniatures img{
+    height: 30px;
+    margin-top: 15px;
+}
+
+
+
+button:hover {
+    text-decoration: underline;
+    filter: brightness(0.8);
+}
+
+input[type=submit]{
+    background-color: #5596BE;
+    border: none;
+    color: white;
+    padding: 1%;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+#importFiles{
+    margin-top: 15px;
+}
+
+input[type=submit]:hover{
+    text-decoration: underline;
+    filter: brightness(0.8);
+}
+
