@@ -108,7 +108,7 @@ function displayWelcomeTemplate() {
     let newPresentationButton = get("newPresentationButton");
     let showPublicButton = get("showPublicButton");
     let ShowFriendButton = get("ShowFriendButton");
-    let importButton=get("importPresentationButton");
+    let importButton = get("importPresentationButton");
 
     (function () {
         fetch("app/presentations", {
@@ -125,8 +125,23 @@ function displayWelcomeTemplate() {
         })
     })()
 
-    importButton.onclick=function(){
-        console.log("a")
+    importButton.onclick = function () {
+        let importFiles = document.getElementById("importFiles");
+        let files = importFiles.files;
+        let filereader = new FileReader();
+        if (files.length == 1) {
+            let presentationFile = files[0];
+            console.log(presentationFile);
+            filereader.readAsText(presentationFile);
+            
+            filereader.onload = function () {
+                localStorage.setItem("presentation", filereader.result);
+                localStorage.setItem("title", presentationFile.name.split(".")[0]);
+                localStorage.removeItem("presentationid");
+                localStorage.removeItem("notes")
+                window.location.href = "/application";
+            }
+        }
     }
 
     ShowFriendButton.onclick = function () {

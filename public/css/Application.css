@@ -37,16 +37,15 @@ body {
 
 /*-----------General formatting--------------*/
 hr {
-
     height: 1px;
     border: 0;
     border-top: 1px solid lightslategray;
-    margin: 3% auto 3% auto;
+    margin-left: 3%; 
+    margin-top: 3%;
     padding: 4%;
     width: 90%;
     left: 50%;
 }
-
 p {
     position: absolute;
     font-size: 1vw;

@@ -6,18 +6,22 @@ btnSharePerson.addEventListener("click", function () {
     let presentationid = verifPresSave();
     if (presentationid) {
         let username = prompt("Enter the username :");
-        if (username){
-            fetch("/app/share/"+username+"/"+presentationid,{
-                method:"PUT",
-                headers:new Headers({
+        if (username) {
+            fetch("/app/share/" + username + "/" + presentationid, {
+                method: "PUT",
+                headers: new Headers({
                     'x-access-token': btoa(localStorage.getItem("token"))
                 })
             }).then(data => {
-                if (data.status===200){
+                if (data.status === 200) {
                     return data.json();
                 }
             }).then(json => {
-                alert("Presentation "+json.action+ " to "+username);
+                if (json) {
+                    alert("Presentation " + json.action + " to " + username);
+                }else{
+                    alert("This username does not exists");
+                }
             })
         }
     }

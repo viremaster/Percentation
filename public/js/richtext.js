@@ -88,6 +88,7 @@ function mousehandler(e) {
 }
 
 function divclick(e) {
+    console.log(e.target.nodeName)
     if (presenting) {} else if (!dragging && (e.target.nodeName == "DIV" || e.target.nodeName == "IMG")) {
         if (e.target.nodeName == "IMG") {
             item = e.target.parentElement;
@@ -249,11 +250,13 @@ function createtextbox(type, x, y, id) {
 
     img2 = document.createElement("img");
     img2.src = "Icons/Bring_Forward.png";
+    img2.classList.add("moveUp");
     img2.title = "Bring forward";
     img2.onclick = sendForward;
 
     img3 = document.createElement("img");
     img3.src = "Icons/Send_Backward.png";
+    img3.classList.add("moveDown");
     img3.title = "Send backward";
     img3.onclick = sendBackward;
 
@@ -263,8 +266,6 @@ function createtextbox(type, x, y, id) {
     div.appendChild(div2);
     slides[actualSlideIndex].appendChild(div);
     return div;
-
-
 }
 
 function pxtopercentx(pixels) {

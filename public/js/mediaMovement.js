@@ -1,4 +1,4 @@
-function createmediabox(content, x , y, id){
+function createmediabox(content, x, y, id) {
   div = document.createElement("div");
   div.id = `mediabox${id}`;
   div.className = "mediabox";
@@ -19,11 +19,13 @@ function createmediabox(content, x , y, id){
 
   img2 = document.createElement("img");
   img2.src = "Icons/Bring_Forward.png";
+  img2.classList.add("moveUp");
   img2.title = "Bring forward";
   img2.onclick = sendForward;
 
   img3 = document.createElement("img");
   img3.src = "Icons/Send_Backward.png";
+  img3.classList.add("moveDown");
   img3.title = "Send backward";
   img3.onclick = sendBackward;
 
@@ -35,7 +37,7 @@ function createmediabox(content, x , y, id){
   displaySlidePreview();
 }
 
-function createmediabox2(content, x , y, id){
+function createmediabox2(content, x, y, id) {
   div = document.createElement("div");
   div.id = `mediabox${id}`;
   div.className = "mediabox";
@@ -56,11 +58,13 @@ function createmediabox2(content, x , y, id){
 
   img2 = document.createElement("img");
   img2.src = "Icons/Bring_Forward.png";
+  img2.classList.add("moveUp");
   img2.title = "Bring forward";
   img2.onclick = sendForward;
 
   img3 = document.createElement("img");
   img3.src = "Icons/Send_Backward.png";
+  img3.classList.add("moveDown");
   img3.title = "Send backward";
   img3.onclick = sendBackward;
 
@@ -72,7 +76,7 @@ function createmediabox2(content, x , y, id){
   displaySlidePreview();
 }
 
-function createpicturebox(picture, x, y, id){
+function createpicturebox(picture, x, y, id) {
   div = document.createElement("div");
   div.id = `picturebox${id}`;
   div.className = "picturebox";
@@ -80,7 +84,7 @@ function createpicturebox(picture, x, y, id){
   div.style.top = y;
   div.onmousedown = divclick;
   div.onmousemove = mousehandler;
-    picture.classList.add("bigimg")
+  picture.classList.add("bigimg")
   div.appendChild(picture);
   div2 = document.createElement("div");
   div2.className = "textboxMenu";
@@ -94,11 +98,13 @@ function createpicturebox(picture, x, y, id){
 
   img2 = document.createElement("img");
   img2.src = "Icons/Bring_Forward.png";
+  img2.classList.add("moveUp");
   img2.title = "Bring forward";
   img2.onclick = sendForward;
 
   img3 = document.createElement("img");
   img3.src = "Icons/Send_Backward.png";
+  img3.classList.add("moveDown");
   img3.title = "Send backward";
   img3.onclick = sendBackward;
 

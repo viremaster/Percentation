@@ -211,22 +211,58 @@
             </div>
         </div>
     </div>
+    <script src="js/richtext.js"></script>
+
 
     <script>
         (function () {
             if (localStorage.getItem("presentation")) {
                 let slideContainer = document.getElementById("slideContainer");
                 slideContainer.outerHTML = unescape(localStorage.getItem("presentation"));
+            }
+
+            if (localStorage.getItem("notes")) {
                 let speakerNotesToolbar = document.getElementById("speakerNotesToolbar");
                 speakerNotesToolbar.innerHTML = unescape(localStorage.getItem("notes"));
             }
+
             let title = document.getElementById("fileName");
             title.innerHTML = localStorage.getItem("title");
+
+            let elements = document.querySelectorAll(".textbox,.mediabox,.picturebox");
+            for (let i = 0; i < elements.length; i++) {
+                console.log(elements[i]);
+                elements[i].onmousedown = divclick;
+                elements[i].onmousemove = mousehandler;
+            }
+
+            elements = slideContainer.querySelectorAll("h1,h2,text");
+            for (let i = 0; i < elements.length; i++) {
+                //elements[i].oninput = displaySlidePreview
+                elements[i].onmousemove = mousehandler;
+            }
+
+            elements = slideContainer.querySelectorAll(".deleteimg")
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].onclick = deleteDiv
+            }
+
+            elements = slideContainer.querySelectorAll(".moveUp");
+
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].onclick = sendForward
+            }
+
+            elements = slideContainer.querySelectorAll(".moveDown");
+
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].onclick = sendBackward
+            }
+
         })()
     </script>
-    <script src="js/control.js"></script>
-    <script src="js/richtext.js"></script>
     <script src="js/frontEnd.js"></script>
+    <script src="js/control.js"></script>
     <script src="js/textEditor.js"></script>
     <script src="js/template.js"></script>
     <script src="js/mediaMovement.js"></script>
@@ -234,6 +270,14 @@
     <script src="js/saveIntoDatabase.js"></script>
     <script src="js/sharePresentations.js"></script>
     <script src="js/exportPresentations.js"></script>
+    <script>
+        let elements = slideContainer.querySelectorAll("h1,h2,text");
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].oninput = displaySlidePreview
+        }
+    </script>
+
+
 </body>
 
 </html>

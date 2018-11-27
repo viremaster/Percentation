@@ -448,11 +448,9 @@ function loadScripts() {
         clickTemplate2();
         totalSlides = slides.length;
     }
+    
     setTheme();
-
     let slidePreview0 = document.getElementById("slidePreview0");
     slidePreview0.click();
     displayCurrentNotes();
-
-
 }

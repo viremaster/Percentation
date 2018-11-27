@@ -11,6 +11,7 @@ uploadButton.onclick = function () {
     let cfg;
 
     if (localStorage.getItem("presentationid") != null) {
+        console.log("saved");
         url = "/app/presentation/" + localStorage.getItem("presentationid");
         cfg = {
             method: "PUT",
@@ -24,6 +25,8 @@ uploadButton.onclick = function () {
             })
         }
     } else {
+        console.log("new");
+
         url = "app/presentation"
         cfg = {
             method: "POST",

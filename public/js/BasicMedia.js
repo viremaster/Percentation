@@ -1,4 +1,3 @@
-
 var dataInput = 0;
 var iFWidth = "100%";
 var iFHeight = "100%";
@@ -10,24 +9,33 @@ function testYoutube() {
     let testYoutube = document.getElementById("createVideo").value.indexOf("https://www.youtube.com/embed");
     let testYoutubeW = document.getElementById("createVideo").value.indexOf("https://www.youtube.com/watch");
     let testYoutubeBE = document.getElementById("createVideo").value.indexOf("youtu.be/");
+    let testYoutubeEmbed = document.getElementById("createVideo").value.indexOf("<iframe");
     if (testYoutube == -1 && testYoutubeW == -1 && testYoutubeBE == -1) {
         console.error("Not a valid youtube link!");
-    }
-    else if(testYoutubeW != -1 && testYoutube == -1) {
+    } else if (testYoutubeW != -1 && testYoutube == -1) {
 
         dataInput = document.getElementById("createVideo").value;
         dataInputConvert = dataInput.substr(32);
-        dataInput = "http://www.youtube.com/embed/"+dataInputConvert;
+        dataInput = "https://www.youtube.com/embed/" + dataInputConvert;
 
         prepareFrame();
-}
-else if(testYoutubeBE != -1 && testYoutube == -1) {
-    dataInput = document.getElementById("createVideo").value;
-    dataInputConvert = dataInput.substr(16);
-    dataInput = "http://www.youtube.com/embed/"+dataInputConvert+"?ecver=2";
-    prepareFrame();
-}
-    else {
+    } else if (testYoutubeBE != -1 && testYoutube == -1) {
+        dataInput = document.getElementById("createVideo").value;
+        dataInputConvert = dataInput.substr(16);
+        dataInput = "https://www.youtube.com/embed/" + dataInputConvert + "?ecver=2";
+        prepareFrame();
+    } else if (testYoutubeEmbed != -1) {
+        dataInput = document.getElementById("createVideo").value;
+        let dataSlice = dataInput.slice(32);
+        dataInput = '<iframe width="100%" height="100%"' + dataSlice;
+        let ID = function () {
+            return '_' + Math.random().toString(36).substr(2, 9);
+        };
+        setID = ID();
+        id = setID;
+        createmediabox2(dataInput, "0%", "0%", id + "1");
+
+    } else {
         dataInput = document.getElementById("createVideo").value;
         prepareFrame();
     }
@@ -37,62 +45,65 @@ function testEitherSou() {
     let testEmbedSound = document.getElementById("createSound").value.indexOf('src="https://w.soundcloud.com/player/'); //the import in this one is a full embed link with a bunch of modifiers already in place.
     if (testEmbedSound == -1) {
         console.error("Not a valid soundcloud embed link!");
-    }
-    else {
+    } else {
         let soundCloudIn = document.getElementById("createSound").value;
         let soundCloudInSlice = soundCloudIn.slice(32);
-        let soundCloudInput = '<iframe width="100%" height="100%"'+soundCloudInSlice;
-        let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
+        let soundCloudInput = '<iframe width="100%" height="100%"' + soundCloudInSlice;
+        let ID = function () {
+            return '_' + Math.random().toString(36).substr(2, 9);
+        };
         setID = ID();
         id = setID;
-        createmediabox2(soundCloudInput, "0%" , "0%", id+"1");
-
+        createmediabox2(soundCloudInput, "0%", "0%", id + "1");
     }
 }
 
 // This function just tests if there is anything written in the image and video fields
 //just so you don't run parts of the code unnecessarily.
 function testEitherImg() {
-    if (document.getElementById("createImage").value.length != 0)
-        {
-            dataInput = document.getElementById("createImage").value;
-            prepareImg();
-        }
+    if (document.getElementById("createImage").value.length != 0) {
+        dataInput = document.getElementById("createImage").value;
+        prepareImg();
+    }
 }
 
 function testEitherVid() {
-    if (document.getElementById("createVideo").value.length != 0)
-        {
-            testYoutube();
+    if (document.getElementById("createVideo").value.length != 0) {
+        testYoutube();
 
-}}
+    }
+}
 
 // This function creates a youtube video, probably want to change the thing it appends to for real integration but for now its ok.
 function prepareFrame() {
-        let ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", dataInput);
-        let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
-        setID = ID();
-        id = setID;
-        ifrm.setAttribute("id", id);
-        ifrm.style.width = iFWidth;
-        ifrm.style.height = iFHeight;
-        //initialPlacement.appendChild(ifrm); //Videos are placed.
-        createmediabox(ifrm, "0%" , "0%", id+"1");
+    let ifrm = document.createElement("iframe");
+    ifrm.setAttribute("src", dataInput);
+    let ID = function () {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
+    setID = ID();
+    id = setID;
+    ifrm.setAttribute("id", id);
+    ifrm.style.width = iFWidth;
+    ifrm.style.height = iFHeight;
+    //initialPlacement.appendChild(ifrm); //Videos are placed.
+    createmediabox(ifrm, "0%", "0%", id + "1");
 }
 
 //This function makes an image element with imgur elements, probably want to change the thing it appends to for real integration but for now its ok.
 function prepareImg() {
-        let imgFr = document.createElement("img");
-        imgFr.setAttribute("src", dataInput);
-        imgFr.style.width = iMWidth;
-        imgFr.style.height = iMHeight;
-        //initialPlacement.appendChild(imgFr);//where the images are placed
-        let ID = function () {return '_' + Math.random().toString(36).substr(2, 9);};
-        setID = ID();
-        id = setID;
-        imgFr.setAttribute("id", id);
-        createpicturebox(imgFr, "0%", "0%", id+"1");
+    let imgFr = document.createElement("img");
+    imgFr.setAttribute("src", dataInput);
+    imgFr.style.width = iMWidth;
+    imgFr.style.height = iMHeight;
+    //initialPlacement.appendChild(imgFr);//where the images are placed
+    let ID = function () {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
+    setID = ID();
+    id = setID;
+    imgFr.setAttribute("id", id);
+    createpicturebox(imgFr, "0%", "0%", id + "1");
 }
 
 //Initialize Starting State
@@ -116,7 +127,9 @@ function initState() {
     createBtn1.setAttribute("id", "imgEvent");
     createBtn1.appendChild(document.createTextNode("Import Image"));
     imgForm.appendChild(createBtn1);
-    createBtn1.onclick = function() {testEitherImg()};
+    createBtn1.onclick = function () {
+        testEitherImg()
+    };
 
 
     let createInput2 = document.createElement("INPUT");
@@ -132,7 +145,9 @@ function initState() {
     createBtn2.setAttribute("id", "vidEvent");
     createBtn2.appendChild(document.createTextNode("Import Video"));
     vidForm.appendChild(createBtn2);
-    createBtn2.onclick = function() {testEitherVid()};
+    createBtn2.onclick = function () {
+        testEitherVid()
+    };
 
     let createInput3 = document.createElement("INPUT");
     createInput3.setAttribute("type", "text");
@@ -147,7 +162,9 @@ function initState() {
     createBtn3.setAttribute("id", "souEvent");
     createBtn3.appendChild(document.createTextNode("Import Sound"));
     souForm.appendChild(createBtn3);
-    createBtn3.onclick = function() {testEitherSou()};
+    createBtn3.onclick = function () {
+        testEitherSou()
+    };
 
 
     document.getElementById("imagesToolbar").appendChild(imgForm);
