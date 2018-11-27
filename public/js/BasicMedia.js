@@ -17,14 +17,14 @@ function testYoutube() {
 
         dataInput = document.getElementById("createVideo").value;
         dataInputConvert = dataInput.substr(32);
-        dataInput = "https://www.youtube.com/embed/"+dataInputConvert;
+        dataInput = "http://www.youtube.com/embed/"+dataInputConvert;
 
         prepareFrame();
 }
 else if(testYoutubeBE != -1 && testYoutube == -1) {
     dataInput = document.getElementById("createVideo").value;
     dataInputConvert = dataInput.substr(16);
-    dataInput = "https://www.youtube.com/embed/"+dataInputConvert+"?ecver=2";
+    dataInput = "http://www.youtube.com/embed/"+dataInputConvert+"?ecver=2";
     prepareFrame();
 }
     else {

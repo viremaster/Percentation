@@ -9,6 +9,9 @@ app.set('port',(process.env.PORT || 8080))
 .use(bodyParser.json())
 .use(presentations)
 .use(users)
+.get("*",function(req,res){
+    res.send("NOTHING HERE!!!!")
+})
 .listen(app.get('port'),function () {
     console.log('server runnning on :',app.get('port'));    
 });

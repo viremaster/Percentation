@@ -108,6 +108,7 @@ function displayWelcomeTemplate() {
     let newPresentationButton = get("newPresentationButton");
     let showPublicButton = get("showPublicButton");
     let ShowFriendButton = get("ShowFriendButton");
+    let importButton=get("importPresentationButton");
 
     (function () {
         fetch("app/presentations", {
@@ -123,6 +124,10 @@ function displayWelcomeTemplate() {
             displayMyPresentations(data);
         })
     })()
+
+    importButton.onclick=function(){
+        console.log("a")
+    }
 
     ShowFriendButton.onclick = function () {
         fetch("app/presentations/friends", {

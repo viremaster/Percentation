@@ -100,8 +100,10 @@ router.put("/app/share/:username/:presentationid", authenticated.valideAuthentic
     let presentationid = req.params.presentationid;
     let query = `SELECT userid from public.users WHERE username='${username}'`
     let response = await db.select(query);
-    if (response && username && presentationid) {
+    console.log(response);
+    if (response.length!=0 && username && presentationid) {
         userid = response[0].userid;
+        console.log(userid);
 
         query = `SELECT presentationid from public.presentations WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' AND sharediduser @> '{${userid}}'`
         response = await db.select(query);
