@@ -32,7 +32,7 @@ function createmediabox(content, x , y, id){
   div2.appendChild(img3);
   div.appendChild(div2);
   slides[actualSlideIndex].appendChild(div);
-  center(content, div);
+  displaySlidePreview();
 }
 
 function createmediabox2(content, x , y, id){
@@ -69,6 +69,7 @@ function createmediabox2(content, x , y, id){
   div2.appendChild(img3);
   div.appendChild(div2);
   slides[actualSlideIndex].appendChild(div);
+  displaySlidePreview();
 }
 
 function createpicturebox(picture, x, y, id){
@@ -106,4 +107,5 @@ function createpicturebox(picture, x, y, id){
   div2.appendChild(img3);
   div.appendChild(div2);
   slides[actualSlideIndex].appendChild(div);
+  displaySlidePreview();
 }

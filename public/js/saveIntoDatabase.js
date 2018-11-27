@@ -1,14 +1,16 @@
 //Function that takes in the filename and the text
 let uploadButton = document.getElementById("saveIcon");
 uploadButton.onclick = function () {
-    console.log("hey");
 
-    let data = document.getElementById("slideContainer").outerHTML;
+    let data = escape(document.getElementById("slideContainer").outerHTML);
+    let notes = escape(document.getElementById("speakerNotesToolbar").innerHTML);
+    let titleNewPresentation=escape(localStorage.getItem("title"));
+    console.log(titleNewPresentation);
+
     let url;
     let cfg;
 
     if (localStorage.getItem("presentationid") != null) {
-        console.log("update");
         url = "/app/presentation/" + localStorage.getItem("presentationid");
         cfg = {
             method: "PUT",
@@ -17,11 +19,11 @@ uploadButton.onclick = function () {
                 'x-access-token': btoa(localStorage.getItem("token"))
             }),
             body: JSON.stringify({
-                data: data
+                data: data,
+                notes:notes,
             })
         }
     } else {
-        console.log("new");
         url = "app/presentation"
         cfg = {
             method: "POST",
@@ -30,11 +32,12 @@ uploadButton.onclick = function () {
                 'x-access-token': btoa(localStorage.getItem("token"))
             }),
             body: JSON.stringify({
-                data: data
+                data: data,
+                notes:notes,
+                title:titleNewPresentation
             })
         }
     }
-    console.log(url);
     fetch(url, cfg)
         .then(data => {
             if (data.status === 200) {

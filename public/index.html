@@ -4,63 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <script src="js/tools.js"></script>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesheet.css">
-    <title>API user</title>
+    <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <title>Percentation</title>
 </head>
 
 <body>
     <template id="createUserTemplate">
-        <h1>Create User</h1>
-        <form id="createUserForm">
-            <input required type="text" name="name" id="createName" placeholder="Enter your name">
-            <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
-            <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
-            <input required type="submit" value="Create">
-        </form>
+        <div id="createUser">
+            <h1>Create User</h1>
+            <form id="createUserForm">
+                <input required type="text" name="name" id="createName" placeholder="Enter your name">
+                <br>
+                <input required type="email" name="email" id="createEmail" placeholder="Enter your email">
+                <br>
+                <input required type="password" name="password" id="createPassword" placeholder="Enter your password">
+                <br>
+                <input required type="submit" value="Create" style="cursor: pointer;" id="btnID">
+            </form>
 
-        <button id="goToLoginUserButton">Already a user ?</button>
+            <button id="goToLoginUserButton">Already have an account</button>
+        </div>
+        <h1>Per©entation</h1>
+
     </template>
 
     <template id="loginUserTemplate">
-        <h1>Login User</h1>
-        <form id="loginUserForm">
-            <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
-            <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
-            <input required type="submit" value="Login">
-        </form>
-        <button id="goToCreateUserButton">Create an account</button>
+        <div id="userLogin">
+            <h1>Login User</h1>
+            <form id="loginUserForm">
+                <input required type="email" name="email" id="loginEmail" placeholder="Enter your email">
+                <br>
+                <input required type="password" name="password" id="loginPassword" placeholder="Enter your password">
+                <br>
+                <input required type="submit" value="Login" style="cursor: pointer;" id="btnLog">
+            </form>
+            <button id="goToCreateUserButton">Create a new account</button>
+
+        </div>
+        <h1>Per©entation</h1>
+
     </template>
 
     <template id="welcomeTemplate">
-        <button id="btnDeleteAccount">Delete my account</button>
-        <button id="disconnectButton">Disconnect</button>
-        <form id="updateUserForm">
-            <label>
-                Old Password :
-                <input required id="oldPasswordInput" type="password">
-            </label>
-            <label>
-                New Password :
-                <input required id="newPasswordInput" type="password">
-            </label>
-            <input type="submit" value="Change password">
-        </form>
+        <div id="welcome">
+            <br>
+            <div id="logOut">
+                <h3>Log out of Percentation?</h3>
+                <button id="disconnectButton">Log Out</button>
+            </div>
+            <br>
+            <form id="updateUserForm">
+                <label>
+                    <h3>Old Password: </h3>
+                    <input required id="oldPasswordInput" type="password">
+                </label>
+                <label>
+                    <h3>New Password: </h3>
+                    <input required id="newPasswordInput" type="password">
+                </label> <br>
+                <input type="submit" value="Change password" style="margin-top: 2%;cursor: pointer;">
+            </form>
+            <div id="deleteAcc">
+                <h3>Do you wish <br> to remove <br>your account? </h3>
+                <button id="btnDeleteAccount" style="background-color=red;">Delete your account</button>
+            </div>
+            <!--        <button id="newPresentationButton" data-toggle="tooltip" title="Create new presentation">New Presentation</button> -->
+            <div id="createPresentation">
+                <h3>New Presentation</h3>
 
-        <button id="newPresentationButton">New Presentation</button>
+                <input id="titleNewPresentation" type="text" placeholder="Enter the title" required>
+                <img src="Icons/Add_New.png" alt="Create new presentation" class="topIcon" id="newPresentationButton"
+                    data-toggle="tooltip" title="Create new presentation">
+            </div>
+            <div id="PresentationOverView">
 
-        <hr>
-        <label for="presentationsMiniatures">My Presentations :</label>
-        <div id="presentationsMiniatures" class="someSlide"></div>
-        <hr>
-        <button id="showPublicButton">Show public presentations</button>
-        <label for="publicPresentationsMiniatures">Public Presentations :</label>
-        <div id="publicPresentationsMiniatures" class="someSlide"></div>
-        <hr>
-        <button id="ShowFriendButton">Show friend's Presentation</button>
-        <label for="FriendPresentationMiniatures">Friend's Presentations :</label>
-        <div id="FriendPresentationMiniatures" class="someSlide"></div>
+                <div id="MyPresentations">
+                    <label for="presentationsMiniatures">Your Presentations:</label>
+                    <div id="presentationsMiniatures" class="someSlide"></div>
+                </div>
+                <div id="FriendsPresentation">
+                    <button id="ShowFriendButton">Show friend's Presentation</button>
+                    <br>
+                    <label for="FriendPresentationMiniatures">Friend's Presentations:</label>
+                    <br>
+                    <div id="FriendPresentationMiniatures" class="someSlide"></div>
+                </div>
+
+                <div id="PublicPresentation">
+                    <button id="showPublicButton">Show public presentations: </button>
+                    <br>
+                    <label for="publicPresentationsMiniatures">Public Presentations:</label>
+                    <br>
+                    <div id="publicPresentationsMiniatures" class="someSlide"></div>
+                </div>
+            </div>
+        </div>
+
     </template>
 
     <div id="content">

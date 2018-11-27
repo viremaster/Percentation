@@ -18,7 +18,7 @@ let themes = [{
         img: "none",
         img2: "Themes/Blank.jpg",
         stroke: "none"
-            },
+    },
     {
         name: "pastel",
         font: "serif",
@@ -26,7 +26,7 @@ let themes = [{
         img: "url('Themes/PastellGeometric.jpg')",
         img2: 'Themes/PastellGeometric.jpg',
         stroke: "#4a5243"
-            },
+    },
     {
         name: "blueprint",
         font: "sans-serif",
@@ -34,7 +34,7 @@ let themes = [{
         img: "url('Themes/Blueprint.jpg')",
         img2: 'Themes/Blueprint.jpg',
         stroke: "#1d7cc0"
-            },
+    },
     {
         name: "industrial",
         font: "Helvetica",
@@ -42,7 +42,7 @@ let themes = [{
         img: "url('Themes/ColdIndustrial.jpg')",
         img2: 'Themes/ColdIndustrial.jpg',
         stroke: "#FFFFFF"
-            },
+    },
     {
         name: "gentle",
         font: "Book Antiqua",
@@ -50,7 +50,7 @@ let themes = [{
         img: "url('Themes/GentleMorning.jpg')",
         img2: 'Themes/GentleMorning.jpg',
         stroke: "none"
-            },
+    },
     {
         name: "geometric",
         font: "serif",
@@ -58,8 +58,8 @@ let themes = [{
         img: "url('Themes/Geometric.jpg')",
         img2: 'Themes/Geometric.jpg',
         stroke: "#463212"
-            }
-        ]
+    }
+]
 
 
 
@@ -234,17 +234,12 @@ function changeTheme(event) {
         slideContainer.style.fontFamily = themes[i].font;
         slideContainer.style.textShadow = "-0.05vw -0.05vw 0" + themes[i].stroke + ",0.05vw -0.05vw 0" + themes[i].stroke + ",0.05vw 0.05vw 0" + themes[i].stroke + ",0.05vw 0.05vw 0" + themes[i].stroke;
         currentTheme = themes[i].img2;
-
-
-
         displaySlidePreview();
-
     }
     if (themes[i].stroke == "none") {
         slideContainer.style.textShadow = "none";
 
     }
-
 }
 slides = document.getElementsByClassName("slide");
 
@@ -316,7 +311,7 @@ function createSlideNotes() {
     let notesContainer = document.createElement("div");
     let notes = slideNumber = document.createElement("TEXT");
 
-    notes.innerHTML = "Slide " + (totalSlides + 1) + " notes:";
+    notes.innerHTML = "Slide " + (totalSlides) + " notes:";
     notes.setAttribute("contentEditable", "true");
 
     notesContainer.id = "slideNotes" + totalSlides;
@@ -324,12 +319,10 @@ function createSlideNotes() {
     notesContainer.appendChild(notes);
     notesToolbar.insertBefore(notesContainer, exportBtn);
 
-
 }
 
 function displayCurrentNotes() {
     let allNotes = document.querySelectorAll(".textBox");
-    console.log(allNotes);
     for (let i = 0; i < allNotes.length; i++) {
         allNotes[i].style.display = "none";
     }
@@ -339,9 +332,8 @@ function displayCurrentNotes() {
 
 
 function displaySlideCounter() {
-
     let slideCounter = document.getElementById("slideNumber");
-    slideCounter.innerHTML = "Slide " + (Number(actualSlideIndex) + 1) + " / " + (totalSlides + 1);
+    slideCounter.innerHTML = "Slide " + (Number(actualSlideIndex) + 1) + " / " + (slides.length);
 
     let previewID = document.getElementById("slidePreview" + actualSlideIndex);
     previewID.style.border = "2px solid black";
@@ -364,7 +356,7 @@ function gatherPresenterNotes() {
 function exportPresenterNotes() {
 
     gatherPresenterNotes();
-    let fileName = "PlaceholderFilename";
+    let fileName = "speakernotes";
     let newFile = document.createElement('a');
     //Replaces all unwanted divs and replaces with a linebreak
     noteString = noteString.replace(/<div>/g, '\r\n');
@@ -435,14 +427,32 @@ function runInitPresenterMode(doc, container) {
 
 }
 
+function setTheme() {
+    for (background in themes) {
+        if (document.getElementById("slideContainer").style.backgroundImage.split('"')[1] == themes[background].img.split("'")[1]) {
+            document.getElementById("Theme" + background).click();
+            break;
+        }
+    }
+}
+
 function loadScripts() {
     get("textEditorIcon").style.filter = "brightness(3)";
     addFontMenu();
     resizeSlideText();
     setImageTitle();
     displaySlidePreview();
-    disableDraggable();
-    createSlideNotes();
+
+    if (!localStorage.getItem("presentation")) {
+        createSlideNotes();
+        clickTemplate2();
+        totalSlides = slides.length;
+    }
+    setTheme();
+
+    let slidePreview0 = document.getElementById("slidePreview0");
+    slidePreview0.click();
     displayCurrentNotes();
-    clickTemplate2();
+
+
 }

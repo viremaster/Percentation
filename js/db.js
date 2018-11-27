@@ -18,12 +18,13 @@ async function runQuery(query) {
         }).catch(function (err) {
             console.error(err);
         });
-        if (res.rows.length != 0) {
-            response = res.rows;
-        }
+        response = res.rows;
+
     } catch (e) {
         console.error(e);
     }
+    client.end();
+
     return response;
 }
 

@@ -66,7 +66,7 @@
                     <button id="fontName" style="display:none"></button>
                 </div>
                 <div>
-                    <p> Font size: </p><input id="changeSizeInput" type="range" name="points" min="0" max="20">
+                    <p> Font size: </p><input id="changeSizeInput" type="range" name="points" min="2" max="30">
                 </div>
                 <hr>
                 <h3> Text style:
@@ -116,9 +116,6 @@
             <div id="imagesToolbar">
                 <h2> Insert images, <br>video and sound </h2>
                 <hr>
-                <p>Option for adding an image, drag and drop/upload</p>
-                <p>Option for uploading video, embedded youtubelink</p>
-                <p>Option for adding sound</p>
 
             </div>
 
@@ -199,8 +196,6 @@
             <h3 id="logo">Percentation</h3>
             <p id="fileName">untitled1</p>
             <div id=topMenuBtns>
-                <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
-                <img src="Icons/Export.png" alt="Export presentation" class="topIcon" id="exportIcon">
                 <div class="dropdown">
                     <img src="Icons/Share.png" alt="Share your presentation" class="topIcon" id="shareIcon">
                     <div id="textBoxCreatorMenu" class="dropdown-content">
@@ -210,7 +205,9 @@
 
                     </div>
                 </div>
-                <img src="Icons/User.png" alt="User settings" class="topIcon" id="userIcon">
+                <img src="Icons/Save.png" alt="Save presentation" class="topIcon" id="saveIcon">
+                <img src="Icons/Export.png" alt="Export presentation" class="topIcon" id="exportIcon">
+
             </div>
         </div>
     </div>
@@ -219,8 +216,12 @@
         (function () {
             if (localStorage.getItem("presentation")) {
                 let slideContainer = document.getElementById("slideContainer");
-                slideContainer.outerHTML = localStorage.getItem("presentation");
+                slideContainer.outerHTML = unescape(localStorage.getItem("presentation"));
+                let speakerNotesToolbar = document.getElementById("speakerNotesToolbar");
+                speakerNotesToolbar.innerHTML = unescape(localStorage.getItem("notes"));
             }
+            let title = document.getElementById("fileName");
+            title.innerHTML = localStorage.getItem("title");
         })()
     </script>
     <script src="js/control.js"></script>

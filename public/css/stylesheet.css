@@ -1,53 +1,156 @@
 /* --- Overall formatting --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box !important;
-    max-height: 100vh !important;
-}
+
+* {}
 
 body {
-    font-family: 'Comfortaa', cursive;
-    color: lightslategray;
-    font-size: 1px;
-    overflow: hidden;
-    padding: 0;
+    text-align: center;
+    color: slategray;
     background-color: #354044;
+    font-family: 'Comfortaa', cursive;
 }
-
 
 /* --- General formatting --- */
-/*
-hr {
 
-    height: 1px;
-    border: 0;
-    border-top: 1px solid lightslategray;
-    margin: 3% auto 3% auto;
-    padding: 4%;
-    width: 90%;
-    left: 50%;
-}
-*/
-p {
-    position: absolute;
-    font-size: 1vw;
+hr {}
+
+p {}
+
+
+h3 {}
+
+div {}
+
+button {
+    cursor: pointer;
+    padding: 5px;
 }
 
-h1 {
-    font-size: 1.7vw;
-    padding: 0.5%;
+input {
+    padding: 6px;
+}
+
+/* --- buttonstuff --- */
+
+
+#btnLog, #goToCreateUserButton,#goToLoginUserButton,#btnID{
+    margin: auto;
+    border: none;
+    background: transparent;
+    font-family: 'Comfortaa', cursive;
+    font-size: 15px;
+    color: slategray;
+}
+
+#btnLog:hover, #goToCreateUserButton:hover,#goToLoginUserButton:hover,#btnID:hover{
+    filter: brightness(3);
+}
+
+
+/* --- div's around templates as mini conntainers --- */
+
+
+
+
+#userLogin * , #createUser *{
+    margin:2px;
+}
+
+
+#createUser h1,#userLogin h1 {
+    margin-top: 2px;
+    margin-bottom: 15px;
+    font-size: 5vw
+}
+
+#welcome {
+    display: grid;
+    grid-template-areas:
+        "logout createPres"
+        "update overview"
+        "delete overview";
+}
+
+
+#updateUserForm {
+    margin: 5px;
+    border: solid;
+    grid-area: update;
+    padding: 5px;
+}
+
+#deleteAcc {
+    margin: 5px;
+    border: solid;
+    grid-area: delete;
+    padding: 5px;
+
+}
+
+#createPresentation{
+    margin: 5px;
+    border: solid;
+    grid-area: createPres;
+    padding: 5px;
+}
+
+#newPresentationButton{
+    vertical-align: middle;
+    height: 50px;
+}
+
+#presentationsMiniatures  button{
+    vertical-align: middle;
+}
+
+
+#btnDeleteAccount {}
+
+#logOut {
+    margin: 5px;
+    border: solid;
+    grid-area: logout;
+    padding: 5px;
+
+}
+
+#PresentationOverView {
+    margin: 5px;
+    border: solid;
+    grid-area: overview;
+    padding: 5px;
+
+}
+
+/* --- Presentations preview --- */
+.presArea {
     text-align: center;
 }
 
-h3 {
-    font-size: 1.4vw;
-    padding: 0.5%;
-    text-align: center;
+.someSlide {
+    cursor: pointer;
 }
 
-div {
-    position: relative;
-    display: flex;
-    padding: 0;
+/* --- new icon stuff from old css --- */
+.topIcon {
+    cursor: pointer;
+    vertical-align: top;
 }
+
+.topIcon:hover {
+    filter: brightness(3);
+}
+
+.toolbarIcon {
+    height: 3vw;
+    width: 3vw;
+    margin-bottom: 10%;
+}
+
+.toolbarIcon:hover {
+    filter: brightness(3);
+}
+
+.someSlide h3:hover {
+    filter: brightness(3);
+}
+

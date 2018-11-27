@@ -4,7 +4,7 @@ let actualSlideIndex = 0;
 let actualSlide = slides[actualSlideIndex];
 
 //Simplified version of slide.length to troubleshoot functionality in frontEnd.js
-let totalSlides = 0;
+let totalSlides = 1;
 
 let backButton=document.getElementById("BackIcon");
 
@@ -47,8 +47,8 @@ function nextSlide() {
         // console.log("actual= " + actualSlideIndex + "currentSlide =" + currentSlide);
     }
 
-    displayCurrentNotes();
     displaySlidePreview();
+    displayCurrentNotes();
 
 }
 
@@ -68,8 +68,8 @@ function previousSlide() {
         }
 
     }
-    displayCurrentNotes();
     displaySlidePreview();
+    displayCurrentNotes();
 }
 
 function jumpToSlide() {
