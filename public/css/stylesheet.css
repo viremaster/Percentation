@@ -1,6 +1,5 @@
 /* --- Overall formatting --- */
 
-* {}
 
 body {
     text-align: center;
@@ -10,19 +9,15 @@ body {
 }
 
 /* --- General formatting --- */
-
-hr {}
-
-p {}
-
-
-h3 {}
-
-div {}
+label{
+    text-align: center;
+    margin-bottom: 50px;
+}
 
 button {
     cursor: pointer;
     padding: 5px;
+    margin: 1%;
 }
 
 input {
@@ -30,6 +25,7 @@ input {
 }
 
 /* --- buttonstuff --- */
+
 
 
 #btnLog, #goToCreateUserButton,#goToLoginUserButton,#btnID{
@@ -68,6 +64,7 @@ input {
         "logout createPres"
         "update overview"
         "delete overview";
+    grid-template-columns: 25% 1fr;
 }
 
 
@@ -102,8 +99,12 @@ input {
     vertical-align: middle;
 }
 
+#createUser,#userLogin{
+    margin-top:5%;
+}
 
-#btnDeleteAccount {}
+
+
 
 #logOut {
     margin: 5px;
@@ -152,5 +153,52 @@ input {
 
 .someSlide h3:hover {
     filter: brightness(3);
+}
+button {
+    background-color: #5596BE;
+    border: none;
+    color: white;
+    padding: 1%;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+#presentationsMiniatures div{
+    display: flex;
+    justify-content: center;
+    
+}
+
+#presentationsMiniatures img{
+    height: 30px;
+    margin-top: 15px;
+}
+
+
+
+button:hover {
+    text-decoration: underline;
+    filter: brightness(0.8);
+}
+
+input[type=submit]{
+    background-color: #5596BE;
+    border: none;
+    color: white;
+    padding: 1%;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+#importFiles{
+    margin-top: 15px;
+}
+
+input[type=submit]:hover{
+    text-decoration: underline;
+    filter: brightness(0.8);
 }
 

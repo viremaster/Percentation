@@ -244,8 +244,8 @@ function displayWelcomeTemplate() {
         for (presentation in data) {
             let prensentationDiv = document.createElement("div");
 
-            let deletePresentationButton = document.createElement("button");
-            deletePresentationButton.innerHTML = "🞮";
+            let deletePresentationButton = document.createElement("img");
+            deletePresentationButton.src="Icons/Delete.png";
 
             let presentationBtn = document.createElement("h3");
 

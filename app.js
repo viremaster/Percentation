@@ -10,7 +10,7 @@ app.set('port',(process.env.PORT || 8080))
 .use(presentations)
 .use(users)
 .get("*",function(req,res){
-    res.send("NOTHING HERE!!!!")
+    res.sendFile(__dirname+"/js/404.html");
 })
 .listen(app.get('port'),function () {
     console.log('server runnning on :',app.get('port'));    
