@@ -7,7 +7,7 @@ const authenticated = require("./authentication.js");
 router.get("/app/presentations", authenticated.valideAuthentication, async function (req, res) {
     let query = `SELECT presentationid,title FROM public.presentations WHERE presentationownerid=${req.token.id}`;
     response = await db.select(query);
-    if (response)
+    if (response.length>0)
         res.status(200).json(response);
     else
         res.status(404).send("You don't have any presentations");
@@ -19,7 +19,7 @@ router.get("/app/presentations", authenticated.valideAuthentication, async funct
 router.get("/app/presentations/public", authenticated.valideAuthentication, async function (req, res) {
     let query = `SELECT presentationid,title FROM public.presentations WHERE visibility='public' AND presentationownerid!='${req.token.id}'`
     let response = await db.select(query);
-    if (response)
+    if (response.length>0)
         res.status(200).json(response);
     else
         res.status(404);
@@ -76,7 +76,7 @@ router.put("/app/presentation/:visibility/:id", authenticated.valideAuthenticati
     let presentationid = req.params.id;
     let query = `UPDATE public.presentations SET visibility='${visibility}' WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' RETURNING "presentationid"`;
     let response = await db.update(query);
-    if (response) {
+    if (response.length>0) {
         response = response[0];
         res.status(200).json(response);
     } else {
@@ -106,7 +106,8 @@ router.put("/app/share/:username/:presentationid", authenticated.valideAuthentic
         query = `SELECT presentationid from public.presentations WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' AND sharediduser @> '{${userid}}'`
         response = await db.select(query);
         let action;
-        if (response) {
+        console.log(response);
+        if (response.length>0) {
             query = `UPDATE public.presentations SET sharediduser=array_remove(sharediduser,'${userid}') WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' RETURNING "presentationid"`
             action = "unshared";
         } else {
@@ -114,7 +115,7 @@ router.put("/app/share/:username/:presentationid", authenticated.valideAuthentic
             action = "shared"
         }
         response = await db.update(query);
-        if (response) {
+        if (response.length>0) {
             response = response[0];
             res.status(200).json({
                 response: response,
@@ -133,7 +134,7 @@ router.put("/app/share/:username/:presentationid", authenticated.valideAuthentic
 router.get("/app/presentations/friends", authenticated.valideAuthentication, async function (req, res) {
     let query = `SELECT presentationid,title FROM public.presentations WHERE sharediduser @> '{${req.token.id}}' AND presentationownerid!='${req.token.id}'`
     let response = await db.select(query);
-    if (response)
+    if (response.length>0)
         res.status(200).send(response);
     else
         res.status(404);

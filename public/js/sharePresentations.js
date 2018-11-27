@@ -17,6 +17,7 @@ btnSharePerson.addEventListener("click", function () {
                     return data.json();
                 }
             }).then(json => {
+                console.log(json);
                 if (json) {
                     alert("Presentation " + json.action + " to " + username);
                 }else{
