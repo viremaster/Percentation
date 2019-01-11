@@ -106,7 +106,6 @@ router.put("/app/share/:username/:presentationid", authenticated.valideAuthentic
         query = `SELECT presentationid from public.presentations WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' AND sharediduser @> '{${userid}}'`
         response = await db.select(query);
         let action;
-        console.log(response);
         if (response.length>0) {
             query = `UPDATE public.presentations SET sharediduser=array_remove(sharediduser,'${userid}') WHERE presentationid='${presentationid}' AND presentationownerid='${req.token.id}' RETURNING "presentationid"`
             action = "unshared";

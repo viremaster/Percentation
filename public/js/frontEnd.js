@@ -375,7 +375,6 @@ function exportPresenterNotes() {
 
     for (let i = 0; i < allNoteData.length; i++) {
         noteString += "\r\n \r\n" + allNoteData[i].firstChild.innerHTML;
-
     }
 }
 //Function to (Hopefully) remove the stuttering icons issue.
