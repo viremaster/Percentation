@@ -289,7 +289,6 @@ function displaySlidePreview() {
         previews[p].style.fontFamily = slideContainer.style.fontFamily;
         previews[p].style.textShadow = slideContainer.style.textShadow;
         previews[p].classList.add(slides[p].classList[1]);
-
     }
 
     //---- Disable contentEditable on previews -------------
