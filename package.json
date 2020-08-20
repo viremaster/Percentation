@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/viremaster/Percentation#readme",
   "dependencies": {
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "pg": "^7.6.1"
